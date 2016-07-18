@@ -1,4 +1,3 @@
-.travis.yml
 language: csharp
 solution: UsaepayHelper.sln
 install:
