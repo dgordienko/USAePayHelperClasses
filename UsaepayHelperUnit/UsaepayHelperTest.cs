@@ -30,7 +30,7 @@ namespace UsaepayHelperUnit
 		private static readonly string testMD5String = "This is test srting dataThis is another test string data";
 
 		[SetUp]
-		public void Init() 
+		public void Init()
 		{
 			Logger.Trace("Init test");
 			helperConfig = MockRepository.GenerateMock<IUsaepayHelperConfig>();
@@ -63,8 +63,8 @@ namespace UsaepayHelperUnit
 			Logger.Trace("End UsaepayHelperTestCase");
 		}
 
-		[Test(Description="Create MD5 string")]		      
-		public void CreateMD5TestCase() 
+		[Test(Description="Get MD5 string testcase")]
+		public void CreateMD5TestCase()
 		{
 			Logger.Trace("Test MD5");
 			var s = "This is test srting data";
@@ -77,4 +77,3 @@ namespace UsaepayHelperUnit
 		}
 	}
 }
-
