@@ -3,7 +3,7 @@ language: csharp
 solution: UsaepayHelper.sln
 install:
   - nuget restore UsaepayHelper.sln
-  - nuget install NUnit.Runners -Version 3.4.1 -OutputDirectory testrunner
+  - nuget install NUnit.Runners
 script:
   - xbuild /p:Configuration=Release UsaepayHelper.sln
-  - mono ./testrunner/NUnit.Runners.3.4.1/tools/nunit-console.exe ./UsaepayHelperUnit/bin/Release/UsaepayHelperUnit.dll
+  - mono ./testrunner/NUnit.Runners/tools/nunit-console.exe ./UsaepayHelperUnit/bin/Release/UsaepayHelperUnit.dll
