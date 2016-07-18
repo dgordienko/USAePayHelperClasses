@@ -1,8 +1,8 @@
 language: csharp
 solution: UsaepayHelper.sln
-install:
+before_install:
+  - sudo apt-get install nunit-console
+before_script:
   - nuget restore UsaepayHelper.sln
-  - nuget install NUnit.Runners
-script:
-  - xbuild /p:Configuration=Release UsaepayHelper.sln
-  - mono ./testrunner/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe ./UsaepayHelperUnit/bin/Release/UsaepayHelperUnit.dll
+after_script:
+  - nunit-console UsaepayHelper/bin/Debug/UsaepayHelper.dll
