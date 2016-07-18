@@ -5,4 +5,4 @@ install:
   - nuget install NUnit.Runners
 script:
   - xbuild /p:Configuration=Release UsaepayHelper.sln
-  - mono ./testrunner/NUnit.Runners/tools/nunit-console.exe ./UsaepayHelperUnit/bin/Release/UsaepayHelperUnit.dll
+  - mono ./testrunner/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe ./UsaepayHelperUnit/bin/Release/UsaepayHelperUnit.dll
