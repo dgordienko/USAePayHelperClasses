@@ -1,0 +1,9 @@
+.travis.yml
+language: csharp
+solution: UsaepayHelper.sln
+install:
+  - nuget restore UsaepayHelper.sln
+  - nuget install NUnit.Runners -Version 3.4.1 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release UsaepayHelper.sln
+  - mono ./testrunner/NUnit.Runners.3.4.1/tools/nunit-console.exe ./UsaepayHelperUnit/bin/Release/UsaepayHelperUnit.dll

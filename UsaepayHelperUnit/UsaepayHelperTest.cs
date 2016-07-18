@@ -27,6 +27,8 @@ namespace UsaepayHelperUnit
 		/// </summary>
 		private IUsaepayStrategy<usaepayService, IUsaepayHelperData> algoritm;
 
+		private static readonly string testMD5String = "This is test srting dataThis is another test string data";
+
 		[SetUp]
 		public void Init() 
 		{
@@ -59,6 +61,19 @@ namespace UsaepayHelperUnit
 
 			});
 			Logger.Trace("End UsaepayHelperTestCase");
+		}
+
+		[Test(Description="Create MD5 string")]		      
+		public void CreateMD5TestCase() 
+		{
+			Logger.Trace("Test MD5");
+			var s = "This is test srting data";
+			var s0 = "This is another test string data";
+			var ss = string.Concat(s, s0);
+			var md5 = ss.GenerateHash();
+
+			Assert.That(!string.IsNullOrWhiteSpace(md5));
+			Assert.That(testMD5String.GenerateHash() == md5);
 		}
 	}
 }

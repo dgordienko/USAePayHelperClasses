@@ -16,7 +16,7 @@ namespace UsaepayHelper
 		/// </summary>
 		/// <returns>The hash.</returns>
 		/// <param name="input">Input.</param>
-		private static string GenerateHash(string input)
+		public static string GenerateHash(this string input)
 		{
 			if (string.IsNullOrWhiteSpace(input))
 				throw new ArgumentNullException(nameof(input));
