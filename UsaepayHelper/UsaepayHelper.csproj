@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ED7A1BA9-AB61-423B-B018-81053F60EE3B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UsaepayHelper</RootNamespace>
+    <AssemblyName>UsaepayHelper</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UsaepayHelperClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsaepayHelperExtentionMethods.cs" />
+    <Compile Include="IUsaepayHelperConfig.cs" />
+    <Compile Include="IUsaepayHelperData.cs" />
+    <Compile Include="UsaepayHelperEventArgs.cs" />
+    <Compile Include="IUsaepayStrategy.cs" />
+    <Compile Include="Web References\www.usaepay.com\Reference.cs">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Web References\www.usaepay.com\usaepay.wsdl" />
+    <None Include="Web References\www.usaepay.com\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://www.usaepay.com/soap/gate/EF01A7EA/usaepay.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\www.usaepay.com</RelPath>
+      <UpdateFromURL>https://www.usaepay.com/soap/gate/EF01A7EA/usaepay.wsdl</UpdateFromURL>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
