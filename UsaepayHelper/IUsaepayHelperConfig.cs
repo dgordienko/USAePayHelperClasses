@@ -17,5 +17,4 @@ namespace UsaepayHelper
 		/// <value>The use proxi.</value>
 		bool UseProxi { get; set; }
 	}
-	
 }
