@@ -48,6 +48,10 @@
     <Compile Include="IBillingAddressInformation.cs" />
     <Compile Include="ICardholderAuthorization.cs" />
     <Compile Include="ICCDetalis.cs" />
+    <Compile Include="ValidateCCData.cs" />
+    <Compile Include="MakePayment.cs" />
+    <Compile Include="MakeBatchPayment.cs" />
+    <Compile Include="ValidateCCDataException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

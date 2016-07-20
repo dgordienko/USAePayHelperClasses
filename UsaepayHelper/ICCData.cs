@@ -1,4 +1,4 @@
-namespace UsaepayHelper
+namespace KikNPay
 {
 	/// <summary>
 	/// Usaepay helper data.

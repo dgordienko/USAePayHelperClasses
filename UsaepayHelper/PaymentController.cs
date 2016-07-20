@@ -1,7 +1,7 @@
 ﻿using System;
-using UsaepayHelper.www.usaepay.com;
+using KikNPay.www.usaepay.com;
 
-namespace UsaepayHelper
+namespace KikNPay
 {
 	/// <summary>
 	/// Usaepay helper class.
@@ -17,6 +17,8 @@ namespace UsaepayHelper
 		/// The data.
 		/// </summary>
 		private ICCData data;
+
+		private readonly IUsaepayHelperConfig _config;
 
 		/// <summary>
 		/// Gets or sets the data.
@@ -40,6 +42,7 @@ namespace UsaepayHelper
 			if (config == null)
 				throw new ArgumentNullException(nameof(config));
 			client = new usaepayService();
+			_config = config;
 		}
 
 		/// <summary>
@@ -62,13 +65,13 @@ namespace UsaepayHelper
 		/// </summary>
 		/// <returns>The action.</returns>
 		/// <param name="algoritm">Algoritm.</param>
-		public void  ExecuteStrategy(IUsaepayStrategy<usaepayService,ICCData> algoritm) {
+		public void  ExecuteStrategy(IUsaepayStrategy<usaepayService,IUsaepayHelperConfig,ICCData> algoritm) {
 			if (algoritm == null)
 				throw new ArgumentNullException(nameof(algoritm));			
 			var argument = new PaymentControllerEventArgs();
 			try
 			{
-				argument.Result = algoritm.Method(client,data);
+				argument.Result = algoritm.Method(client,_config,data);
 			}
 			catch (Exception ex){
 				argument.Exception = ex;

@@ -1,9 +1,9 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
-using UsaepayHelper.www.usaepay.com;
+using KikNPay.www.usaepay.com;
 
-namespace UsaepayHelper
+namespace KikNPay
 {
 	/// <summary>
 	/// Usaepay helper event arguments.
@@ -19,12 +19,11 @@ namespace UsaepayHelper
 		/// Gets or sets the exception.
 		/// </summary>
 		/// <value>The exception.</value>
-		public object Exception { get; set; }
+		public Exception Exception { get; set; }
 	}
 
 	/// <summary>
 	/// Usaepay helper event.
 	/// </summary>
-	public delegate void PaymentControllerEvent(object sender,PaymentControllerEventArgs arg);
-	
+	public delegate void PaymentControllerEvent(object sender,PaymentControllerEventArgs arg);	
 }

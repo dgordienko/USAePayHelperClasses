@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
 using Rhino.Mocks;
 using NLog;
-using UsaepayHelper;
+using KikNPay;
 using System;
-using UsaepayHelper.www.usaepay.com;
+using KikNPay.www.usaepay.com;
 
 namespace UsaepayHelperUnit
 {
@@ -25,9 +25,13 @@ namespace UsaepayHelperUnit
 		/// <summary>
 		/// The algoritm.
 		/// </summary>
-		private IUsaepayStrategy<usaepayService, ICCData> algoritm;
+		private IUsaepayStrategy<usaepayService,IUsaepayHelperConfig, ICCData> algoritm;
 
 		private static readonly string testMD5String = "This is test srting dataThis is another test string data";
+		/// <summary>
+		/// The config.
+		/// </summary>
+		private IUsaepayHelperConfig _config;
 
 		[SetUp]
 		public void Init()
@@ -35,7 +39,8 @@ namespace UsaepayHelperUnit
 			Logger.Trace("Init test");
 			helperConfig = MockRepository.GenerateMock<IUsaepayHelperConfig>();
 			algoritmData = MockRepository.GenerateMock<ICCData>();
-			//algoritm = MockRepository.GenerateMock<IUsaepayStrategy<usaepayService, ICCData>>();
+			_config = MockRepository.GenerateMock<IUsaepayHelperConfig>();
+			algoritm = MockRepository.GenerateMock<IUsaepayStrategy<usaepayService, IUsaepayHelperConfig, ICCData>>();
 		}
 
 		[Test(Description="Create helper class test")]
@@ -57,11 +62,11 @@ namespace UsaepayHelperUnit
 					Assert.IsNull(arg.Exception);
 					Assert.IsNull(arg.Result);
 				};
-				//helper.ExecuteStrategy(algoritm);
-
+				helper.ExecuteStrategy(algoritm);
 			});
 			Logger.Trace("End UsaepayHelperTestCase");
 		}
+
 
 		[Test(Description="Get MD5 string testcase")]
 		public void CreateMD5TestCase()
@@ -71,7 +76,6 @@ namespace UsaepayHelperUnit
 			var s0 = "This is another test string data";
 			var ss = string.Concat(s, s0);
 			var md5 = ss.GenerateHash();
-
 			Assert.That(!string.IsNullOrWhiteSpace(md5));
 			Assert.That(testMD5String.GenerateHash() == md5);
 		}
