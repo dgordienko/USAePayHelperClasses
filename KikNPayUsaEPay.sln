@@ -1,9 +1,9 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsaepayHelper", "UsaepayHelper\UsaepayHelper.csproj", "{ED7A1BA9-AB61-423B-B018-81053F60EE3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KikNPayUsaEPay", "UsaepayHelper\KikNPayUsaEPay.csproj", "{ED7A1BA9-AB61-423B-B018-81053F60EE3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsaepayHelperUnit", "UsaepayHelperUnit\UsaepayHelperUnit.csproj", "{0B41CE98-B171-433A-8E54-1ADBF30F34E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinNPayUsaEPayUnit", "UsaepayHelperUnit\KinNPayUsaEPayUnit.csproj", "{0B41CE98-B171-433A-8E54-1ADBF30F34E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

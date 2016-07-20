@@ -5,7 +5,7 @@ using KikNPay;
 using System;
 using KikNPay.www.usaepay.com;
 
-namespace UsaepayHelperUnit
+namespace KikNPayUsaEPayTestCases
 {
 	[TestFixture(Description="UsaepayHelper Unit testes")]
 	public class UsaepayHelperTest
@@ -43,6 +43,45 @@ namespace UsaepayHelperUnit
 			algoritm = MockRepository.GenerateMock<IUsaepayStrategy<usaepayService, IUsaepayHelperConfig, ICCData>>();
 		}
 
+		[Test(Description="Test CC Validation")]
+		public void ValidateCCData() {
+			Assert.DoesNotThrow(() => {
+				Logger.Trace("Begin Test CC Validation");
+				var paymentClient = new KikNPayUsaEPay(_config);
+				paymentClient.MethodComplete += (sender, arg) => {
+					Assert.IsNull(arg.Exception);
+					Assert.IsNotNull(arg.Result);
+					Assert.IsInstanceOf<PaymentControllerEventArgs>(arg.Result);
+					Assert.IsNull(((PaymentControllerEventArgs)arg.Result).Exception);
+					Assert.IsNotNull(((PaymentControllerEventArgs)arg.Result).Result);
+					Logger.Trace("Sucsess Test CC Validation");
+				};
+				paymentClient.Data = algoritmData;
+				paymentClient.ExecuteStrategy(new ValidateCCData());
+			});
+		}
+
+		[Test(Description="Create Paymant Test")]
+		public void MakePayment() {
+			Assert.DoesNotThrow(() =>
+			{
+				var paymentClient = new KikNPayUsaEPay(_config);
+				Logger.Trace("Begin Test Paymant Test");
+				paymentClient.MethodComplete += (sender, arg) =>
+				{
+					Assert.IsNull(arg.Exception);
+					Assert.IsNotNull(arg.Result);
+					Assert.IsInstanceOf<PaymentControllerEventArgs>(arg.Result);
+					Assert.IsNull(((PaymentControllerEventArgs)arg.Result).Exception);
+					Assert.IsNotNull(((PaymentControllerEventArgs)arg.Result).Result);
+					Logger.Trace("Sucsess Test Paymant Test");
+				};
+				paymentClient.Data = algoritmData;
+				paymentClient.ExecuteStrategy(new MakePayment());
+			});
+		}	
+
+
 		[Test(Description="Create helper class test")]
 		public void UsaepayHelperTestCase()
 		{
@@ -50,17 +89,21 @@ namespace UsaepayHelperUnit
 			Assert.Throws<ArgumentNullException>(() =>
 			{
 				Logger.Trace("Test null argument");
-				var helper = new PaymentController(null);
+				var helper = new KikNPayUsaEPay(null);
 				Assert.That(helper == null);
 			});
 
 			Assert.DoesNotThrow(() => {
 				Logger.Trace("Test constructor");
-				var helper = new PaymentController(helperConfig);
+				var helper = new KikNPayUsaEPay(helperConfig);
+				helper.Data = algoritmData;
 				helper.MethodComplete += (sender, arg) => {
 					Logger.Trace("Emmit executed event");
 					Assert.IsNull(arg.Exception);
 					Assert.IsNull(arg.Result);
+					//Assert.IsInstanceOf<PaymentControllerEventArgs>(arg.Result);
+					//Assert.IsNull(((PaymentControllerEventArgs)arg.Result).Exception);
+					//Assert.IsNotNull(((PaymentControllerEventArgs)arg.Result).Result);
 				};
 				helper.ExecuteStrategy(algoritm);
 			});

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0B41CE98-B171-433A-8E54-1ADBF30F34E7}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>UsaepayHelperUnit</RootNamespace>
+    <RootNamespace>KinNPayUsaEPayUnit</RootNamespace>
     <AssemblyName>UsaepayHelperUnit</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -37,13 +37,13 @@
     <Reference Include="Ploeh.AutoFixture">
       <HintPath>..\packages\AutoFixture.3.49.0\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
-    </Reference>
     <Reference Include="Ploeh.AutoFixture.AutoRhinoMock">
       <HintPath>..\packages\AutoFixture.AutoRhinoMocks.3.49.0\lib\net40\Ploeh.AutoFixture.AutoRhinoMock.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Services" />
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UsaepayHelperTest.cs" />
@@ -55,9 +55,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UsaepayHelper\UsaepayHelper.csproj">
+    <ProjectReference Include="..\UsaepayHelper\KikNPayUsaEPay.csproj">
       <Project>{ED7A1BA9-AB61-423B-B018-81053F60EE3B}</Project>
-      <Name>UsaepayHelper</Name>
+      <Name>KikNPayUsaEPay</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

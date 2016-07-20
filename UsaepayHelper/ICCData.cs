@@ -22,5 +22,8 @@ namespace KikNPay
 		/// <value>The billing adress.</value>
 		IBillingAddressInformation BillingAdress { get; set; }
 	}
+
+
+
 	
 }

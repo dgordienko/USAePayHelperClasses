@@ -34,5 +34,7 @@ namespace KikNPay
 			}
 			return result;
 		}
-	}	
+	}
+
+
 }
