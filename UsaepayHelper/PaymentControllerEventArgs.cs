@@ -8,7 +8,7 @@ namespace UsaepayHelper
 	/// <summary>
 	/// Usaepay helper event arguments.
 	/// </summary>
-	public class UsaepayHelperEventArgs : EventArgs
+	public class PaymentControllerEventArgs : EventArgs
 	{
 		/// <summary>
 		/// Gets or sets the result.
@@ -25,6 +25,6 @@ namespace UsaepayHelper
 	/// <summary>
 	/// Usaepay helper event.
 	/// </summary>
-	public delegate void UsaepayHelperEvent(object sender,UsaepayHelperEventArgs arg);
+	public delegate void PaymentControllerEvent(object sender,PaymentControllerEventArgs arg);
 	
 }

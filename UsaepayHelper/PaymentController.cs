@@ -6,7 +6,7 @@ namespace UsaepayHelper
 	/// <summary>
 	/// Usaepay helper class.
 	/// </summary>
-	public sealed class UsaepayHelperClass
+	public sealed class PaymentController
 	{
 		/// <summary>
 		/// The client Usaepay
@@ -16,13 +16,13 @@ namespace UsaepayHelper
 		/// <summary>
 		/// The data.
 		/// </summary>
-		private IUsaepayHelperData data;
+		private ICCData data;
 
 		/// <summary>
 		/// Gets or sets the data.
 		/// </summary>
 		/// <value>The data.</value> 
-		public IUsaepayHelperData Data { 
+		public ICCData Data { 
 			get 
 			{ 
 				return data;
@@ -36,7 +36,7 @@ namespace UsaepayHelper
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:UsaepayHelper.UsaepayHelperClass"/> class.
 		/// </summary>
-		public UsaepayHelperClass(IUsaepayHelperConfig config) {
+		public PaymentController(IUsaepayHelperConfig config) {
 			if (config == null)
 				throw new ArgumentNullException(nameof(config));
 			client = new usaepayService();
@@ -45,14 +45,14 @@ namespace UsaepayHelper
 		/// <summary>
 		/// Occurs when method complete.
 		/// </summary>
-		public  event UsaepayHelperEvent MethodComplete;
+		public  event PaymentControllerEvent MethodComplete;
 
 		/// <summary>
 		/// Ons the method complete.
 		/// </summary>
 		/// <returns>The method complete.</returns>
 		/// <param name="e">E.</param>
-		private void OnMethodComplete(UsaepayHelperEventArgs e)
+		private void OnMethodComplete(PaymentControllerEventArgs e)
 		{
 			MethodComplete?.Invoke(this, e);
 		}
@@ -62,10 +62,10 @@ namespace UsaepayHelper
 		/// </summary>
 		/// <returns>The action.</returns>
 		/// <param name="algoritm">Algoritm.</param>
-		public void  ExecuteStrategy(IUsaepayStrategy<usaepayService,IUsaepayHelperData> algoritm) {
+		public void  ExecuteStrategy(IUsaepayStrategy<usaepayService,ICCData> algoritm) {
 			if (algoritm == null)
 				throw new ArgumentNullException(nameof(algoritm));			
-			var argument = new UsaepayHelperEventArgs();
+			var argument = new PaymentControllerEventArgs();
 			try
 			{
 				argument.Result = algoritm.Method(client,data);

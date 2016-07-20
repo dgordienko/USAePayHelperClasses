@@ -21,11 +21,11 @@ namespace UsaepayHelperUnit
 		/// <summary>
 		/// The algoritm data.
 		/// </summary>
-		private IUsaepayHelperData algoritmData;
+		private ICCData algoritmData;
 		/// <summary>
 		/// The algoritm.
 		/// </summary>
-		private IUsaepayStrategy<usaepayService, IUsaepayHelperData> algoritm;
+		private IUsaepayStrategy<usaepayService, ICCData> algoritm;
 
 		private static readonly string testMD5String = "This is test srting dataThis is another test string data";
 
@@ -34,8 +34,8 @@ namespace UsaepayHelperUnit
 		{
 			Logger.Trace("Init test");
 			helperConfig = MockRepository.GenerateMock<IUsaepayHelperConfig>();
-			algoritmData = MockRepository.GenerateMock<IUsaepayHelperData>();
-			algoritm = MockRepository.GenerateMock<IUsaepayStrategy<usaepayService, IUsaepayHelperData>>();
+			algoritmData = MockRepository.GenerateMock<ICCData>();
+			//algoritm = MockRepository.GenerateMock<IUsaepayStrategy<usaepayService, ICCData>>();
 		}
 
 		[Test(Description="Create helper class test")]
@@ -45,19 +45,19 @@ namespace UsaepayHelperUnit
 			Assert.Throws<ArgumentNullException>(() =>
 			{
 				Logger.Trace("Test null argument");
-				var helper = new UsaepayHelperClass(null);
+				var helper = new PaymentController(null);
 				Assert.That(helper == null);
 			});
 
 			Assert.DoesNotThrow(() => {
 				Logger.Trace("Test constructor");
-				var helper = new UsaepayHelperClass(helperConfig);
+				var helper = new PaymentController(helperConfig);
 				helper.MethodComplete += (sender, arg) => {
 					Logger.Trace("Emmit executed event");
 					Assert.IsNull(arg.Exception);
 					Assert.IsNull(arg.Result);
 				};
-				helper.ExecuteStrategy(algoritm);
+				//helper.ExecuteStrategy(algoritm);
 
 			});
 			Logger.Trace("End UsaepayHelperTestCase");
