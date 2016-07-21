@@ -52,7 +52,7 @@ namespace KinNPayUsaEPayUnit
             Assert.DoesNotThrow(() =>
             {
                 Logger.Trace("Begin Test CC Validation");
-                var paymentClient = new KikNPayUsaEPay(_config);
+                var paymentClient = new KikNPayUsaEPayGate(_config);
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
                     Assert.IsNull(arg.Exception);
@@ -60,9 +60,9 @@ namespace KinNPayUsaEPayUnit
                     
                     arg.With(x => x.Result.Do(res =>
                     {
-                        Assert.IsInstanceOf<PaymentControllerResult>(res);
-                        Assert.IsNull(((PaymentControllerResult)res).Exception);
-                        Assert.IsNotNull(((PaymentControllerResult)res).Result);
+                        Assert.IsInstanceOf<PaymentArgument>(res);
+                        Assert.IsNull(((PaymentArgument)res).Exception);
+                        Assert.IsNotNull(((PaymentArgument)res).Result);
                     }));
 
                     Logger.Trace("Sucsess Test CC Validation");
@@ -72,21 +72,41 @@ namespace KinNPayUsaEPayUnit
             });
         }
 
+		[Test(Description="")]
+		public void MakeBatchPayment()
+		{
+			Assert.DoesNotThrow(() => {
+				var paymentClient = new KikNPayUsaEPayGate(_config);
+				Logger.Trace("Begin Test MakeBatchPayment");
+				paymentClient.MethodComplete += (sender, arg) =>
+				{
+					Assert.IsNull(arg.Exception);
+					Assert.IsNotNull(arg.Result);
+					Assert.IsInstanceOf<PaymentArgument>(arg.Result);
+					Assert.IsNull(((PaymentArgument)arg.Result).Exception);
+					Assert.IsNotNull(((PaymentArgument)arg.Result).Result);
+					Logger.Trace("Sucsess Test MakeBatchPayment");
+				};
+				paymentClient.Data = algoritmData;
+				paymentClient.ExecuteStrategy(new MakeBatchPayment());				
+			});
+		}
+
         [Test(Description = "Create Paymant Test")]
         public void MakePayment()
         {
             Assert.DoesNotThrow(() =>
             {
-                var paymentClient = new KikNPayUsaEPay(_config);
-                Logger.Trace("Begin Test Paymant Test");
+                var paymentClient = new KikNPayUsaEPayGate(_config);
+                Logger.Trace("Begin Test Paymant ");
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
                     Assert.IsNull(arg.Exception);
                     Assert.IsNotNull(arg.Result);
-                    Assert.IsInstanceOf<PaymentControllerResult>(arg.Result);
-                    Assert.IsNull(((PaymentControllerResult)arg.Result).Exception);
-                    Assert.IsNotNull(((PaymentControllerResult)arg.Result).Result);
-                    Logger.Trace("Sucsess Test Paymant Test");
+                    Assert.IsInstanceOf<PaymentArgument>(arg.Result);
+                    Assert.IsNull(((PaymentArgument)arg.Result).Exception);
+                    Assert.IsNotNull(((PaymentArgument)arg.Result).Result);
+                    Logger.Trace("Sucsess Test Paymant");
                 };
                 paymentClient.Data = algoritmData;
                 paymentClient.ExecuteStrategy(new MakePayment());
@@ -94,20 +114,20 @@ namespace KinNPayUsaEPayUnit
         }
 
 
-        [Test(Description = "Stratagi Test")]
-        public void UsaepayHelperTestCase()
+        [Test(Description = "Base test case")]
+		public void BasePaymentTestCase()
         {
             Logger.Trace("Begin UsaepayHelperTestCase");
             Assert.Throws<ArgumentNullException>(() =>
             {
                 Logger.Trace("Test null argument");
-                var helper = new KikNPayUsaEPay(null);
+                var helper = new KikNPayUsaEPayGate(null);
                 Assert.That(helper == null);
             });
             Assert.DoesNotThrow(() =>
             {
                 Logger.Trace("Test constructor");
-                var helper = new KikNPayUsaEPay(helperConfig) { Data = algoritmData };
+                var helper = new KikNPayUsaEPayGate(helperConfig) { Data = algoritmData };
                 helper.MethodComplete += (sender, arg) =>
                 {
                     Logger.Trace("Emmit executed event");

@@ -4,9 +4,9 @@ using USAePayAPI.com.usaepay.www;
 namespace KinNPayUsaEPay
 {
 	/// <summary>
-	/// Usaepay helper class.
+	/// Payment controller
 	/// </summary>
-	public sealed class KikNPayUsaEPay:IDisposable
+	public sealed class KikNPayUsaEPayGate:IDisposable
 	{
 		/// <summary>
 		/// The client Usaepay
@@ -33,7 +33,7 @@ namespace KinNPayUsaEPay
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:UsaepayHelper.UsaepayHelperClass"/> class.
 		/// </summary>
-		public KikNPayUsaEPay(IUsaepayHelperConfig config) {
+		public KikNPayUsaEPayGate(IUsaepayHelperConfig config) {
 			if (config == null)
 				throw new ArgumentNullException(nameof(config));
 			client = new usaepayService();
@@ -50,7 +50,7 @@ namespace KinNPayUsaEPay
 		/// </summary>
 		/// <returns>The method complete.</returns>
 		/// <param name="e">E.</param>
-		private void OnMethodComplete(PaymentControllerResult e)
+		private void OnMethodComplete(PaymentArgument e)
 		{
 			MethodComplete?.Invoke(this, e);
 		}
@@ -63,7 +63,7 @@ namespace KinNPayUsaEPay
 		public void  ExecuteStrategy(IPaymantGatevateActionStrategy<usaepayService,IUsaepayHelperConfig,ICCData> algoritm) {
 			if (algoritm == null)
 				throw new ArgumentNullException(nameof(algoritm));			
-			var argument = new PaymentControllerResult();
+			var argument = new PaymentArgument();
 			try
 			{
 				argument.Result = algoritm.Method(client,_config,data);

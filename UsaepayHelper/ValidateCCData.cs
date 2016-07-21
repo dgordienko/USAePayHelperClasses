@@ -26,7 +26,7 @@ namespace KinNPayUsaEPay
 				throw new ValidateCCDataException("Validate Credit Card Data", new ArgumentNullException(nameof(config)));
 			if (data == null)
 				throw new ValidateCCDataException("Validate Credit Card Data",new ArgumentNullException(nameof(data)));
-            var result = new PaymentControllerResult();
+            var result = new PaymentArgument();
 			try{				
 				///throw new ValidateCCDataException("Validate Credit Card Data", new NotImplementedException());
 			}

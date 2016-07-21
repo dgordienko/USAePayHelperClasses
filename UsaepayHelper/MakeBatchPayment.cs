@@ -3,6 +3,8 @@ using USAePayAPI.com.usaepay.www;
 
 namespace KinNPayUsaEPay
 {
+
+	
 	/// <summary>
 	/// Send batch file to USAePay for processing
 	/// return success code
@@ -19,10 +21,11 @@ namespace KinNPayUsaEPay
 		public object Method(usaepayService context, IUsaepayHelperConfig config, ICCData data)
 		{
 			if (context == null)
-				throw new ArgumentNullException(nameof(context));
+				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(context)} is null", new ArgumentNullException(nameof(context)));
 			if (config == null)
-				throw new ArgumentNullException(nameof(config));
+			throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(config)} is null", new ArgumentNullException(nameof(config)));
 			if(data == null)
+				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(data)} is null", new ArgumentNullException(nameof(context)));
 				throw new ArgumentNullException(nameof(data));
 			throw new NotImplementedException();
 		}

@@ -5,7 +5,7 @@ namespace KinNPayUsaEPay
 	/// <summary>
 	/// Usaepay helper event arguments.
 	/// </summary>
-	public class PaymentControllerResult : EventArgs
+	public class PaymentArgument : EventArgs
 	{
 		/// <summary>
 		/// Gets or sets the result.
@@ -22,5 +22,5 @@ namespace KinNPayUsaEPay
 	/// <summary>
 	/// Usaepay helper event.
 	/// </summary>
-	public delegate void PaymentControllerEvent(object sender, PaymentControllerResult arg);	
+	public delegate void PaymentControllerEvent(object sender, PaymentArgument arg);	
 }

@@ -51,7 +51,7 @@
     <Reference Include="System" />
     <Reference Include="System.Web.Services" />
     <Reference Include="USAePayAPI">
-      <HintPath>..\..\..\..\..\Downloads\usaepayapi-4300_examples\USAePayAPI-4300 Examples\C#\frmExample\bin\Debug\USAePayAPI.dll</HintPath>
+      <HintPath>..\USAePayAPI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
