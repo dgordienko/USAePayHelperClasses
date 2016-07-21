@@ -1,14 +1,14 @@
 using System;
-using KikNPay.www.usaepay.com;
+using USAePayAPI.com.usaepay.www;
 
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
 	/// <summary>
 	/// Send batch file to USAePay for processing
 	/// return success code
 	/// provide list of all codes and descriptions
 	/// </summary>
-	public class MakeBatchPayment : IUsaepayStrategy<usaepayService, IUsaepayHelperConfig, ICCData>
+	public class MakeBatchPayment : IPaymantGatevateActionStrategy<usaepayService, IUsaepayHelperConfig, ICCData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data.

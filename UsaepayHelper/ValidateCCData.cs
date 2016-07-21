@@ -1,7 +1,8 @@
 using System;
-using KikNPay.www.usaepay.com;
+using USAePayAPI.com.usaepay.www;
+// ReSharper disable All
 
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
 	/// <summary>
 	/// do we have enough info to make call ?
@@ -9,7 +10,7 @@ namespace KikNPay
 	/// return from USAePay if there is something wrong
 	/// provide list of all error codes and descriptions
 	/// </summary>
-	public class ValidateCCData : IUsaepayStrategy<usaepayService, IUsaepayHelperConfig, ICCData>
+	public class ValidateCCData : IPaymantGatevateActionStrategy<usaepayService, IUsaepayHelperConfig, ICCData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data.
@@ -25,9 +26,9 @@ namespace KikNPay
 				throw new ValidateCCDataException("Validate Credit Card Data", new ArgumentNullException(nameof(config)));
 			if (data == null)
 				throw new ValidateCCDataException("Validate Credit Card Data",new ArgumentNullException(nameof(data)));
-			var result = new PaymentControllerEventArgs();
+            var result = new PaymentControllerResult();
 			try{				
-				throw new ValidateCCDataException("Validate Credit Card Data", new NotImplementedException());
+				///throw new ValidateCCDataException("Validate Credit Card Data", new NotImplementedException());
 			}
 			catch (Exception ex){
 				result.Exception = ex;

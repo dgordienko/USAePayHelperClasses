@@ -1,4 +1,5 @@
-namespace KikNPay
+// ReSharper disable All
+namespace KinNPayUsaEPay
 {
 	/// <summary>
 	/// Usaepay helper data.
@@ -17,7 +18,7 @@ namespace KikNPay
 		ICardholderAuthorization Autotization { get; set; }
 
 		/// <summary>
-		/// Gets or sets the billing adress.
+		/// Gets or sets the billing adress. Can be null
 		/// </summary>
 		/// <value>The billing adress.</value>
 		IBillingAddressInformation BillingAdress { get; set; }

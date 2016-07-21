@@ -1,14 +1,11 @@
 using System;
-using System.Security.Cryptography;
-using System.Text;
-using KikNPay.www.usaepay.com;
 
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
 	/// <summary>
 	/// Usaepay helper event arguments.
 	/// </summary>
-	public class PaymentControllerEventArgs : EventArgs
+	public class PaymentControllerResult : EventArgs
 	{
 		/// <summary>
 		/// Gets or sets the result.
@@ -25,5 +22,5 @@ namespace KikNPay
 	/// <summary>
 	/// Usaepay helper event.
 	/// </summary>
-	public delegate void PaymentControllerEvent(object sender,PaymentControllerEventArgs arg);	
+	public delegate void PaymentControllerEvent(object sender, PaymentControllerResult arg);	
 }

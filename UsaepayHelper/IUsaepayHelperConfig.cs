@@ -1,4 +1,4 @@
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
 	/// <summary>
 	/// Usaepay helper config.
@@ -16,5 +16,9 @@ namespace KikNPay
 		/// </summary>
 		/// <value>The use proxi.</value>
 		bool UseProxi { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        bool IsSendBox { get; set; }
 	}
 }

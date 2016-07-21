@@ -1,32 +1,16 @@
 using System;
-using KikNPay.www.usaepay.com;
+using System.Diagnostics.CodeAnalysis;
 
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
 	/// <summary>
 	/// Validate CCD ata exception.
 	/// </summary>
 	[System.Serializable]
+	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	public class ValidateCCDataException : Exception
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:MyException"/> class
-		/// </summary>
-		public ValidateCCDataException()
-		{	
-			
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:MyException"/> class
-		/// </summary>
-		/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
-		public ValidateCCDataException(string message) : base(message)
-		{	
-			
-		}
-
-		/// <summary>
+	    /// <summary>
 		/// Initializes a new instance of the <see cref="T:MyException"/> class
 		/// </summary>
 		/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>

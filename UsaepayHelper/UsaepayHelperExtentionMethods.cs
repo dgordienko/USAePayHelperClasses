@@ -2,9 +2,8 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
-
 	/// <summary>
 	/// Usaepay helper extention methods.
 	/// </summary>
@@ -21,13 +20,13 @@ namespace KikNPay
 			if (string.IsNullOrWhiteSpace(input))
 				throw new ArgumentNullException(nameof(input));
 			var md5Hasher = MD5.Create();
-			byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
+			var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
 			var sBuilder = new StringBuilder();
-			for (int i = 0; i < data.Length; i++)
+			foreach (var t in data)
 			{
-				sBuilder.Append(data[i].ToString("x2"));
+			    sBuilder.Append(t.ToString("x2"));
 			}
-			return sBuilder.ToString();
+		    return sBuilder.ToString();
 		}
 	}
 }

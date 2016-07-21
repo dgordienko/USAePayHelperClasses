@@ -1,7 +1,7 @@
 ﻿using System;
-using KikNPay.www.usaepay.com;
+using USAePayAPI.com.usaepay.www;
 
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
 	/// <summary>
 	/// Usaepay helper class.
@@ -25,6 +25,7 @@ namespace KikNPay
 		/// </summary>
 		/// <value>The data.</value> 
 		public ICCData Data { 
+
 			get { return data;} 
 			set { data = value;} 
 		}
@@ -49,7 +50,7 @@ namespace KikNPay
 		/// </summary>
 		/// <returns>The method complete.</returns>
 		/// <param name="e">E.</param>
-		private void OnMethodComplete(PaymentControllerEventArgs e)
+		private void OnMethodComplete(PaymentControllerResult e)
 		{
 			MethodComplete?.Invoke(this, e);
 		}
@@ -59,10 +60,10 @@ namespace KikNPay
 		/// </summary>
 		/// <returns>The action.</returns>
 		/// <param name="algoritm">Algoritm.</param>
-		public void  ExecuteStrategy(IUsaepayStrategy<usaepayService,IUsaepayHelperConfig,ICCData> algoritm) {
+		public void  ExecuteStrategy(IPaymantGatevateActionStrategy<usaepayService,IUsaepayHelperConfig,ICCData> algoritm) {
 			if (algoritm == null)
 				throw new ArgumentNullException(nameof(algoritm));			
-			var argument = new PaymentControllerEventArgs();
+			var argument = new PaymentControllerResult();
 			try
 			{
 				argument.Result = algoritm.Method(client,_config,data);

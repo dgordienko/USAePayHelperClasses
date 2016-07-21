@@ -1,9 +1,9 @@
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
-
 	/// <summary>
 	/// Credit Card Details
 	/// </summary>
+	// ReSharper disable once InconsistentNaming
 	public interface ICCDetalis
 	{
 		/// <summary>

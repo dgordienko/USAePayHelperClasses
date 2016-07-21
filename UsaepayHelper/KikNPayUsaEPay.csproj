@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -7,7 +7,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>KinNPayUsaEPay</RootNamespace>
     <AssemblyName>UsaepayHelper</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,23 +29,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="USAePayAPI">
+      <HintPath>..\..\..\..\..\Downloads\usaepayapi-4300_examples\USAePayAPI-4300 Examples\C#\frmExample\bin\Debug\USAePayAPI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KikNPayUsaEPay.cs" />
+    <Compile Include="Monadic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="UsaepayHelperExtentionMethods.cs" />
     <Compile Include="IUsaepayHelperConfig.cs" />
     <Compile Include="ICCData.cs" />
-    <Compile Include="PaymentControllerEventArgs.cs" />
-    <Compile Include="IUsaepayStrategy.cs" />
-    <Compile Include="Web References\www.usaepay.com\Reference.cs">
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
+    <Compile Include="PaymentControllerResult.cs" />
+    <Compile Include="IPaymantGatevateActionStrategy.cs" />
     <Compile Include="IBillingAddressInformation.cs" />
     <Compile Include="ICardholderAuthorization.cs" />
     <Compile Include="ICCDetalis.cs" />
@@ -55,22 +64,12 @@
     <Compile Include="MakePaymantException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Web References\www.usaepay.com\usaepay.wsdl" />
-    <None Include="Web References\www.usaepay.com\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferences Include="Web References" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="https://www.usaepay.com/soap/gate/EF01A7EA/usaepay.wsdl">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\www.usaepay.com</RelPath>
-      <UpdateFromURL>https://www.usaepay.com/soap/gate/EF01A7EA/usaepay.wsdl</UpdateFromURL>
-    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

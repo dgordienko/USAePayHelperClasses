@@ -1,31 +1,15 @@
 using System;
-using KikNPay.www.usaepay.com;
 
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
 
 	/// <summary>
 	/// Make paymant exception.
 	/// </summary>
-	[System.Serializable]
+	[Serializable]
 	public class MakePaymantException : Exception
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:MyException"/> class
-		/// </summary>
-		public MakePaymantException()
-		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:MyException"/> class
-		/// </summary>
-		/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
-		public MakePaymantException(string message) : base(message)
-		{
-		}
-
-		/// <summary>
+	    /// <summary>
 		/// Initializes a new instance of the <see cref="T:MyException"/> class
 		/// </summary>
 		/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>

@@ -1,4 +1,4 @@
-namespace KikNPay
+namespace KinNPayUsaEPay
 {
 	/// <summary>
 	/// Billing Address Information
