@@ -10,7 +10,7 @@ namespace KinNPayUsaEPay
 	/// return success code
 	/// provide list of all codes and descriptions
 	/// </summary>
-	public class MakeBatchPayment : IPaymantGatevateActionStrategy<usaepayService, IUsaepayHelperConfig, ICCData>
+	public class MakeBatchPayment : IKlikNPaymantStrategy<usaepayService, IKlikNPayUsaePayConfig, IKlikNPayUsaEPayData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data.
@@ -18,7 +18,7 @@ namespace KinNPayUsaEPay
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(usaepayService context, IUsaepayHelperConfig config, ICCData data)
+		public object Method(usaepayService context, IKlikNPayUsaePayConfig config, IKlikNPayUsaEPayData data)
 		{
 			if (context == null)
 				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(context)} is null", new ArgumentNullException(nameof(context)));

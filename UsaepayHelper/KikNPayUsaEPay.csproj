@@ -41,7 +41,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KikNPayUsaEPayGate.cs" />
+    <Compile Include="KlikNPayUsaEPayGate.cs" />
     <Compile Include="Monadic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -49,18 +49,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="UsaepayHelperExtentionMethods.cs" />
-    <Compile Include="IUsaepayHelperConfig.cs" />
-    <Compile Include="ICCData.cs" />
+    <Compile Include="KlikNPayUsaEPayExtentionMethods.cs" />
+    <Compile Include="IKlikNPayUsaePayConfig.cs" />
+    <Compile Include="IKlikNPayUsaEPayData.cs" />
     <Compile Include="PaymentArgument.cs" />
-    <Compile Include="IPaymantGatevateActionStrategy.cs" />
+    <Compile Include="IKlikNPaymantStrategy.cs" />
     <Compile Include="IBillingAddressInformation.cs" />
     <Compile Include="ICardholderAuthorization.cs" />
     <Compile Include="ICCDetalis.cs" />
-    <Compile Include="ValidateCCData.cs" />
-    <Compile Include="MakePayment.cs" />
+    <Compile Include="AddCustomerPaymentMethod.cs" />
+    <Compile Include="ScheduleOneTimePayment.cs" />
     <Compile Include="MakeBatchPayment.cs" />
-    <Compile Include="ValidateCCDataException.cs" />
+    <Compile Include="AddCustomerPaymentMethodException.cs" />
     <Compile Include="MakePaymantException.cs" />
     <Compile Include="MakeBanchPaymentException.cs" />
   </ItemGroup>
