@@ -19,64 +19,82 @@ namespace KinNPayUsaEPayUnit
         /// <summary>
         /// The helper config.
         /// </summary>
-        private IUsaepayHelperConfig helperConfig;
+        private IKlikNPayUsaePayConfig helperConfig;
         /// <summary>
         /// The algoritm data.
         /// </summary>
-        private ICCData algoritmData;
+        private IKlikNPayUsaEPayData algoritmData;
         /// <summary>
         /// The algoritm.
         /// </summary>
-        private IPaymantGatevateActionStrategy<usaepayService, IUsaepayHelperConfig, ICCData> algoritm;
+        private IKlikNPaymantStrategy<usaepayService, IKlikNPayUsaePayConfig, IKlikNPayUsaEPayData> algoritm;
 
         private const string testMD5String = "This is test srting dataThis is another test string data";
-
-        /// <summary>
-        /// The config.
-        /// </summary>
-        private IUsaepayHelperConfig _config;
 
         [SetUp]
         public void Init()
         {
             Logger.Trace("Init test");
-            helperConfig = MockRepository.GenerateMock<IUsaepayHelperConfig>();
-            algoritmData = MockRepository.GenerateMock<ICCData>();
-            _config = MockRepository.GenerateMock<IUsaepayHelperConfig>();
-            algoritm = MockRepository.GenerateMock<IPaymantGatevateActionStrategy<usaepayService, IUsaepayHelperConfig, ICCData>>();
+			helperConfig = MockRepository.GenerateStub<IKlikNPayUsaePayConfig>();
+			algoritmData = MockRepository.GenerateStub<IKlikNPayUsaEPayData>();
+            algoritm = MockRepository.GenerateMock<IKlikNPaymantStrategy<usaepayService, IKlikNPayUsaePayConfig, IKlikNPayUsaEPayData>>();
         }
 
+		[Test(Description="Get security token test")]
+		public void GetSecurityTokenTest() {
+			//Set configutation fields values
+			helperConfig.SourceKey = "k9cQPvfYyHaknG11Aa90Ny0YOhv56H4R";
+			helperConfig.Pin = "2207";
+
+			Assert.DoesNotThrow(() => {
+				var token = helperConfig.GetSecurityToken();
+				Assert.IsNotNull(token);
+				Assert.IsInstanceOf<ueSecurityToken>(token);
+			});
+		}
+
+
+		[Test(Description="Validate credit card number test")]
+		public void ValidateCCNumberTest() {
+			Assert.DoesNotThrow(() => {
+				var cardNumber = 5168742352169654.ToString();
+				Assert.IsTrue(cardNumber.ValidateCardNumber());
+				cardNumber = string.Concat(2, cardNumber);
+				Assert.IsFalse(cardNumber.ValidateCardNumber());
+			});
+		}
+
         [Test(Description = "Test CC Validation")]
-        public void ValidateCCData()
+		public void UpdatePaymentInfoTestCase()
         {
             Assert.DoesNotThrow(() =>
             {
                 Logger.Trace("Begin Test CC Validation");
-                var paymentClient = new KikNPayUsaEPayGate(_config);
+				var paymentClient = new KlikNPayUsaEPayGate(helperConfig);
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
                     Assert.IsNull(arg.Exception);
-                    Assert.IsNotNull(arg.Result);
-                    
+                    Assert.IsNotNull(arg.Result);                    
                     arg.With(x => x.Result.Do(res =>
                     {
                         Assert.IsInstanceOf<PaymentArgument>(res);
                         Assert.IsNull(((PaymentArgument)res).Exception);
                         Assert.IsNotNull(((PaymentArgument)res).Result);
+						var result = (bool)((PaymentArgument)arg.Result).Result;
+						Assert.IsTrue(result);
                     }));
-
                     Logger.Trace("Sucsess Test CC Validation");
                 };
                 paymentClient.Data = algoritmData;
-                paymentClient.ExecuteStrategy(new ValidateCCData());
+                paymentClient.ExecuteStrategy(new AddCustomerPaymentMethod());
             });
         }
 
-		[Test(Description="")]
+		[Test(Description="MakeBatchPayment")]
 		public void MakeBatchPayment()
 		{
 			Assert.DoesNotThrow(() => {
-				var paymentClient = new KikNPayUsaEPayGate(_config);
+				var paymentClient = new KlikNPayUsaEPayGate(helperConfig);
 				Logger.Trace("Begin Test MakeBatchPayment");
 				paymentClient.MethodComplete += (sender, arg) =>
 				{
@@ -85,6 +103,7 @@ namespace KinNPayUsaEPayUnit
 					Assert.IsInstanceOf<PaymentArgument>(arg.Result);
 					Assert.IsNull(((PaymentArgument)arg.Result).Exception);
 					Assert.IsNotNull(((PaymentArgument)arg.Result).Result);
+
 					Logger.Trace("Sucsess Test MakeBatchPayment");
 				};
 				paymentClient.Data = algoritmData;
@@ -97,7 +116,7 @@ namespace KinNPayUsaEPayUnit
         {
             Assert.DoesNotThrow(() =>
             {
-                var paymentClient = new KikNPayUsaEPayGate(_config);
+				var paymentClient = new KlikNPayUsaEPayGate(helperConfig);
                 Logger.Trace("Begin Test Paymant ");
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
@@ -109,7 +128,7 @@ namespace KinNPayUsaEPayUnit
                     Logger.Trace("Sucsess Test Paymant");
                 };
                 paymentClient.Data = algoritmData;
-                paymentClient.ExecuteStrategy(new MakePayment());
+                paymentClient.ExecuteStrategy(new ScheduleOneTimePayment());
             });
         }
 
@@ -121,13 +140,13 @@ namespace KinNPayUsaEPayUnit
             Assert.Throws<ArgumentNullException>(() =>
             {
                 Logger.Trace("Test null argument");
-                var helper = new KikNPayUsaEPayGate(null);
+                var helper = new KlikNPayUsaEPayGate(null);
                 Assert.That(helper == null);
             });
             Assert.DoesNotThrow(() =>
             {
                 Logger.Trace("Test constructor");
-                var helper = new KikNPayUsaEPayGate(helperConfig) { Data = algoritmData };
+                var helper = new KlikNPayUsaEPayGate(helperConfig) { Data = algoritmData };
                 helper.MethodComplete += (sender, arg) =>
                 {
                     Logger.Trace("Emmit executed event");
@@ -150,5 +169,6 @@ namespace KinNPayUsaEPayUnit
             Assert.That(!string.IsNullOrWhiteSpace(md5));
             Assert.That(testMD5String.GenerateHash() == md5);
         }
+
     }
 }

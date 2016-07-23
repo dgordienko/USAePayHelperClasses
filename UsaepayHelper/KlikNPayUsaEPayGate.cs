@@ -6,7 +6,7 @@ namespace KinNPayUsaEPay
 	/// <summary>
 	/// Payment controller
 	/// </summary>
-	public sealed class KikNPayUsaEPayGate:IDisposable
+	public sealed class KlikNPayUsaEPayGate:IDisposable
 	{
 		/// <summary>
 		/// The client Usaepay
@@ -16,15 +16,15 @@ namespace KinNPayUsaEPay
 		/// <summary>
 		/// The data.
 		/// </summary>
-		private ICCData data;
+		private IKlikNPayUsaEPayData data;
 
-		private readonly IUsaepayHelperConfig _config;
+		private readonly IKlikNPayUsaePayConfig _config;
 
 		/// <summary>
 		/// Gets or sets the data.
 		/// </summary>
 		/// <value>The data.</value> 
-		public ICCData Data { 
+		public IKlikNPayUsaEPayData Data { 
 
 			get { return data;} 
 			set { data = value;} 
@@ -33,7 +33,7 @@ namespace KinNPayUsaEPay
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:UsaepayHelper.UsaepayHelperClass"/> class.
 		/// </summary>
-		public KikNPayUsaEPayGate(IUsaepayHelperConfig config) {
+		public KlikNPayUsaEPayGate(IKlikNPayUsaePayConfig config) {
 			if (config == null)
 				throw new ArgumentNullException(nameof(config));
 			client = new usaepayService();
@@ -60,7 +60,7 @@ namespace KinNPayUsaEPay
 		/// </summary>
 		/// <returns>The action.</returns>
 		/// <param name="algoritm">Algoritm.</param>
-		public void  ExecuteStrategy(IPaymantGatevateActionStrategy<usaepayService,IUsaepayHelperConfig,ICCData> algoritm) {
+		public void  ExecuteStrategy(IKlikNPaymantStrategy<usaepayService,IKlikNPayUsaePayConfig,IKlikNPayUsaEPayData> algoritm) {
 			if (algoritm == null)
 				throw new ArgumentNullException(nameof(algoritm));			
 			var argument = new PaymentArgument();

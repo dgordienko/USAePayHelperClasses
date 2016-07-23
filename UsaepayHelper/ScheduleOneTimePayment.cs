@@ -11,7 +11,7 @@ namespace KinNPayUsaEPay
     /// that merchant and order number - to confirm that the gateway does not have that transaction. 
     /// This is to avoid the special case when the gateway sends back an 'ok' but we never get it.
     /// </summary>
-    public class MakePayment : IPaymantGatevateActionStrategy<usaepayService, IUsaepayHelperConfig, ICCData>
+    public class ScheduleOneTimePayment : IKlikNPaymantStrategy<usaepayService, IKlikNPayUsaePayConfig, IKlikNPayUsaEPayData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data.
@@ -19,7 +19,7 @@ namespace KinNPayUsaEPay
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(usaepayService context, IUsaepayHelperConfig config, ICCData data)
+		public object Method(usaepayService context, IKlikNPayUsaePayConfig config, IKlikNPayUsaEPayData data)
 		{
 			if (context == null)
 				throw new MakePaymantException("MakePayment Argument Null Exception", new ArgumentNullException(nameof(context)));
