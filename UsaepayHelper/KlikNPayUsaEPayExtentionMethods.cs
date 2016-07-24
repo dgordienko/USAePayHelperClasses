@@ -16,7 +16,7 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <returns>The security token.</returns>
 		/// <param name="config">Config.</param>
-		public static ueSecurityToken GetSecurityToken(this IKlikNPayUsaePayConfig config) {
+		public static ueSecurityToken  GetSecurityToken(this IKlikNPayUsaePayConfig config) {
 
 			if (config == null)
 				throw new ArgumentNullException(nameof(config));			
@@ -57,7 +57,7 @@ namespace KlikNPayUsaEPay
 					customer = service.getCustomer(token, id.Value.ToString());
 					if (customer == null)
 						throw new AddCustomerPaymentMethodException("Customer not exist", 
-						                                            new NullReferenceException($"{nameof(customer)} can not be null"));					
+							new NullReferenceException($"{nameof(customer)} can not be null"));
 					payment = new PaymentMethod();
 					payment.MethodName = info.Description;
 					payment.AvsStreet = info.BillingAddressLine1;
@@ -71,10 +71,8 @@ namespace KlikNPayUsaEPay
 				else {
 					//Customer not exist in data base 
 					//TODO create new customer/ need customer data model for client!
-					throw new AddCustomerPaymentMethodException("Customer not existst, can not create new customer",
-					                                   new NotImplementedException());
+					throw new AddCustomerPaymentMethodException("Customer not existst, can not create new customer",new NotImplementedException());
 				}
-
 			}));
 			return result;
 		}
