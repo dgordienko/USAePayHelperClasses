@@ -1,8 +1,8 @@
 language: csharp
-solution: KikNPayUsaEPay.sln
+solution: KlikNPayUsaEPay.sln
 before_install:
   - sudo apt-get install nunit-console
 before_script:
-  - nuget restore KikNPayUsaEPay.sln
+  - nuget restore KlikNPayUsaEPay.sln
 after_script:
-  - nunit-console UsaepayHelper/bin/Debug/KinNPayUsaEPayUnit.dll
+  - nunit-console UsaepayHelper/bin/Debug/KlikNPayPaymentUnit.dll

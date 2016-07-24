@@ -1,8 +1,6 @@
 // ReSharper disable All
 namespace KlikNPayUsaEPay
 {
-
-
 	/// <summary>
 	/// Add New Credit Card
 	/// </summary>
@@ -70,7 +68,6 @@ namespace KlikNPayUsaEPay
 		int? CustomerId { get; set; }
 	}
 
-
 	/// <summary>
 	/// Usaepay helper data.
 	/// </summary>
@@ -82,8 +79,4 @@ namespace KlikNPayUsaEPay
 		/// <value>The new info.</value>
 		IUsaEPayPaimentInfo NewInfo { get; set; }
 	}
-
-
-
-	
 }
