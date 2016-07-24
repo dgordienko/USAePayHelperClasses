@@ -1,5 +1,5 @@
 // ReSharper disable All
-namespace KinNPayUsaEPay
+namespace KlikNPayUsaEPay
 {
 
 

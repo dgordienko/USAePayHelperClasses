@@ -1,7 +1,7 @@
 ﻿using System;
 using USAePayAPI.com.usaepay.www;
 
-namespace KinNPayUsaEPay
+namespace KlikNPayUsaEPay
 {
 	/// <summary>
 	/// Payment controller

@@ -1,4 +1,4 @@
-namespace KinNPayUsaEPay
+namespace KlikNPayUsaEPay
 {
 	/// <summary>
 	/// Credit Card Details

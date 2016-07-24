@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using KinNPayUsaEPay;
+using KlikNPayUsaEPay;
 using NLog;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -8,7 +8,10 @@ using USAePayAPI.com.usaepay.www;
 
 namespace KinNPayUsaEPayUnit
 {
-    [TestFixture(Description = "UsaepayHelper Unit testes")]
+	/// <summary>
+	/// Usaepay helper test.
+	/// </summary>
+	[TestFixture(Description = "UsaepayHelper Unit testes")]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class UsaepayHelperTest
     {
@@ -31,7 +34,11 @@ namespace KinNPayUsaEPayUnit
 
         private const string testMD5String = "This is test srting dataThis is another test string data";
 
-        [SetUp]
+        
+		/// <summary>
+		/// Init this instance.
+		/// </summary>
+		[SetUp]
         public void Init()
         {
             Logger.Trace("Init test");
@@ -40,7 +47,12 @@ namespace KinNPayUsaEPayUnit
             algoritm = MockRepository.GenerateMock<IKlikNPaymantStrategy<usaepayService, IKlikNPayUsaePayConfig, IKlikNPayUsaEPayData>>();
         }
 
-		[Test(Description="Get security token test")]
+
+		/// <summary>
+		/// Gets the security token test.
+		/// </summary>
+		/// <returns>The security token test.</returns>
+		[Test(Description = "Get security token test")]
 		public void GetSecurityTokenTest() {
 			//Set configutation fields values
 			helperConfig.SourceKey = "k9cQPvfYyHaknG11Aa90Ny0YOhv56H4R";
@@ -54,7 +66,12 @@ namespace KinNPayUsaEPayUnit
 		}
 
 
-		[Test(Description="Validate credit card number test")]
+
+		/// <summary>
+		/// Validates the CCN umber test.
+		/// </summary>
+		/// <returns>The CCN umber test.</returns>
+		[Test(Description = "Validate credit card number test")]
 		public void ValidateCCNumberTest() {
 			Assert.DoesNotThrow(() => {
 				var cardNumber = 5168742352169654.ToString();
@@ -64,7 +81,12 @@ namespace KinNPayUsaEPayUnit
 			});
 		}
 
-        [Test(Description = "Test CC Validation")]
+        
+		/// <summary>
+		/// Updates the payment info test case.
+		/// </summary>
+		/// <returns>The payment info test case.</returns>
+		[Test(Description = "Test CC Validation")]
 		public void UpdatePaymentInfoTestCase()
         {
             Assert.DoesNotThrow(() =>
@@ -90,6 +112,10 @@ namespace KinNPayUsaEPayUnit
             });
         }
 
+		/// <summary>
+		/// Makes the batch payment.
+		/// </summary>
+		/// <returns>The batch payment.</returns>
 		[Test(Description="MakeBatchPayment")]
 		public void MakeBatchPayment()
 		{
@@ -111,6 +137,10 @@ namespace KinNPayUsaEPayUnit
 			});
 		}
 
+		/// <summary>
+		/// Makes the payment.
+		/// </summary>
+		/// <returns>The payment.</returns>
         [Test(Description = "Create Paymant Test")]
         public void MakePayment()
         {
@@ -132,7 +162,10 @@ namespace KinNPayUsaEPayUnit
             });
         }
 
-
+		/// <summary>
+		/// Bases the payment test case.
+		/// </summary>
+		/// <returns>The payment test case.</returns>
         [Test(Description = "Base test case")]
 		public void BasePaymentTestCase()
         {
@@ -157,7 +190,10 @@ namespace KinNPayUsaEPayUnit
             Logger.Trace("End UsaepayHelperTestCase");
         }
 
-
+		/// <summary>
+		/// Creates the MD 5 test case.
+		/// </summary>
+		/// <returns>The MD 5 test case.</returns>
         [Test(Description = "Get MD5 string testcase")]
         public void CreateMD5TestCase()
         {

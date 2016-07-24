@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using USAePayAPI.com.usaepay.www;
 
-namespace KinNPayUsaEPay
+namespace KlikNPayUsaEPay
 {
 	/// <summary>
 	/// Usaepay helper extention methods.

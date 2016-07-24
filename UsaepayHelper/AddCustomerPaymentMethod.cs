@@ -2,7 +2,7 @@ using System;
 using USAePayAPI.com.usaepay.www;
 // ReSharper disable All
 
-namespace KinNPayUsaEPay
+namespace KlikNPayUsaEPay
 {
 	/// <summary>
 	/// do we have enough info to make call ?
@@ -34,7 +34,7 @@ namespace KinNPayUsaEPay
 			}
 			catch (Exception ex){
 				var exception = new AddCustomerPaymentMethodException("Error update payment methods", ex);
-				result.Exception = ex;
+				result.Exception = exception;
 			}
 			return result;
 		}

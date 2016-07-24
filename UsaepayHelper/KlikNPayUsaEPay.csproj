@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{ED7A1BA9-AB61-423B-B018-81053F60EE3B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>KinNPayUsaEPay</RootNamespace>
-    <AssemblyName>UsaepayHelper</AssemblyName>
+    <RootNamespace>KlikNPayUsaEPay</RootNamespace>
+    <AssemblyName>KlikNPayUsaEPay</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -55,7 +55,6 @@
     <Compile Include="PaymentArgument.cs" />
     <Compile Include="IKlikNPaymantStrategy.cs" />
     <Compile Include="IBillingAddressInformation.cs" />
-    <Compile Include="ICardholderAuthorization.cs" />
     <Compile Include="ICCDetalis.cs" />
     <Compile Include="AddCustomerPaymentMethod.cs" />
     <Compile Include="ScheduleOneTimePayment.cs" />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KinNPayUsaEPay
+namespace KlikNPayUsaEPay
 {
     /// <summary>
     /// Реализация монады maybe

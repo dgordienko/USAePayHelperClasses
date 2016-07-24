@@ -1,4 +1,4 @@
-namespace KinNPayUsaEPay
+namespace KlikNPayUsaEPay
 {
 	/// <summary>
 	/// Usaepay helper config.

@@ -1,7 +1,7 @@
 using System;
 using USAePayAPI.com.usaepay.www;
 
-namespace KinNPayUsaEPay
+namespace KlikNPayUsaEPay
 {
 
 	
@@ -21,12 +21,14 @@ namespace KinNPayUsaEPay
 		public object Method(usaepayService context, IKlikNPayUsaePayConfig config, IKlikNPayUsaEPayData data)
 		{
 			if (context == null)
-				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(context)} is null", new ArgumentNullException(nameof(context)));
+				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(context)} is null",
+				                                    new ArgumentNullException(nameof(context)));
 			if (config == null)
-			throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(config)} is null", new ArgumentNullException(nameof(config)));
+			throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(config)} is null",
+				                                new ArgumentNullException(nameof(config)));
 			if(data == null)
-				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(data)} is null", new ArgumentNullException(nameof(context)));
-				throw new ArgumentNullException(nameof(data));
+				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(data)} is null",
+				                                    new ArgumentNullException(nameof(context)));
 			throw new NotImplementedException();
 		}
 	}

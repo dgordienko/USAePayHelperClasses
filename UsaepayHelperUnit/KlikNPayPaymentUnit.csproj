@@ -6,7 +6,7 @@
     <ProjectGuid>{0B41CE98-B171-433A-8E54-1ADBF30F34E7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>KinNPayUsaEPayUnit</RootNamespace>
-    <AssemblyName>UsaepayHelperUnit</AssemblyName>
+    <AssemblyName>KlikNPayPaymentUnit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -18,6 +18,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\KlikNPayPaymentUnit.xml</DocumentationFile>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -67,9 +68,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UsaepayHelper\KikNPayUsaEPay.csproj">
-      <Project>{ed7a1ba9-ab61-423b-b018-81053f60ee3b}</Project>
-      <Name>KikNPayUsaEPay</Name>
+    <ProjectReference Include="..\UsaepayHelper\KlikNPayUsaEPay.csproj">
+      <Project>{ED7A1BA9-AB61-423B-B018-81053F60EE3B}</Project>
+      <Name>KlikNPayUsaEPay</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
