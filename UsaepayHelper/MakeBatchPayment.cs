@@ -43,7 +43,7 @@ namespace KlikNPayUsaEPay
 					var csv = json.ToArrayCSV();
 					var token = config.GetSecurityToken();
 					var res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64",
-					                                    ButchFields.GetButchFields(), Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
+					                                    BatchFields.GetButchFields(), Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
 					result.Result = res;
 				}));
 			}
@@ -53,13 +53,6 @@ namespace KlikNPayUsaEPay
 			}
 
 			return result;
-		}
-
-		private readonly string[] butchFields;
-
-		public MakeBatchPayment() {
-			butchFields = new string[42];
-
 		}
 	}
 }

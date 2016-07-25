@@ -1,13 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
-using USAePayAPI.com.usaepay.www;
-
 namespace KlikNPayUsaEPay
 {
 

@@ -58,7 +58,7 @@ namespace KlikNPayUsaEPay
 					var json = JsonConvert.SerializeObject(pInfo);
 				    var csv = json.ToObjectCSV();
                     var token = config.GetSecurityToken();
-					var fields = ButchFields.GetButchFields();
+					var fields = BatchFields.GetButchFields();
                     var res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64", 
 					                                    fields,Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
 				    result.Result = res;
