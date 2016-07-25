@@ -9,9 +9,6 @@ using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
-
-	
-
     /// <summary>
     /// Usaepay helper extention methods.
     /// </summary>
@@ -29,7 +26,7 @@ namespace KlikNPayUsaEPay
 				throw new ArgumentNullException(nameof(context));
  			SearchParam[] search = new SearchParam[1];
 			search[0] = new SearchParam();
-			search[0].Field = "Created";
+			search[0].Field = "Invoice";
 			search[0].Type = "Contains";
 			search[0].Value = invoice;
 			var result = new BatchSearchResult();

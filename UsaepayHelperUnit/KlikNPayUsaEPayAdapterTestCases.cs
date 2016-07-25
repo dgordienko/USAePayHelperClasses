@@ -11,10 +11,6 @@ using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayPaymentUnit
 {
-
-	
-
-
 	/// <summary>
 	/// Usaepay helper test.
 	/// </summary>
@@ -60,6 +56,7 @@ namespace KlikNPayPaymentUnit
 		/// <returns>The security token test.</returns>
 		[Test(Description = "Get security token test")]
 		public void GetSecurityTokenTest() {
+			
 			//Set configutation fields values
 			helperConfig.SourceKey = "k9cQPvfYyHaknG11Aa90Ny0YOhv56H4R";
 			helperConfig.Pin = "2207";
@@ -166,6 +163,65 @@ namespace KlikNPayPaymentUnit
         }
 
 		/// <summary>
+		/// Serrialises the desserialise test.
+		/// </summary>
+		/// <returns>The desserialise test.</returns>
+		[Test(Description="")]
+		public void SerrialiseDesserialiseTest() {
+			var i = 100;
+			var batchRecord = new BatchUploadRecord()
+			{
+				command = "sale",
+				source = i.ToString(),
+				invoice = i.ToString(),
+				cardholder = i.ToString(),
+				ccnum = i.ToString(),
+				ccexp = i.ToString(),
+				avsstreet = i.ToString(),
+				avszip = i.ToString(),
+				cvc = i.ToString(),
+				amount = i.ToString(),
+				tax = i.ToString(),
+				description = i.ToString(),
+				ponum = i.ToString(),
+				orderid = i.ToString(),
+				custid = i.ToString(),
+				billing_company = i.ToString(),
+				billing_fname = i.ToString(),
+				billing_lname = i.ToString(),
+				billing_street = i.ToString(),
+				billing_street2 = i.ToString(),
+				billing_city = i.ToString(),
+				billing_state = i.ToString(),
+				billing_country = i.ToString(),
+				billing_zip = i.ToString(),
+				billing_phone = i.ToString(),
+				shipping_company = i.ToString(),
+				shipping_fname = i.ToString(),
+				shipping_lname = i.ToString(),
+				shipping_street = i.ToString(),
+				shipping_street2 = i.ToString(),
+				shipping_city = i.ToString(),
+				shipping_state = i.ToString(),
+				shipping_zip = i.ToString(),
+				shipping_country = i.ToString(),
+				shipping_phone = i.ToString(),
+				email = i.ToString(),
+				checknum = i.ToString(),
+				vcrouting = i.ToString(),
+				vcaccount = i.ToString(),
+				vcssn = i.ToString(),
+				vcdl = i.ToString(),
+				vcdlstate = i.ToString()
+			};
+			var js = JsonConvert.SerializeObject(batchRecord);
+			Assert.IsNotEmpty(js);
+			var csv = js.ToCSV();
+			Assert.IsNotEmpty(csv);
+		}
+
+
+		/// <summary>
 		/// Bases the payment test case.
 		/// </summary>
 		/// <returns>The payment test case.</returns>
@@ -223,6 +279,10 @@ namespace KlikNPayPaymentUnit
             });
          }
 
+		/// <summary>
+		/// Creates the upladed data.
+		/// </summary>
+		/// <returns>The upladed data.</returns>
 		[Test(Description="http://wiki.usaepay.com/developer/soap-1.4/methods/createbatchupload")]
 		public void CreateUpladedData() {
 			Assert.DoesNotThrow(() => {
@@ -281,8 +341,6 @@ namespace KlikNPayPaymentUnit
 				}
 				var json = JsonConvert.SerializeObject(fileContent);
 				File.WriteAllText(@"/Users/dgordienko/Documents/Leo/USAePayHelperClasses/UsaepayHelperUnit/bin/json01.json", json);
-				//var j0 = JsonConvert.SerializeObject(bS);
-				//var result = j0.ToCSV();
 			});
 		}
     }
