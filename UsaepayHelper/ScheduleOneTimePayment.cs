@@ -1,5 +1,7 @@
 using System;
+using Newtonsoft.Json;
 using USAePayAPI.com.usaepay.www;
+using System.Text;
 
 namespace KlikNPayUsaEPay
 {
@@ -13,6 +15,23 @@ namespace KlikNPayUsaEPay
     /// </summary>
     public class ScheduleOneTimePayment : IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData>
 	{
+        private class BatchPaymentInfo : IPaymentInfo
+        {
+
+            public string Command { get; set; }
+
+            #region Implementation of IPaymentInfo
+
+            public string PaymentAmount { get; set; }
+            public string ForAcount { get; set; }
+            public string AccountToPayFrom { get; set; }
+
+            [JsonIgnore]
+            public string PaymentDeliveryDate { get; set; }
+
+            #endregion
+        }
+
 		/// <summary>
 		/// Method the specified context, config and data.
 		/// </summary>
@@ -36,7 +55,20 @@ namespace KlikNPayUsaEPay
 			data.With(x => x.PaymantInfo.Do(pInfo => { 
 				try
 				{
-					result.Exception = new ScheduleOneTimePaymentException("MakePayment not implemented", new NotImplementedException());
+				    var info = new BatchPaymentInfo
+				    {
+                        Command = "sale",
+				        AccountToPayFrom = pInfo.AccountToPayFrom,                        
+                        ForAcount = pInfo.PaymentAmount,
+                        PaymentAmount = pInfo.PaymentAmount,
+                        PaymentDeliveryDate = pInfo.PaymentDeliveryDate
+				    };
+				    var json = JsonConvert.SerializeObject(info);
+				    var csv = json.ToCSV();
+                    var token = config.GetSecurityToken();
+                    var res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64", 
+                        _butchFields,Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
+				    result.Result = res;
 				}
 				catch (Exception ex)
 				{
@@ -45,6 +77,23 @@ namespace KlikNPayUsaEPay
 			}));
 			return result;
 		}
+        /// <summary>
+        ///  Butch fields
+        /// </summary>
+        private string[] _butchFields;
+        public ScheduleOneTimePayment()
+        {
+              Init();
+        }
+
+        private void Init()
+        {
+             _butchFields = new string[3];
+            _butchFields[0] = "command";
+            _butchFields[1] = "amount";
+            _butchFields[2] = "custid";
+        }
+
 	}
 	
 }

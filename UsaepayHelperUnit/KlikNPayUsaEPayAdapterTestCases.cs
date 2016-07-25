@@ -103,7 +103,7 @@ namespace KlikNPayPaymentUnit
 						var result = (bool)((IPaymentArgument)arg.Result).Result;
 						Assert.IsTrue(result);
                     }));
-                    Logger.Trace("Sucsess Test CC Validation");
+                    Logger.Trace("Update payment info");
                 };
                 paymentClient.Data = algoritmData;
                 paymentClient.ExecuteStrategy(new AddCustomerPaymentMethod());
@@ -144,7 +144,7 @@ namespace KlikNPayPaymentUnit
             Assert.DoesNotThrow(() =>
             {
 				var paymentClient = new KlikNPayUsaEPayAdapter(helperConfig);
-                Logger.Trace("Begin Test Paymant ");
+                Logger.Trace("Begin Test Payment ");
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
                     Assert.IsNull(arg.Exception);
@@ -152,7 +152,7 @@ namespace KlikNPayPaymentUnit
                     Assert.IsInstanceOf<IPaymentArgument>(arg.Result);
                     Assert.IsNull(((IPaymentArgument)arg.Result).Exception);
                     Assert.IsNotNull(((IPaymentArgument)arg.Result).Result);
-                    Logger.Trace("Sucsess Test Paymant");
+                    Logger.Trace("Sucsess Test Payment");
                 };
                 paymentClient.Data = algoritmData;
                 paymentClient.ExecuteStrategy(new ScheduleOneTimePayment());

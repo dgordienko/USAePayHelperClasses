@@ -10,8 +10,16 @@
   </Class>
   <Class Name="KlikNPayUsaEPay.ScheduleOneTimePayment" BaseTypeListCollapsed="true">
     <Position X="10.5" Y="7" Width="4" />
+    <NestedTypes>
+      <Class Name="KlikNPayUsaEPay.ScheduleOneTimePayment.BatchPaymentInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ScheduleOneTimePayment.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>ScheduleOneTimePayment.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -26,7 +34,7 @@
   <Class Name="KlikNPayUsaEPay.KlikNPayUsaEPayExtentionMethods">
     <Position X="1" Y="6" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAAAABAAAAAAAAAQAQAAADAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>KlikNPayUsaEPayExtentionMethods.cs</FileName>
     </TypeIdentifier>
   </Class>
