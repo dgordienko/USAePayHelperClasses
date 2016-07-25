@@ -1,8 +1,14 @@
 using System;
+using System.Linq;
+using System.Text;
+using Newtonsoft.Json;
 using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
+
+	
+
 	/// <summary>
 	/// Send batch file to USAePay for processing
 	/// return success code
@@ -27,7 +33,33 @@ namespace KlikNPayUsaEPay
 			if(data == null)
 				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(data)} is null",
 				                                    new ArgumentNullException(nameof(context)));
-			throw new NotImplementedException();
+			var result = new PaymentArgument();
+			try
+			{
+				data.With(x => x.BatchUploadRecords.Do(records =>
+				{
+					var r = records.ToList();
+					var json = JsonConvert.SerializeObject(r);
+					var csv = json.ToArrayCSV();
+					var token = config.GetSecurityToken();
+					var res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64",
+					                                    ButchFields.GetButchFields(), Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
+					result.Result = res;
+				}));
+			}
+			catch (Exception ex)
+			{
+				result.Exception = ex;
+			}
+
+			return result;
+		}
+
+		private readonly string[] butchFields;
+
+		public MakeBatchPayment() {
+			butchFields = new string[42];
+
 		}
 	}
 }

@@ -58,8 +58,9 @@ namespace KlikNPayUsaEPay
 					var json = JsonConvert.SerializeObject(pInfo);
 				    var csv = json.ToObjectCSV();
                     var token = config.GetSecurityToken();
+					var fields = ButchFields.GetButchFields();
                     var res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64", 
-					                                    _butchFields,Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
+					                                    fields,Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
 				    result.Result = res;
 					//special handling: if we don't gate "ok" from the gateway, then automatically send a status request 
 					//for that merchant and order number - to confirm that the gateway does not have that transaction. 
@@ -67,7 +68,7 @@ namespace KlikNPayUsaEPay
 					if (res == null) {
 						if (!KlikNPayUsaEPayExtentionMethods.SearchPaymentItem(pInfo.invoice,context,token)) {
 							 res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64",
-									_butchFields, Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);							
+							                                 fields, Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);							
 						}
 					}
 				}
@@ -78,22 +79,7 @@ namespace KlikNPayUsaEPay
 			}));
 			return result;
 		}
-        /// <summary>
-        ///  Butch fields
-        /// </summary>
-        private string[] _butchFields;
-        public ScheduleOneTimePayment()
-        {
-              Init();
-        }
 
-        private void Init()
-        {
-             _butchFields = new string[3];
-            _butchFields[0] = "command";
-            _butchFields[1] = "amount";
-            _butchFields[2] = "custid";
-        }
 
 	}
 	
