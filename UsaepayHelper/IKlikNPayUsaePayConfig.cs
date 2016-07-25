@@ -3,7 +3,7 @@ namespace KlikNPayUsaEPay
 	/// <summary>
 	/// Usaepay helper config.
 	/// </summary>
-	public interface IKlikNPayUsaePayConfig
+	public interface IKlikNPayUsaEPayConfig
 	{
 		/// <summary>
 		/// Gets or sets the source key.

@@ -28,14 +28,15 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.3.6\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.4.3.5\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="USAePayAPI">
       <HintPath>..\USAePayAPI.dll</HintPath>
     </Reference>
@@ -53,14 +54,14 @@
     <Compile Include="IKlikNPayUsaePayConfig.cs" />
     <Compile Include="IKlikNPayUsaEPayData.cs" />
     <Compile Include="PaymentArgument.cs" />
-    <Compile Include="IKlikNPaymantStrategy.cs" />
+    <Compile Include="IKlikNPaymentStrategy.cs" />
     <Compile Include="IBillingAddressInformation.cs" />
     <Compile Include="ICCDetalis.cs" />
     <Compile Include="AddCustomerPaymentMethod.cs" />
     <Compile Include="ScheduleOneTimePayment.cs" />
     <Compile Include="MakeBatchPayment.cs" />
     <Compile Include="AddCustomerPaymentMethodException.cs" />
-    <Compile Include="MakePaymantException.cs" />
+    <Compile Include="ScheduleOneTimePaymentException.cs" />
     <Compile Include="MakeBanchPaymentException.cs" />
     <Compile Include="IUsaEPayPaimentInfo.cs" />
     <Compile Include="IBatchPaymentInfo.cs" />
@@ -68,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

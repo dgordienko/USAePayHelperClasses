@@ -22,7 +22,7 @@ namespace KinNPayUsaEPayUnit
         /// <summary>
         /// The helper config.
         /// </summary>
-        private IKlikNPayUsaePayConfig helperConfig;
+        private IKlikNPayUsaEPayConfig helperConfig;
         /// <summary>
         /// The algoritm data.
         /// </summary>
@@ -30,7 +30,7 @@ namespace KinNPayUsaEPayUnit
         /// <summary>
         /// The algoritm.
         /// </summary>
-        private IKlikNPaymantStrategy<usaepayService, IKlikNPayUsaePayConfig, IKlikNPayUsaEPayData> algoritm;
+        private IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData> algoritm;
 
         private const string testMD5String = "This is test srting dataThis is another test string data";
 
@@ -42,9 +42,9 @@ namespace KinNPayUsaEPayUnit
         public void Init()
         {
             Logger.Trace("Init test");
-			helperConfig = MockRepository.GenerateStub<IKlikNPayUsaePayConfig>();
+			helperConfig = MockRepository.GenerateStub<IKlikNPayUsaEPayConfig>();
 			algoritmData = MockRepository.GenerateStub<IKlikNPayUsaEPayData>();
-            algoritm = MockRepository.GenerateMock<IKlikNPaymantStrategy<usaepayService, IKlikNPayUsaePayConfig, IKlikNPayUsaEPayData>>();
+            algoritm = MockRepository.GenerateMock<IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData>>();
         }
 
 

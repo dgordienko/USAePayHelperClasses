@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
@@ -6,6 +7,7 @@ namespace KlikNPayUsaEPay
 	/// <summary>
 	/// Payment controller
 	/// </summary>
+	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	public sealed class KlikNPayUsaEPayAdapter:IDisposable
 	{
 		/// <summary>
@@ -13,27 +15,18 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		private readonly usaepayService client;
 
-		/// <summary>
-		/// The data.
-		/// </summary>
-		private IKlikNPayUsaEPayData data;
-
-		private readonly IKlikNPayUsaePayConfig _config;
+	    private readonly IKlikNPayUsaEPayConfig _config;
 
 		/// <summary>
 		/// Gets or sets the data.
 		/// </summary>
 		/// <value>The data.</value> 
-		public IKlikNPayUsaEPayData Data { 
+		public IKlikNPayUsaEPayData Data { get; set; }
 
-			get { return data;} 
-			set { data = value;} 
-		}
-
-		/// <summary>
+	    /// <summary>
 		/// Initializes a new instance of the <see cref="T:UsaepayHelper.UsaepayHelperClass"/> class.
 		/// </summary>
-		public KlikNPayUsaEPayAdapter(IKlikNPayUsaePayConfig config) {
+		public KlikNPayUsaEPayAdapter(IKlikNPayUsaEPayConfig config) {
 			if (config == null)
 				throw new ArgumentNullException(nameof(config));
 			client = new usaepayService();
@@ -60,13 +53,13 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <returns>The action.</returns>
 		/// <param name="algoritm">Algoritm.</param>
-		public void  ExecuteStrategy(IKlikNPaymantStrategy<usaepayService,IKlikNPayUsaePayConfig,IKlikNPayUsaEPayData> algoritm) {
+		public void  ExecuteStrategy(IKlikNPaymentStrategy<usaepayService,IKlikNPayUsaEPayConfig,IKlikNPayUsaEPayData> algoritm) {
 			if (algoritm == null)
 				throw new ArgumentNullException(nameof(algoritm));			
 			var argument = new PaymentArgument();
 			try
 			{
-				argument.Result = algoritm.Method(client,_config,data);
+				argument.Result = algoritm.Method(client,_config,Data);
 			}
 			catch (Exception ex){
 				argument.Exception = ex;

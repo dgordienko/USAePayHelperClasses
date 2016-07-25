@@ -16,7 +16,7 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <returns>The security token.</returns>
 		/// <param name="config">Config.</param>
-		public static ueSecurityToken  GetSecurityToken(this IKlikNPayUsaePayConfig config) {
+		public static ueSecurityToken  GetSecurityToken(this IKlikNPayUsaEPayConfig config) {
 
 			if (config == null)
 				throw new ArgumentNullException(nameof(config));			
@@ -48,8 +48,8 @@ namespace KlikNPayUsaEPay
 			if (data == null)
 				throw new ArgumentNullException(nameof(data));
 			var result = false;
-			CustomerObject customer = null;
-			PaymentMethod payment = null;
+			CustomerObject customer;
+			PaymentMethod payment;
 			data.With(x => x.NewInfo.Do(info => {
 				if (info.CustomerId.HasValue)
 				{		
@@ -58,15 +58,17 @@ namespace KlikNPayUsaEPay
 					if (customer == null)
 						throw new AddCustomerPaymentMethodException("Customer not exist", 
 							new NullReferenceException($"{nameof(customer)} can not be null"));
-					payment = new PaymentMethod();
-					payment.MethodName = info.Description;
-					payment.AvsStreet = info.BillingAddressLine1;
-					payment.AvsZip = info.ZipCode;
-					payment.CardNumber = info.CreditCardNumber;
-					payment.CardExpiration = info.ExpirationDate;
-					payment.CardCode = info.CVC;
-					payment.MethodType = "CreditCard";
-					result = service.updateCustomerPaymentMethod(token, payment, true);
+				    payment = new PaymentMethod
+				    {
+				        MethodName = info.Description,
+				        AvsStreet = info.BillingAddressLine1,
+				        AvsZip = info.ZipCode,
+				        CardNumber = info.CreditCardNumber,
+				        CardExpiration = info.ExpirationDate,
+				        CardCode = info.CVC,
+				        MethodType = "CreditCard"
+				    };
+				    result = service.updateCustomerPaymentMethod(token, payment, true);
 				}
 				else {
 					//Customer not exist in data base 
@@ -86,35 +88,35 @@ namespace KlikNPayUsaEPay
 		{
 			try
 			{
-				var CheckNumbers = new ArrayList();
-				int CardLength = cardNumber.Length;
-				for (int i = CardLength - 2; i >= 0; i = i - 2)
-					CheckNumbers.Add(int.Parse(cardNumber[i].ToString()) * 2);
-				int CheckSum = 0;
-				for (int iCount = 0; iCount <= CheckNumbers.Count - 1; iCount++)
+				var checkNumbers = new ArrayList();
+				var cardLength = cardNumber.Length;
+				for (var i = cardLength - 2; i >= 0; i = i - 2)
+					checkNumbers.Add(int.Parse(cardNumber[i].ToString()) * 2);
+				var checkSum = 0;
+				for (var iCount = 0; iCount <= checkNumbers.Count - 1; iCount++)
 				{
-					int _count = 0;
-					if ((int)CheckNumbers[iCount] > 9)
+					var count = 0;
+					if ((int)checkNumbers[iCount] > 9)
 					{
-						int _numLength = ((int)CheckNumbers[iCount]).ToString().Length;
-						for (int x = 0; x < _numLength; x++)
+						var numLength = ((int)checkNumbers[iCount]).ToString().Length;
+						for (var x = 0; x < numLength; x++)
 						{
-							_count = _count + int.Parse(
-								  ((int)CheckNumbers[iCount]).ToString()[x].ToString());
+							count = count + int.Parse(
+								  ((int)checkNumbers[iCount]).ToString()[x].ToString());
 						}
 					}
 					else
 					{
-						_count = (int)CheckNumbers[iCount];
+						count = (int)checkNumbers[iCount];
 					}
-					CheckSum = CheckSum + _count;
+					checkSum = checkSum + count;
 				}
-				int OriginalSum = 0;
-				for (int y = CardLength - 1; y >= 0; y = y - 2)
+				var originalSum = 0;
+				for (var y = cardLength - 1; y >= 0; y = y - 2)
 				{
-					OriginalSum = OriginalSum + int.Parse(cardNumber[y].ToString());
+					originalSum = originalSum + int.Parse(cardNumber[y].ToString());
 				}
-				return (((OriginalSum + CheckSum) % 10) == 0);
+				return (originalSum + checkSum) % 10 == 0;
 			}
 			catch
 			{

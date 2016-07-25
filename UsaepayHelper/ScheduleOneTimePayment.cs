@@ -11,7 +11,7 @@ namespace KlikNPayUsaEPay
     /// that merchant and order number - to confirm that the gateway does not have that transaction. 
     /// This is to avoid the special case when the gateway sends back an 'ok' but we never get it.
     /// </summary>
-    public class ScheduleOneTimePayment : IKlikNPaymantStrategy<usaepayService, IKlikNPayUsaePayConfig, IKlikNPayUsaEPayData>
+    public class ScheduleOneTimePayment : IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data.
@@ -19,16 +19,16 @@ namespace KlikNPayUsaEPay
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(usaepayService context, IKlikNPayUsaePayConfig config, IKlikNPayUsaEPayData data)
+		public object Method(usaepayService context, IKlikNPayUsaEPayConfig config, IKlikNPayUsaEPayData data)
 		{
 			if (context == null)
-				throw new MakePaymantException("MakePayment Argument Null Exception", 
+				throw new ScheduleOneTimePaymentException("MakePayment Argument Null Exception", 
 				                               new ArgumentNullException(nameof(context)));
 			if (config == null)
-				throw new MakePaymantException("MakePayment Argument Null Exception", 
+				throw new ScheduleOneTimePaymentException("MakePayment Argument Null Exception", 
 				                               new ArgumentNullException(nameof(config)));
 			if (data == null)
-				throw new MakePaymantException("MakePayment Argument Null Exception",
+				throw new ScheduleOneTimePaymentException("MakePayment Argument Null Exception",
 				                               new ArgumentNullException(nameof(data)));
 			//return success code
 			var result = new PaymentArgument();	
@@ -36,11 +36,11 @@ namespace KlikNPayUsaEPay
 			data.With(x => x.PaymantInfo.Do(pInfo => { 
 				try
 				{
-					result.Exception = new MakePaymantException("MakePayment not implemented", new NotImplementedException());
+					result.Exception = new ScheduleOneTimePaymentException("MakePayment not implemented", new NotImplementedException());
 				}
 				catch (Exception ex)
 				{
-					result.Exception = new MakePaymantException($"{ex.Message}", ex);
+					result.Exception = new ScheduleOneTimePaymentException($"{ex.Message}", ex);
 				}
 			}));
 			return result;

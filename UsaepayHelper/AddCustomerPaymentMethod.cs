@@ -10,7 +10,7 @@ namespace KlikNPayUsaEPay
 	/// return from USAePay if there is something wrong
 	/// provide list of all error codes and descriptions
 	/// </summary>
-	public class AddCustomerPaymentMethod : IKlikNPaymantStrategy<usaepayService, IKlikNPayUsaePayConfig, IKlikNPayUsaEPayData>
+	public class AddCustomerPaymentMethod : IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data.
@@ -18,7 +18,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(usaepayService context, IKlikNPayUsaePayConfig config, IKlikNPayUsaEPayData data)
+		public object Method(usaepayService context, IKlikNPayUsaEPayConfig config, IKlikNPayUsaEPayData data)
 		{			
 			if (context == null)
 				throw new AddCustomerPaymentMethodException("Add customer payment exception", new ArgumentNullException(nameof(context)));
