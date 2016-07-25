@@ -26,9 +26,22 @@ namespace KlikNPayUsaEPay
 			if (config == null)
 				throw new MakePaymantException("MakePayment Argument Null Exception", new ArgumentNullException(nameof(config)));
 			if (data == null)
-				throw new MakePaymantException("MakePayment Argument Null Exception",new ArgumentNullException(nameof(data)));			
-			
-			throw new MakePaymantException("MakePayment Argument Null Exception", new NotImplementedException());
+				throw new MakePaymantException("MakePayment Argument Null Exception",new ArgumentNullException(nameof(data)));
+			//return success code
+			var result = new PaymentArgument();	
+			//Send payment info to USAePay
+			data.With(x => x.PaymantInfo.Do(pInfo => { 
+				try
+				{
+
+				}
+				catch (Exception ex)
+				{
+					result.Exception = new MakePaymantException($"{ex.Message}", ex);
+				}
+			}));
+
+			result.Exception = new MakePaymantException("MakePayment not implemented", new NotImplementedException());
 		}
 	}
 	

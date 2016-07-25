@@ -3,8 +3,6 @@ using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
-
-	
 	/// <summary>
 	/// Send batch file to USAePay for processing
 	/// return success code

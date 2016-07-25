@@ -62,6 +62,9 @@
     <Compile Include="AddCustomerPaymentMethodException.cs" />
     <Compile Include="MakePaymantException.cs" />
     <Compile Include="MakeBanchPaymentException.cs" />
+    <Compile Include="IUsaEPayPaimentInfo.cs" />
+    <Compile Include="IBatchPaymentInfo.cs" />
+    <Compile Include="IPaymentInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
