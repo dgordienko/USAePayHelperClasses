@@ -2,11 +2,11 @@ using System;
 
 namespace KlikNPayUsaEPay
 {
-	/// <summary>
+    /// <summary>
 	/// Usaepay helper event arguments.
 	/// </summary>
-	public class PaymentArgument : EventArgs
-	{
+	internal class PaymentArgument : EventArgs, IPaymentArgument
+    {
 		/// <summary>
 		/// Gets or sets the result.
 		/// </summary>
@@ -22,5 +22,5 @@ namespace KlikNPayUsaEPay
 	/// <summary>
 	/// Usaepay helper event.
 	/// </summary>
-	public delegate void PaymentControllerEvent(object sender, PaymentArgument arg);	
+	public delegate void PaymentControllerEvent(object sender, IPaymentArgument arg);	
 }

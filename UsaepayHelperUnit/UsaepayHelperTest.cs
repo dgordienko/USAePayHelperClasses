@@ -99,10 +99,10 @@ namespace KinNPayUsaEPayUnit
                     Assert.IsNotNull(arg.Result);                    
                     arg.With(x => x.Result.Do(res =>
                     {
-                        Assert.IsInstanceOf<PaymentArgument>(res);
-                        Assert.IsNull(((PaymentArgument)res).Exception);
-                        Assert.IsNotNull(((PaymentArgument)res).Result);
-						var result = (bool)((PaymentArgument)arg.Result).Result;
+                        Assert.IsInstanceOf<IPaymentArgument>(res);
+                        Assert.IsNull(((IPaymentArgument)res).Exception);
+                        Assert.IsNotNull(((IPaymentArgument)res).Result);
+						var result = (bool)((IPaymentArgument)arg.Result).Result;
 						Assert.IsTrue(result);
                     }));
                     Logger.Trace("Sucsess Test CC Validation");
@@ -126,9 +126,9 @@ namespace KinNPayUsaEPayUnit
 				{
 					Assert.IsNull(arg.Exception);
 					Assert.IsNotNull(arg.Result);
-					Assert.IsInstanceOf<PaymentArgument>(arg.Result);
-					Assert.IsNull(((PaymentArgument)arg.Result).Exception);
-					Assert.IsNotNull(((PaymentArgument)arg.Result).Result);
+					Assert.IsInstanceOf<IPaymentArgument>(arg.Result);
+					Assert.IsNull(((IPaymentArgument)arg.Result).Exception);
+					Assert.IsNotNull(((IPaymentArgument)arg.Result).Result);
 					Logger.Trace("Sucsess Test MakeBatchPayment");
 				};
 				paymentClient.Data = algoritmData;
@@ -151,9 +151,9 @@ namespace KinNPayUsaEPayUnit
                 {
                     Assert.IsNull(arg.Exception);
                     Assert.IsNotNull(arg.Result);
-                    Assert.IsInstanceOf<PaymentArgument>(arg.Result);
-                    Assert.IsNull(((PaymentArgument)arg.Result).Exception);
-                    Assert.IsNotNull(((PaymentArgument)arg.Result).Result);
+                    Assert.IsInstanceOf<IPaymentArgument>(arg.Result);
+                    Assert.IsNull(((IPaymentArgument)arg.Result).Exception);
+                    Assert.IsNotNull(((IPaymentArgument)arg.Result).Result);
                     Logger.Trace("Sucsess Test Paymant");
                 };
                 paymentClient.Data = algoritmData;

@@ -42,6 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPaymentArgument.cs" />
     <Compile Include="KlikNPayUsaEPayAdapter.cs" />
     <Compile Include="Monadic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

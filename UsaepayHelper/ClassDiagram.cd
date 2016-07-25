@@ -43,6 +43,7 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>PaymentArgument.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="KlikNPayUsaEPay.KlikNPayUsaEPayAdapter">
     <Position X="0.75" Y="2.25" Width="4.5" />
@@ -74,10 +75,17 @@
       <FileName>IKlikNPaymentStrategy.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="KlikNPayUsaEPay.IPaymentArgument">
+    <Position X="11" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>IPaymentArgument.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Delegate Name="KlikNPayUsaEPay.PaymentControllerEvent">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PaymentArgument.cs</FileName>
     </TypeIdentifier>
   </Delegate>

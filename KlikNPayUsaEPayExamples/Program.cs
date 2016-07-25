@@ -174,16 +174,15 @@ namespace KlikNPayUsaEPayExamples
             using (var client = new KlikNPayUsaEPayAdapter(config))
             {
                 client.Data = data;
-                //subscript event end
+                //subscript event 
                 client.MethodComplete += (sender, argument) =>
                 {
                     //error
                     argument.With(x => x.Exception.Do(e => { Logger.Trace(e.Message);}));
-
-                    //
+                    //result  is  IPaymentArgument
                     argument.With(x => x.Result.Do(result =>
                     {
-                        var paymentArgument = (PaymentArgument) result;
+                        var paymentArgument = (IPaymentArgument) result;
                         //UsaEPey return exception
                         paymentArgument.With(a => a.Exception.Do(pe => Logger.Trace(pe.Message)));
                         //UsaEPay reurn ok 
