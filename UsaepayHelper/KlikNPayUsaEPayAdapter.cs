@@ -6,7 +6,7 @@ namespace KlikNPayUsaEPay
 	/// <summary>
 	/// Payment controller
 	/// </summary>
-	public sealed class KlikNPayUsaEPayGate:IDisposable
+	public sealed class KlikNPayUsaEPayAdapter:IDisposable
 	{
 		/// <summary>
 		/// The client Usaepay
@@ -33,7 +33,7 @@ namespace KlikNPayUsaEPay
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:UsaepayHelper.UsaepayHelperClass"/> class.
 		/// </summary>
-		public KlikNPayUsaEPayGate(IKlikNPayUsaePayConfig config) {
+		public KlikNPayUsaEPayAdapter(IKlikNPayUsaePayConfig config) {
 			if (config == null)
 				throw new ArgumentNullException(nameof(config));
 			client = new usaepayService();

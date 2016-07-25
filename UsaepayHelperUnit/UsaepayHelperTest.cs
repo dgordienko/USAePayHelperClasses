@@ -86,13 +86,13 @@ namespace KinNPayUsaEPayUnit
 		/// Updates the payment info test case.
 		/// </summary>
 		/// <returns>The payment info test case.</returns>
-		[Test(Description = "Test CC Validation")]
+		[Test(Description = "Update payment info")]
 		public void UpdatePaymentInfoTestCase()
         {
             Assert.DoesNotThrow(() =>
             {
                 Logger.Trace("Begin Test CC Validation");
-				var paymentClient = new KlikNPayUsaEPayGate(helperConfig);
+				var paymentClient = new KlikNPayUsaEPayAdapter(helperConfig);
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
                     Assert.IsNull(arg.Exception);
@@ -116,11 +116,11 @@ namespace KinNPayUsaEPayUnit
 		/// Makes the batch payment.
 		/// </summary>
 		/// <returns>The batch payment.</returns>
-		[Test(Description="MakeBatchPayment")]
+		[Test(Description="Make Batch Payment")]
 		public void MakeBatchPayment()
 		{
 			Assert.DoesNotThrow(() => {
-				var paymentClient = new KlikNPayUsaEPayGate(helperConfig);
+				var paymentClient = new KlikNPayUsaEPayAdapter(helperConfig);
 				Logger.Trace("Begin Test MakeBatchPayment");
 				paymentClient.MethodComplete += (sender, arg) =>
 				{
@@ -129,7 +129,6 @@ namespace KinNPayUsaEPayUnit
 					Assert.IsInstanceOf<PaymentArgument>(arg.Result);
 					Assert.IsNull(((PaymentArgument)arg.Result).Exception);
 					Assert.IsNotNull(((PaymentArgument)arg.Result).Result);
-
 					Logger.Trace("Sucsess Test MakeBatchPayment");
 				};
 				paymentClient.Data = algoritmData;
@@ -146,7 +145,7 @@ namespace KinNPayUsaEPayUnit
         {
             Assert.DoesNotThrow(() =>
             {
-				var paymentClient = new KlikNPayUsaEPayGate(helperConfig);
+				var paymentClient = new KlikNPayUsaEPayAdapter(helperConfig);
                 Logger.Trace("Begin Test Paymant ");
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
@@ -173,13 +172,13 @@ namespace KinNPayUsaEPayUnit
             Assert.Throws<ArgumentNullException>(() =>
             {
                 Logger.Trace("Test null argument");
-                var helper = new KlikNPayUsaEPayGate(null);
+                var helper = new KlikNPayUsaEPayAdapter(null);
                 Assert.That(helper == null);
             });
             Assert.DoesNotThrow(() =>
             {
                 Logger.Trace("Test constructor");
-                var helper = new KlikNPayUsaEPayGate(helperConfig) { Data = algoritmData };
+                var helper = new KlikNPayUsaEPayAdapter(helperConfig) { Data = algoritmData };
                 helper.MethodComplete += (sender, arg) =>
                 {
                     Logger.Trace("Emmit executed event");
