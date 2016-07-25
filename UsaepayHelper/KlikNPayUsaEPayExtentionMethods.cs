@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
+
     /// <summary>
     /// Usaepay helper extention methods.
     /// </summary>
     public static class KlikNPayUsaEPayExtentionMethods 
 	{
-
 		/// <summary>
 		/// Searchs the payment item.
 		/// </summary>
@@ -35,12 +36,56 @@ namespace KlikNPayUsaEPay
 			return q;
 		}
 
+
+		/// <summary>
+		///   Create csv file content from json string 
+		/// </summary>
+		/// <param name="json">json string object </param>
+		/// <returns></returns>
+		public static string ToArrayCSV(this string json)
+		{			
+			var arrayJ = JArray.Parse(json);
+			string result = string.Empty;
+			foreach (var item in arrayJ)
+			{
+				var element = (JObject)item;
+				var values = element.DescendantsAndSelf()
+					.OfType<JProperty>()
+					.Where(p => p.Value is JValue)
+					.GroupBy(p => p.Name)
+					.ToList();
+				var columns = values.Select(g => g.Key).ToArray();
+				// Filter JObjects that have child objects that have values.
+				var parentsWithChildren = values.SelectMany(g => g).SelectMany(v => v.AncestorsAndSelf()
+					.OfType<JObject>().Skip(1)).ToHashSet();
+				// Collect all data rows: for every object, go through the column titles and get the value of that property in the closest ancestor or self that has a value of that name.
+				var rows = element
+					.DescendantsAndSelf()
+					.OfType<JObject>()
+					.Where(o => o.PropertyValues().OfType<JValue>().Any())
+					.Where(o => o == element || !parentsWithChildren.Contains(o)) // Show a row for the root object + objects that have no children.
+					.Select(o => columns.Select(c => o.AncestorsAndSelf()
+						.OfType<JObject>()
+						.Select(parent => parent[c])
+						.Where(v => v is JValue)
+						.Select(v => (string)v)
+						.FirstOrDefault())
+						.Reverse() // Trim trailing nulls
+						.SkipWhile(s => s == null)
+						.Reverse());
+				// Convert to CSV
+				var csvRows = new[] { columns }.Concat(rows).Select(r => string.Join(",", r));
+				result += string.Join("\n", csvRows);
+			}
+			return result;
+		}
+
 	     /// <summary>
         ///   Create csv file from json string 
         /// </summary>
         /// <param name="json">json string object </param>
         /// <returns></returns>
-        public static string ToCSV(this string json)
+        public static string ToObjectCSV(this string json)
         {
             var obj = JObject.Parse(json);
             // Collect column titles: all property names whose values are of type JValue, distinct, in order of encountering them.
@@ -150,7 +195,8 @@ namespace KlikNPayUsaEPay
 				else {
 					//Customer not exist in data base 
 					//TODO create new customer/ need customer data model for client!
-					throw new AddCustomerPaymentMethodException("Customer not existst, can not create new customer",new NotImplementedException());
+					throw new AddCustomerPaymentMethodException("Customer not existst, can not create new customer",
+					                                            new NotImplementedException());
 				}
 			}));
 			return result;

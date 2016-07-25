@@ -163,11 +163,12 @@ namespace KlikNPayPaymentUnit
         }
 
 		/// <summary>
-		/// Serrialises the desserialise test.
+		/// Serialize Deserialize IUsaEPayFieldsTest 
 		/// </summary>
 		/// <returns>The desserialise test.</returns>
 		[Test(Description="")]
-		public void SerrialiseDesserialiseTest() {
+		public void SerializeDeserializeIUsaEPayFieldsTest() {
+			//Fake data!!!
 			var i = 100;
 			var batchRecord = new BatchUploadRecord()
 			{
@@ -216,8 +217,17 @@ namespace KlikNPayPaymentUnit
 			};
 			var js = JsonConvert.SerializeObject(batchRecord);
 			Assert.IsNotEmpty(js);
-			var csv = js.ToCSV();
+			var csv = js.ToObjectCSV();
 			Assert.IsNotEmpty(csv);
+			var paymentObject = JsonConvert.DeserializeObject<IUsaEPayFields>(js,new UsaEPayFieldsConfigConverter());
+			Assert.IsInstanceOf<IUsaEPayFields>(paymentObject);
+			var paymentList = new List<IUsaEPayFields>();
+			paymentList.Add(paymentObject);
+			var jsList = JsonConvert.SerializeObject(paymentList);
+			var dpaymentList = JsonConvert.DeserializeObject<List<IUsaEPayFields>>(jsList, new UsaEPayFieldsConfigConverter());
+			Assert.IsInstanceOf<IEnumerable<IUsaEPayFields>>(dpaymentList);
+			var listCVSData = jsList.ToArrayCSV();
+			Assert.IsNotEmpty(listCVSData);
 		}
 
 
@@ -274,8 +284,10 @@ namespace KlikNPayPaymentUnit
             Assert.DoesNotThrow(() =>
             {
                 var json = JsonConvert.SerializeObject(helperConfig);
-                var s = json.ToCSV();
+                var s = json.ToObjectCSV();
                 Assert.IsNotEmpty(s);
+
+
             });
          }
 
@@ -341,6 +353,8 @@ namespace KlikNPayPaymentUnit
 				}
 				var json = JsonConvert.SerializeObject(fileContent);
 				File.WriteAllText(@"/Users/dgordienko/Documents/Leo/USAePayHelperClasses/UsaepayHelperUnit/bin/json01.json", json);
+				var fsCSV = json.ToArrayCSV();
+				Assert.IsNotEmpty(fsCSV);
 			});
 		}
     }

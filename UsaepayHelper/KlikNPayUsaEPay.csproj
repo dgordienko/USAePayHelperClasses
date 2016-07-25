@@ -71,6 +71,8 @@
     <Compile Include="IUsaEPayPaimentInfo.cs" />
     <Compile Include="IPaymentInfo.cs" />
     <Compile Include="IUsaEPayFields.cs" />
+    <Compile Include="UsaEPayFields.cs" />
+    <Compile Include="UsaEPayFieldsConfigConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

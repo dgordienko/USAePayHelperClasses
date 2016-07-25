@@ -9,7 +9,6 @@ using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
-
 	/// <summary>
 	/// http://wiki.usaepay.com/developer/soap-1.4/methods/createbatchupload
 	/// </summary>
