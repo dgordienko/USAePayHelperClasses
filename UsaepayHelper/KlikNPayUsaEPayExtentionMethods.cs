@@ -9,12 +9,36 @@ using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
+
+	
+
     /// <summary>
     /// Usaepay helper extention methods.
     /// </summary>
     public static class KlikNPayUsaEPayExtentionMethods 
 	{
-        /// <summary>
+
+		/// <summary>
+		/// Searchs the payment item.
+		/// </summary>
+		/// <returns>The payment item.</returns>
+		public static bool SearchPaymentItem(string invoice,usaepayService context,ueSecurityToken token) {
+			if (string.IsNullOrWhiteSpace(invoice))
+				throw new ArgumentNullException(nameof(invoice));
+			if (context == null)
+				throw new ArgumentNullException(nameof(context));
+ 			SearchParam[] search = new SearchParam[1];
+			search[0] = new SearchParam();
+			search[0].Field = "Created";
+			search[0].Type = "Contains";
+			search[0].Value = invoice;
+			var result = new BatchSearchResult();
+			result = context.searchBatches(token, search, true, "0", "10", "closed");
+			var q = result.Batches.Any();
+			return q;
+		}
+
+	     /// <summary>
         ///   Create csv file from json string 
         /// </summary>
         /// <param name="json">json string object </param>
@@ -28,7 +52,6 @@ namespace KlikNPayUsaEPay
                 .Where(p => p.Value is JValue)
                 .GroupBy(p => p.Name)
                 .ToList();
-
             var columns = values.Select(g => g.Key).ToArray();
             // Filter JObjects that have child objects that have values.
             var parentsWithChildren = values.SelectMany(g => g).SelectMany(v => v.AncestorsAndSelf()

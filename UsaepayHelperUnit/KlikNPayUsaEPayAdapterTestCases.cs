@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using KlikNPayUsaEPay;
 using Newtonsoft.Json;
 using NLog;
@@ -9,6 +11,10 @@ using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayPaymentUnit
 {
+
+	
+
+
 	/// <summary>
 	/// Usaepay helper test.
 	/// </summary>
@@ -215,7 +221,69 @@ namespace KlikNPayPaymentUnit
                 var s = json.ToCSV();
                 Assert.IsNotEmpty(s);
             });
-
          }
+
+		[Test(Description="http://wiki.usaepay.com/developer/soap-1.4/methods/createbatchupload")]
+		public void CreateUpladedData() {
+			Assert.DoesNotThrow(() => {
+				var fileContent = new BatchUploadFile();
+				var bS = new List<string>();
+				for (int i = 0; i < 100; i++)
+				{
+					var batchRecord = new BatchUploadRecord()
+					{
+						command = "sale",
+						source = i.ToString(),
+						invoice = i.ToString(),
+						cardholder = i.ToString(),
+						ccnum = i.ToString(),
+						ccexp = i.ToString(),
+						avsstreet = i.ToString(),
+						avszip = i.ToString(),
+						cvc = i.ToString(),
+						amount = i.ToString(),
+						tax = i.ToString(),
+						description = i.ToString(),
+						ponum = i.ToString(),
+						orderid = i.ToString(),
+						custid = i.ToString(),
+						billing_company = i.ToString(),
+						billing_fname = i.ToString(),
+						billing_lname = i.ToString(),
+						billing_street = i.ToString(),
+						billing_street2 = i.ToString(),
+						billing_city = i.ToString(),
+						billing_state = i.ToString(),
+						billing_country = i.ToString(),
+						billing_zip = i.ToString(),
+						billing_phone = i.ToString(),
+						shipping_company = i.ToString(),
+						shipping_fname = i.ToString(),
+						shipping_lname = i.ToString(),
+						shipping_street = i.ToString(),
+						shipping_street2 = i.ToString(),
+						shipping_city = i.ToString(),
+						shipping_state = i.ToString(),
+						shipping_zip = i.ToString(),
+						shipping_country = i.ToString(),
+						shipping_phone = i.ToString(),
+						email = i.ToString(),
+						checknum = i.ToString(),
+						vcrouting = i.ToString(),
+						vcaccount = i.ToString(),
+						vcssn = i.ToString(),
+						vcdl = i.ToString(),
+						vcdlstate = i.ToString()
+					};
+					var js = JsonConvert.SerializeObject(batchRecord);
+					bS.Add(js);                  
+					fileContent.Add(batchRecord);
+				}
+				var json = JsonConvert.SerializeObject(fileContent);
+				File.WriteAllText(@"/Users/dgordienko/Documents/Leo/USAePayHelperClasses/UsaepayHelperUnit/bin/json01.json", json);
+				//var j0 = JsonConvert.SerializeObject(bS);
+				//var result = j0.ToCSV();
+			});
+		}
     }
 }

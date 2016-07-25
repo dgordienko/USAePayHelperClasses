@@ -1,4 +1,6 @@
-﻿using KlikNPayUsaEPay;
+﻿using System;
+using System.Collections.Generic;
+using KlikNPayUsaEPay;
 using NLog;
 
 namespace KlikNPayUsaEPayExamples
@@ -43,13 +45,30 @@ namespace KlikNPayUsaEPayExamples
         /// </summary>
         private class PaymentData : IKlikNPayUsaEPayData
         {
-            #region Implementation of IKlikNPayUsaEPayData
+			/// <summary>
+			/// Gets or sets the batch upload record.(MakeOneTimePayment.html)
+			/// </summary>
+			/// <value>The batch upload record.</value>
+			public IUsaEPayFields BatchUploadRecord
+			{
 
-            /// <summary>
-            /// Gets or sets the new info.
-            /// </summary>
-            /// <value>The new info.</value>
-            public IUsaEPayPaimentInfo NewInfo { get; set; }
+				get;set;
+			}
+			/// <summary>
+			/// Gets or sets the batch upload records.(make Batch Upload)
+			/// </summary>
+			/// <value>The batch upload records.</value>
+			public IEnumerable<IUsaEPayFields> BatchUploadRecords
+			{
+				get;set;
+			}
+			#region Implementation of IKlikNPayUsaEPayData
+
+			/// <summary>
+			/// Gets or sets the new info.
+			/// </summary>
+			/// <value>The new info.</value>
+			public IUsaEPayPaimentInfo NewInfo { get; set; }
 
             /// <summary>
             /// Gets or sets the paymant info.
@@ -57,14 +76,14 @@ namespace KlikNPayUsaEPayExamples
             /// <value>The paymant info.</value>
             public IPaymentInfo PaymantInfo { get; set; }
 
-            /// <summary>
-            /// Gets or sets the batch payment info.
-            /// </summary>
-            /// <value>The batch payment info.</value>
-            public IBatchPaymentInfo BatchPaymentInfo { get; set; }
+			IUsaEPayFields IKlikNPayUsaEPayData.PaymantInfo
+			{
+				get;set;
+			}
 
-            #endregion
-        }
+
+			#endregion
+		}
 
         /// <summary>
         /// Implement IUsaEPayPaimentInfo (IntellySence)

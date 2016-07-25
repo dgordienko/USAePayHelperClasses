@@ -31,7 +31,6 @@ namespace KlikNPayUsaEPay
 			try{
 				var tocken = config.GetSecurityToken();
 				var res = KlikNPayUsaEPayExtentionMethods.AddCutomersPaymentMethod(context, tocken, data);
-                // if true then operation complete
                 if(string.IsNullOrWhiteSpace(res))
                     result.Result = res;
 				else

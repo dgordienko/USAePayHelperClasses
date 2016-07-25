@@ -69,8 +69,8 @@
     <Compile Include="ScheduleOneTimePaymentException.cs" />
     <Compile Include="MakeBanchPaymentException.cs" />
     <Compile Include="IUsaEPayPaimentInfo.cs" />
-    <Compile Include="IBatchPaymentInfo.cs" />
     <Compile Include="IPaymentInfo.cs" />
+    <Compile Include="IUsaEPayFields.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

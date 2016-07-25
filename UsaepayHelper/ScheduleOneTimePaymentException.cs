@@ -23,7 +23,8 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <param name="context">The contextual information about the source or destination.</param>
 		/// <param name="info">The object that holds the serialized object data.</param>
-		protected ScheduleOneTimePaymentException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context)
+		protected ScheduleOneTimePaymentException(System.Runtime.Serialization.SerializationInfo info, 
+		                                          System.Runtime.Serialization.StreamingContext context) : base(info, context)
 		{
 		}
 	}

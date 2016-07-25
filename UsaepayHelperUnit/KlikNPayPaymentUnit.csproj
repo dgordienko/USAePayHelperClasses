@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="KlikNPayUsaEPayAdapterTestCases.cs" />
+    <Compile Include="BatchUploadRecord.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

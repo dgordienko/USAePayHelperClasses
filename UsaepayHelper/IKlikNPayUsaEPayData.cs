@@ -1,4 +1,6 @@
 // ReSharper disable All
+using System.Collections.Generic;
+
 namespace KlikNPayUsaEPay
 {
 
@@ -16,11 +18,17 @@ namespace KlikNPayUsaEPay
 		/// Gets or sets the paymant info.
 		/// </summary>
 		/// <value>The paymant info.</value>
-		IPaymentInfo PaymantInfo { get; set; }
+		IUsaEPayFields PaymantInfo { get; set; }
+
 		/// <summary>
-		/// Gets or sets the batch payment info.
+		/// Gets or sets the batch upload record.
 		/// </summary>
-		/// <value>The batch payment info.</value>
-		IBatchPaymentInfo BatchPaymentInfo { get; set; }
+		/// <value>The batch upload record.</value>
+		IUsaEPayFields BatchUploadRecord { get; set; }
+		/// <summary>
+		/// Gets or sets the batch upload records.
+		/// </summary>
+		/// <value>The batch upload records.</value>
+		IEnumerable<IUsaEPayFields> BatchUploadRecords { get; set; }
 	}
 }

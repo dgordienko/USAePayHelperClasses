@@ -64,3 +64,12 @@ sources
 |---|---|
 |Strategy pattern|https://en.wikipedia.org/wiki/Strategy_pattern|
 |usaepay api|http://wiki.usaepay.com/developer/soap-1.4/howto/csharp|
+
+external dependencies
+
+|name|url|nuget|
+|----|---|-----|
+|Json.NET|http://www.newtonsoft.com/json|Install-Package Newtonsoft.Json|
+|NUnit|http://www.nunit.org|Install-Package NUnit|
+|AutoFixture|https://github.com/AutoFixture/AutoFixture|Install-Package AutoFixture|
+|NLog|http://nlog-project.org|Install-Package NLog|

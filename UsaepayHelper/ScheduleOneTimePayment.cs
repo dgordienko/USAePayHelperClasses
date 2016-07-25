@@ -54,21 +54,22 @@ namespace KlikNPayUsaEPay
 			//Send payment info to USAePay
 			data.With(x => x.PaymantInfo.Do(pInfo => { 
 				try
-				{
-				    var info = new BatchPaymentInfo
-				    {
-                        Command = "sale",
-				        AccountToPayFrom = pInfo.AccountToPayFrom,                        
-                        ForAcount = pInfo.PaymentAmount,
-                        PaymentAmount = pInfo.PaymentAmount,
-                        PaymentDeliveryDate = pInfo.PaymentDeliveryDate
-				    };
-				    var json = JsonConvert.SerializeObject(info);
+				{				    
+					var json = JsonConvert.SerializeObject(pInfo);
 				    var csv = json.ToCSV();
                     var token = config.GetSecurityToken();
                     var res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64", 
-                        _butchFields,Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
+					                                    _butchFields,Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
 				    result.Result = res;
+					//special handling: if we don't gate "ok" from the gateway, then automatically send a status request 
+					//for that merchant and order number - to confirm that the gateway does not have that transaction. 
+					//This is to avoid the special case when the gateway sends back an 'ok' but we never get it.
+					if (res == null) {
+						if (!KlikNPayUsaEPayExtentionMethods.SearchPaymentItem(pInfo.invoice,context,token)) {
+							 res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64",
+									_butchFields, Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);							
+						}
+					}
 				}
 				catch (Exception ex)
 				{
