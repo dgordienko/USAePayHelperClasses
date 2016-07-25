@@ -13,7 +13,8 @@ namespace KlikNPayUsaEPay
 	public class AddCustomerPaymentMethod : IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData>
 	{
 		/// <summary>
-		/// Method the specified context, config and data.
+		/// Method the specified context, config and data. 
+		/// return usaepay payment method id  string or exception
 		/// </summary>
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
@@ -29,8 +30,15 @@ namespace KlikNPayUsaEPay
             var result = new PaymentArgument();
 			try{
 				var tocken = config.GetSecurityToken();
-				var res = KlikNPayUsaEPayExtentionMethods.CreatePaymentMethod(context, tocken, data);
-				result.Result = res;
+				var res = KlikNPayUsaEPayExtentionMethods.AddCutomersPaymentMethod(context, tocken, data);
+                // if true then operation complete
+                if(string.IsNullOrWhiteSpace(res))
+                    result.Result = res;
+				else
+				{
+				    throw new AddCustomerPaymentMethodException("Exception update",
+				        new Exception("payment method information is not updated"));
+				}
 			}
 			catch (Exception ex){
 				var exception = new AddCustomerPaymentMethodException("Error update payment methods", ex);

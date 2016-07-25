@@ -9,7 +9,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="KlikNPayUsaEPay.ScheduleOneTimePayment" BaseTypeListCollapsed="true">
-    <Position X="9.25" Y="2" Width="4" />
+    <Position X="10.5" Y="7" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ScheduleOneTimePayment.cs</FileName>
@@ -26,7 +26,7 @@
   <Class Name="KlikNPayUsaEPay.KlikNPayUsaEPayExtentionMethods">
     <Position X="1" Y="6" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAAAABAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>KlikNPayUsaEPayExtentionMethods.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -54,7 +54,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="KlikNPayUsaEPay.AddCustomerPaymentMethod">
-    <Position X="10.5" Y="3.75" Width="4" />
+    <Position X="10.75" Y="3" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>AddCustomerPaymentMethod.cs</FileName>

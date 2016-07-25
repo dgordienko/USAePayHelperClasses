@@ -58,7 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UsaepayHelperTest.cs" />
+    <Compile Include="KlikNPayUsaEPayAdapterTestCases.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

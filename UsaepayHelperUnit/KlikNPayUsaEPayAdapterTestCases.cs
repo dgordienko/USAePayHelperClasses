@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using KlikNPayUsaEPay;
+using Newtonsoft.Json;
 using NLog;
 using NUnit.Framework;
 using Rhino.Mocks;
 using USAePayAPI.com.usaepay.www;
 
-namespace KinNPayUsaEPayUnit
+namespace KlikNPayPaymentUnit
 {
 	/// <summary>
 	/// Usaepay helper test.
 	/// </summary>
 	[TestFixture(Description = "UsaepayHelper Unit testes")]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class UsaepayHelperTest
+    public class KlikNPayUsaEPayAdapterTestCases
     {
         /// <summary>
         /// The logger.
@@ -47,7 +48,6 @@ namespace KinNPayUsaEPayUnit
             algoritm = MockRepository.GenerateMock<IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData>>();
         }
 
-
 		/// <summary>
 		/// Gets the security token test.
 		/// </summary>
@@ -64,8 +64,6 @@ namespace KinNPayUsaEPayUnit
 				Assert.IsInstanceOf<ueSecurityToken>(token);
 			});
 		}
-
-
 
 		/// <summary>
 		/// Validates the CCN umber test.
@@ -120,7 +118,7 @@ namespace KinNPayUsaEPayUnit
 		public void MakeBatchPayment()
 		{
 			Assert.DoesNotThrow(() => {
-				var paymentClient = new KlikNPayUsaEPayAdapter(helperConfig);
+				var paymentClient = new KlikNPayUsaEPay.KlikNPayUsaEPayAdapter(helperConfig);
 				Logger.Trace("Begin Test MakeBatchPayment");
 				paymentClient.MethodComplete += (sender, arg) =>
 				{
@@ -205,5 +203,19 @@ namespace KinNPayUsaEPayUnit
             Assert.That(testMD5String.GenerateHash() == md5);
         }
 
+         /// <summary>
+         ///  from any json to csv data
+         /// </summary>
+         [Test(Description = "Test butch file data")]
+	    public void CreateCsvTest()
+         {
+            Assert.DoesNotThrow(() =>
+            {
+                var json = JsonConvert.SerializeObject(helperConfig);
+                var s = json.ToCSV();
+                Assert.IsNotEmpty(s);
+            });
+
+         }
     }
 }

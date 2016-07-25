@@ -1,32 +1,89 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Newtonsoft.Json.Linq;
 using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
-	/// <summary>
-	/// Usaepay helper extention methods.
-	/// </summary>
-	public static class KlikNPayUsaEPayExtentionMethods 
+    /// <summary>
+    /// Usaepay helper extention methods.
+    /// </summary>
+    public static class KlikNPayUsaEPayExtentionMethods 
 	{
-		/// <summary>
-		/// Gets the security token.
-		/// </summary>
-		/// <returns>The security token.</returns>
-		/// <param name="config">Config.</param>
-		public static ueSecurityToken  GetSecurityToken(this IKlikNPayUsaEPayConfig config) {
+        /// <summary>
+        ///   Create csv file from json string 
+        /// </summary>
+        /// <param name="json">json string object </param>
+        /// <returns></returns>
+        public static string ToCSV(this string json)
+        {
+            var obj = JObject.Parse(json);
+            // Collect column titles: all property names whose values are of type JValue, distinct, in order of encountering them.
+            var values = obj.DescendantsAndSelf()
+                .OfType<JProperty>()
+                .Where(p => p.Value is JValue)
+                .GroupBy(p => p.Name)
+                .ToList();
+
+            var columns = values.Select(g => g.Key).ToArray();
+            // Filter JObjects that have child objects that have values.
+            var parentsWithChildren = values.SelectMany(g => g).SelectMany(v => v.AncestorsAndSelf()
+                .OfType<JObject>().Skip(1)).ToHashSet();
+            // Collect all data rows: for every object, go through the column titles and get the value of that property in the closest ancestor or self that has a value of that name.
+            var rows = obj
+                .DescendantsAndSelf()
+                .OfType<JObject>()
+                .Where(o => o.PropertyValues().OfType<JValue>().Any())
+                .Where(o => o == obj || !parentsWithChildren.Contains(o)) // Show a row for the root object + objects that have no children.
+                .Select(o => columns.Select(c => o.AncestorsAndSelf()
+                    .OfType<JObject>()
+                    .Select(parent => parent[c])
+                    .Where(v => v is JValue)
+                    .Select(v => (string)v)
+                    .FirstOrDefault())
+                    .Reverse() // Trim trailing nulls
+                    .SkipWhile(s => s == null)
+                    .Reverse());
+
+            // Convert to CSV
+            var csvRows = new[] { columns }.Concat(rows).Select(r => string.Join(",", r));
+            var result = string.Join("\n", csvRows);
+            return result;
+        }
+
+
+        /// <summary>
+        ///  http://stackoverflow.com/questions/3471899/how-to-convert-linq-results-to-hashset-or-hashedset
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        private static HashSet<T> ToHashSet<T>(this IEnumerable<T> source)
+        {
+            return new HashSet<T>(source);
+        }
+
+        /// <summary>
+        /// Gets the security token.
+        /// </summary>
+        /// <returns>The security token.</returns>
+        /// <param name="config">Config.</param>
+        public static ueSecurityToken  GetSecurityToken(this IKlikNPayUsaEPayConfig config) {
 
 			if (config == null)
-				throw new ArgumentNullException(nameof(config));			
-			var result = new ueSecurityToken();
-			result.SourceKey = config.SourceKey;
-			var pin = config.Pin;
-			var hash = new ueHash();
-			hash.Type = "md5";
-			hash.Seed = Guid.NewGuid().ToString();
-			var pvalue = string.Concat(result.SourceKey, hash.Seed, pin);
+				throw new ArgumentNullException(nameof(config));
+            var result = new ueSecurityToken {SourceKey = config.SourceKey};
+            var pin = config.Pin;
+            var hash = new ueHash
+            {
+                Type = "md5",
+                Seed = Guid.NewGuid().ToString()
+            };
+            var pvalue = string.Concat(result.SourceKey, hash.Seed, pin);
 			hash.HashValue = pvalue.GenerateHash();
 			result.PinHash = hash;
 			return result;
@@ -39,7 +96,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="service">Service.</param>
 		/// <param name="token">Token.</param>
 		/// <param name="data">Data.</param>
-		public static bool CreatePaymentMethod(usaepayService service,ueSecurityToken token,IKlikNPayUsaEPayData data) {
+		public static string AddCutomersPaymentMethod(usaepayService service,ueSecurityToken token,IKlikNPayUsaEPayData data) {
 
 			if (service == null)
 				throw new ArgumentNullException(nameof(service));
@@ -47,7 +104,7 @@ namespace KlikNPayUsaEPay
 				throw new ArgumentNullException(nameof(token));
 			if (data == null)
 				throw new ArgumentNullException(nameof(data));
-			var result = false;
+			string result =null;
 			CustomerObject customer;
 			PaymentMethod payment;
 			data.With(x => x.NewInfo.Do(info => {
@@ -68,7 +125,7 @@ namespace KlikNPayUsaEPay
 				        CardCode = info.CVC,
 				        MethodType = "CreditCard"
 				    };
-				    result = service.updateCustomerPaymentMethod(token, payment, true);
+				    result = service.addCustomerPaymentMethod(token, customer.CustomerID, payment, false, true);
 				}
 				else {
 					//Customer not exist in data base 
@@ -91,7 +148,7 @@ namespace KlikNPayUsaEPay
 				var checkNumbers = new ArrayList();
 				var cardLength = cardNumber.Length;
 				for (var i = cardLength - 2; i >= 0; i = i - 2)
-					checkNumbers.Add(int.Parse(cardNumber[i].ToString()) * 2);
+					checkNumbers.Add(Int32.Parse(cardNumber[i].ToString()) * 2);
 				var checkSum = 0;
 				for (var iCount = 0; iCount <= checkNumbers.Count - 1; iCount++)
 				{
@@ -101,7 +158,7 @@ namespace KlikNPayUsaEPay
 						var numLength = ((int)checkNumbers[iCount]).ToString().Length;
 						for (var x = 0; x < numLength; x++)
 						{
-							count = count + int.Parse(
+							count = count + Int32.Parse(
 								  ((int)checkNumbers[iCount]).ToString()[x].ToString());
 						}
 					}
@@ -114,7 +171,7 @@ namespace KlikNPayUsaEPay
 				var originalSum = 0;
 				for (var y = cardLength - 1; y >= 0; y = y - 2)
 				{
-					originalSum = originalSum + int.Parse(cardNumber[y].ToString());
+					originalSum = originalSum + Int32.Parse(cardNumber[y].ToString());
 				}
 				return (originalSum + checkSum) % 10 == 0;
 			}
@@ -132,7 +189,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="input">Input.</param>
 		public static string GenerateHash(this string input)
 		{
-			if (string.IsNullOrWhiteSpace(input))
+			if (String.IsNullOrWhiteSpace(input))
 				throw new ArgumentNullException(nameof(input));
 			var md5Hasher = MD5.Create();
 			var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
