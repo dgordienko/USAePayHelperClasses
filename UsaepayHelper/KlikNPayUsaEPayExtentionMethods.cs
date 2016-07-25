@@ -4,17 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
 
-    /// <summary>
-    /// Usaepay helper extention methods.
-    /// </summary>
-    public static class KlikNPayUsaEPayExtentionMethods 
+	/// <summary>
+	/// Usaepay helper extention methods.
+	/// </summary>
+	public static class KlikNPayUsaEPayExtentionMethods 
 	{
 		/// <summary>
 		/// Searchs the payment item.
@@ -43,7 +42,10 @@ namespace KlikNPayUsaEPay
 		/// <param name="json">json string object </param>
 		/// <returns></returns>
 		public static string ToArrayCSV(this string json)
-		{			
+		{
+			if (string.IsNullOrWhiteSpace(json))
+				throw new ArgumentNullException(nameof(json));
+			
 			var arrayJ = JArray.Parse(json);
 			string result = string.Empty;
 			foreach (var item in arrayJ)
@@ -87,6 +89,9 @@ namespace KlikNPayUsaEPay
         /// <returns></returns>
         public static string ToObjectCSV(this string json)
         {
+			if (string.IsNullOrWhiteSpace(json))
+				throw new ArgumentNullException(nameof(json));
+			
             var obj = JObject.Parse(json);
             // Collect column titles: all property names whose values are of type JValue, distinct, in order of encountering them.
             var values = obj.DescendantsAndSelf()
