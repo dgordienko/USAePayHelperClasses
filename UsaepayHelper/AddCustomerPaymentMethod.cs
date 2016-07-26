@@ -22,11 +22,11 @@ namespace KlikNPayUsaEPay
 		public object Method(usaepayService context, IKlikNPayUsaEPayConfig config, IKlikNPayUsaEPayData data)
 		{			
 			if (context == null)
-				throw new AddCustomerPaymentMethodException("Add customer payment exception", new ArgumentNullException(nameof(context)));
+				throw new AddCustomerPaymentMethodException("Add customer payment exception", new ArgumentNullException("context"));
 			if (config == null)				
-				throw new AddCustomerPaymentMethodException("Add customer payment exception", new ArgumentNullException(nameof(config)));
+				throw new AddCustomerPaymentMethodException("Add customer payment exception", new ArgumentNullException("config"));
 			if (data == null)
-				throw new AddCustomerPaymentMethodException("Add customer payment exception",new ArgumentNullException(nameof(data)));
+				throw new AddCustomerPaymentMethodException("Add customer payment exception",new ArgumentNullException("data"));
             var result = new PaymentArgument();
 			try{
 				var tocken = config.GetSecurityToken();

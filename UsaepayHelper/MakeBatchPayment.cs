@@ -25,14 +25,13 @@ namespace KlikNPayUsaEPay
 		public object Method(usaepayService context, IKlikNPayUsaEPayConfig config, IKlikNPayUsaEPayData data)
 		{
 			if (context == null)
-				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(context)} is null",
-				                                    new ArgumentNullException(nameof(context)));
+				throw new MakeBanchPaymentException("context is null",new ArgumentNullException("context"));
 			if (config == null)
-			throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(config)} is null",
-				                                new ArgumentNullException(nameof(config)));
+			throw new MakeBanchPaymentException("MakeBatchPayment config is null",
+				                                new ArgumentNullException("config"));
 			if(data == null)
-				throw new MakeBanchPaymentException($"MakeBatchPayment {nameof(data)} is null",
-				                                    new ArgumentNullException(nameof(context)));
+				throw new MakeBanchPaymentException("MakeBatchPayment data is null",
+				                                    new ArgumentNullException("data"));
 			var result = new PaymentArgument();
 			try
 			{

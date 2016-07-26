@@ -42,13 +42,13 @@ namespace KlikNPayUsaEPay
 		{
 			if (context == null)
 				throw new ScheduleOneTimePaymentException("MakePayment Argument Null Exception", 
-				                               new ArgumentNullException(nameof(context)));
+				                               new ArgumentNullException("context"));
 			if (config == null)
 				throw new ScheduleOneTimePaymentException("MakePayment Argument Null Exception", 
-				                               new ArgumentNullException(nameof(config)));
+				                               new ArgumentNullException("config"));
 			if (data == null)
 				throw new ScheduleOneTimePaymentException("MakePayment Argument Null Exception",
-				                               new ArgumentNullException(nameof(data)));
+				                               new ArgumentNullException("data"));
 			//return success code
 			var result = new PaymentArgument();	
 			//Send payment info to USAePay
@@ -74,7 +74,7 @@ namespace KlikNPayUsaEPay
 				}
 				catch (Exception ex)
 				{
-					result.Exception = new ScheduleOneTimePaymentException($"{ex.Message}", ex);
+					result.Exception = new ScheduleOneTimePaymentException(ex.Message, ex);
 				}
 			}));
 			return result;

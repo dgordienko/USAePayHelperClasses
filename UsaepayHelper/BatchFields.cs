@@ -1,12 +1,8 @@
-using System;
-using System.Linq;
-using System.Text;
-using Newtonsoft.Json;
-using USAePayAPI.com.usaepay.www;
-
 namespace KlikNPayUsaEPay
 {
-
+	/// <summary>
+	/// Batch fields.
+	/// </summary>
 	public static class BatchFields {
 		public static string[] GetButchFields() {
 			string[] batchFields = new string[42];

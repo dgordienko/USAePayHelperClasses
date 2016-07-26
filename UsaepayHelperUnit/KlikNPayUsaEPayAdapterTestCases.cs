@@ -92,7 +92,7 @@ namespace KlikNPayPaymentUnit
         {
             Assert.DoesNotThrow(() =>
             {
-                Logger.Trace("Begin Test CC Validation");
+                Logger.Trace("Begin Update payment info");
 				var paymentClient = new KlikNPayUsaEPayAdapter(helperConfig);
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
@@ -352,7 +352,10 @@ namespace KlikNPayPaymentUnit
 					fileContent.Add(batchRecord);
 				}
 				var json = JsonConvert.SerializeObject(fileContent);
-				File.WriteAllText(@"/Users/dgordienko/Documents/Leo/USAePayHelperClasses/UsaepayHelperUnit/bin/json01.json", json);
+				var p = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+				var path = Path.Combine(p,string.Format("{0}.json", DateTime.Now.ToOADate()));
+
+				File.WriteAllText(path, json);
 				var fsCSV = json.ToArrayCSV();
 				Assert.IsNotEmpty(fsCSV);
 			});

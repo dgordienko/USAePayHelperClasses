@@ -18,12 +18,6 @@ namespace KlikNPayUsaEPay
 		string Pin { get; set; }
 
 		/// <summary>
-		/// Gets or sets the use proxi.
-		/// </summary>
-		/// <value>The use proxi.</value>
-		bool UseProxi { get; set; }
-        
-		/// <summary>
         /// 
         /// </summary>
         bool IsSendBox { get; set; }

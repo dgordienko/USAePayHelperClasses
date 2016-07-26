@@ -28,7 +28,7 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		public KlikNPayUsaEPayAdapter(IKlikNPayUsaEPayConfig config) {
 			if (config == null)
-				throw new ArgumentNullException(nameof(config));
+				throw new ArgumentNullException("config");
 			client = new usaepayService();
 			_config = config;
 		}
@@ -55,7 +55,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="algoritm">Algoritm.</param>
 		public void  ExecuteStrategy(IKlikNPaymentStrategy<usaepayService,IKlikNPayUsaEPayConfig,IKlikNPayUsaEPayData> algoritm) {
 			if (algoritm == null)
-				throw new ArgumentNullException(nameof(algoritm));			
+				throw new ArgumentNullException("algoritm");			
 			var argument = new PaymentArgument();
 			try
 			{

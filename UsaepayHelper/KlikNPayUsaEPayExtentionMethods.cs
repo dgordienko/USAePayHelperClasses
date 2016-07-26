@@ -21,9 +21,9 @@ namespace KlikNPayUsaEPay
 		/// <returns>The payment item.</returns>
 		public static bool SearchPaymentItem(string invoice,usaepayService context,ueSecurityToken token) {
 			if (string.IsNullOrWhiteSpace(invoice))
-				throw new ArgumentNullException(nameof(invoice));
+				throw new ArgumentNullException("invoice");
 			if (context == null)
-				throw new ArgumentNullException(nameof(context));
+				throw new ArgumentNullException("context");
  			SearchParam[] search = new SearchParam[1];
 			search[0] = new SearchParam();
 			search[0].Field = "Invoice";
@@ -44,7 +44,7 @@ namespace KlikNPayUsaEPay
 		public static string ToArrayCSV(this string json)
 		{
 			if (string.IsNullOrWhiteSpace(json))
-				throw new ArgumentNullException(nameof(json));
+				throw new ArgumentNullException("json");
 			
 			var arrayJ = JArray.Parse(json);
 			string result = string.Empty;
@@ -90,7 +90,7 @@ namespace KlikNPayUsaEPay
         public static string ToObjectCSV(this string json)
         {
 			if (string.IsNullOrWhiteSpace(json))
-				throw new ArgumentNullException(nameof(json));
+				throw new ArgumentNullException("json");
 			
             var obj = JObject.Parse(json);
             // Collect column titles: all property names whose values are of type JValue, distinct, in order of encountering them.
@@ -145,7 +145,7 @@ namespace KlikNPayUsaEPay
         public static ueSecurityToken  GetSecurityToken(this IKlikNPayUsaEPayConfig config) {
 
 			if (config == null)
-				throw new ArgumentNullException(nameof(config));
+				throw new ArgumentNullException("config");
             var result = new ueSecurityToken {SourceKey = config.SourceKey};
             var pin = config.Pin;
             var hash = new ueHash
@@ -164,16 +164,16 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <returns>The credit card data.</returns>
 		/// <param name="service">Service.</param>
-		/// <param name="token">Token.</param>
+		/// <param name="tocken">Token.</param>
 		/// <param name="data">Data.</param>
-		public static string AddCutomersPaymentMethod(usaepayService service,ueSecurityToken token,IKlikNPayUsaEPayData data) {
+		public static string AddCutomersPaymentMethod(usaepayService service,ueSecurityToken tocken,IKlikNPayUsaEPayData data) {
 
 			if (service == null)
-				throw new ArgumentNullException(nameof(service));
-			if (token == null)
-				throw new ArgumentNullException(nameof(token));
+				throw new ArgumentNullException("service");
+			if (tocken == null)
+				throw new ArgumentNullException("tocken");
 			if (data == null)
-				throw new ArgumentNullException(nameof(data));
+				throw new ArgumentNullException("data");
 			string result =null;
 			CustomerObject customer;
 			PaymentMethod payment;
@@ -181,10 +181,10 @@ namespace KlikNPayUsaEPay
 				if (info.CustomerId.HasValue)
 				{		
 					var id = data.NewInfo.CustomerId;
-					customer = service.getCustomer(token, id.Value.ToString());
+					customer = service.getCustomer(tocken, id.Value.ToString());
 					if (customer == null)
 						throw new AddCustomerPaymentMethodException("Customer not exist", 
-							new NullReferenceException($"{nameof(customer)} can not be null"));
+							new NullReferenceException("customer is null"));
 				    payment = new PaymentMethod
 				    {
 				        MethodName = info.Description,
@@ -195,7 +195,7 @@ namespace KlikNPayUsaEPay
 				        CardCode = info.CVC,
 				        MethodType = "CreditCard"
 				    };
-				    result = service.addCustomerPaymentMethod(token, customer.CustomerID, payment, false, true);
+				    result = service.addCustomerPaymentMethod(tocken, customer.CustomerID, payment, false, true);
 				}
 				else {
 					//Customer not exist in data base 
@@ -219,7 +219,7 @@ namespace KlikNPayUsaEPay
 				var checkNumbers = new ArrayList();
 				var cardLength = cardNumber.Length;
 				for (var i = cardLength - 2; i >= 0; i = i - 2)
-					checkNumbers.Add(Int32.Parse(cardNumber[i].ToString()) * 2);
+					checkNumbers.Add(int.Parse(cardNumber[i].ToString()) * 2);
 				var checkSum = 0;
 				for (var iCount = 0; iCount <= checkNumbers.Count - 1; iCount++)
 				{
@@ -229,7 +229,7 @@ namespace KlikNPayUsaEPay
 						var numLength = ((int)checkNumbers[iCount]).ToString().Length;
 						for (var x = 0; x < numLength; x++)
 						{
-							count = count + Int32.Parse(
+							count = count + int.Parse(
 								  ((int)checkNumbers[iCount]).ToString()[x].ToString());
 						}
 					}
@@ -261,7 +261,7 @@ namespace KlikNPayUsaEPay
 		public static string GenerateHash(this string input)
 		{
 			if (String.IsNullOrWhiteSpace(input))
-				throw new ArgumentNullException(nameof(input));
+				throw new ArgumentNullException("input");
 			var md5Hasher = MD5.Create();
 			var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
 			var sBuilder = new StringBuilder();

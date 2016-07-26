@@ -205,7 +205,7 @@ namespace KlikNPayUsaEPayExamples
                         //UsaEPey return exception
                         paymentArgument.With(a => a.Exception.Do(pe => Logger.Trace(pe.Message)));
                         //UsaEPay reurn ok 
-                        paymentArgument.With(a => a.Result.Do(res => Logger.Trace($"{res}")));
+                        paymentArgument.With(a => a.Result.Do(res => Logger.Trace(res)));
                     }));
 
                 };
