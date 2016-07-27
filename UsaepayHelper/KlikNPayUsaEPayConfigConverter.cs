@@ -3,8 +3,14 @@ using Newtonsoft.Json.Converters;
 
 namespace KlikNPayUsaEPay
 {
-	
-	public class KlikNPayUsaEPayConfigConverter:CustomCreationConverter<IKlikNPayUsaEPayConfig>{
-		
+	/// <summary>
+	/// json config converter.
+	/// </summary>
+	public class KlikNPayUsaEPayConfigConverter : CustomCreationConverter<IKlikNPayUsaEPayConfig>
+	{
+		public override IKlikNPayUsaEPayConfig Create(Type objectType)
+		{
+			return new KlikNPayUsaEPayConfig();
+		}
 	}
 }

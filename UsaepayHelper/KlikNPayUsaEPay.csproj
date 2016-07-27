@@ -74,6 +74,8 @@
     <Compile Include="UsaEPayFields.cs" />
     <Compile Include="UsaEPayFieldsConfigConverter.cs" />
     <Compile Include="BatchFields.cs" />
+    <Compile Include="KlikNPayUsaEPayConfig.cs" />
+    <Compile Include="KlikNPayUsaEPayConfigConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
