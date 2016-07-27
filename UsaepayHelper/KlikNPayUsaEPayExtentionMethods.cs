@@ -9,7 +9,6 @@ using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
-
 	/// <summary>
 	/// Usaepay helper extention methods.
 	/// </summary>

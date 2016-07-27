@@ -2,6 +2,9 @@ using System;
 
 namespace KlikNPayUsaEPay
 {
+	/// <summary>
+	/// Payment argument.
+	/// </summary>
     public interface IPaymentArgument
     {
         /// <summary>

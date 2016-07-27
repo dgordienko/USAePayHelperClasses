@@ -207,7 +207,6 @@ namespace KlikNPayUsaEPayExamples
                         //UsaEPay reurn ok 
                         paymentArgument.With(a => a.Result.Do(res => Logger.Trace(res)));
                     }));
-
                 };
                 //call add new customer payment method
                 client.ExecuteStrategy(new AddCustomerPaymentMethod());

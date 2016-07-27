@@ -60,8 +60,6 @@
     <Compile Include="IKlikNPayUsaEPayData.cs" />
     <Compile Include="PaymentArgument.cs" />
     <Compile Include="IKlikNPaymentStrategy.cs" />
-    <Compile Include="IBillingAddressInformation.cs" />
-    <Compile Include="ICCDetalis.cs" />
     <Compile Include="AddCustomerPaymentMethod.cs" />
     <Compile Include="ScheduleOneTimePayment.cs" />
     <Compile Include="MakeBatchPayment.cs" />
@@ -76,6 +74,9 @@
     <Compile Include="BatchFields.cs" />
     <Compile Include="KlikNPayUsaEPayConfig.cs" />
     <Compile Include="KlikNPayUsaEPayConfigConverter.cs" />
+    <Compile Include="PaymentInfo.cs" />
+    <Compile Include="UsaEPayPaimentInfo.cs" />
+    <Compile Include="UsaEPayPaimentInfoConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

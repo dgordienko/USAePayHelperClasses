@@ -1,6 +1,5 @@
 namespace KlikNPayUsaEPay
 {
-
 	/// <summary>
 	/// Batch upload record.
 	/// </summary>

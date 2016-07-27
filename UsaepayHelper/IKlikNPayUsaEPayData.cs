@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace KlikNPayUsaEPay
 {
-
 	/// <summary>
 	/// Usaepay helper data.
 	/// </summary>

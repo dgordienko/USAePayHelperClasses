@@ -1,7 +1,5 @@
 namespace KlikNPayUsaEPay
 {
-	
-
 	/// <summary>
 	/// Usaepay helper config.
 	/// </summary>
