@@ -25,15 +25,15 @@ namespace KlikNPayPaymentUnit
         /// <summary>
         /// The helper config.
         /// </summary>
-        private IKlikNPayUsaEPayConfig helperConfig;
+        private IPaymentConfig helperConfig;
         /// <summary>
         /// The algoritm data.
         /// </summary>
-        private IKlikNPayUsaEPayData algoritmData;
+        private IPaymentData algoritmData;
         /// <summary>
         /// The algoritm.
         /// </summary>
-        private IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData> algoritm;
+        private IKlikNPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData> algoritm;
 
         private const string testMD5String = "This is test srting dataThis is another test string data";
 
@@ -45,9 +45,9 @@ namespace KlikNPayPaymentUnit
         public void Init()
         {
             Logger.Trace("Init test");
-			helperConfig = MockRepository.GenerateStub<IKlikNPayUsaEPayConfig>();
-			algoritmData = MockRepository.GenerateStub<IKlikNPayUsaEPayData>();
-            algoritm = MockRepository.GenerateMock<IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData>>();
+			helperConfig = MockRepository.GenerateStub<IPaymentConfig>();
+			algoritmData = MockRepository.GenerateStub<IPaymentData>();
+            algoritm = MockRepository.GenerateMock<IKlikNPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData>>();
         }
 
 		/// <summary>
@@ -58,12 +58,13 @@ namespace KlikNPayPaymentUnit
 		public void GetSecurityTokenTest() {
 			
 			//Set configutation fields values
-			helperConfig.SourceKey = "k9cQPvfYyHaknG11Aa90Ny0YOhv56H4R";
+			helperConfig.SourceKey = "_72BI97rs34iw29035L89r98Xe143lyz";
 			helperConfig.Pin = "2207";
 
 			Assert.DoesNotThrow(() => {
 				var token = helperConfig.GetSecurityToken();
 				Assert.IsNotNull(token);
+                Logger.Trace(JsonConvert.SerializeObject(token));
 				Assert.IsInstanceOf<ueSecurityToken>(token);
 			});
 		}
@@ -93,7 +94,7 @@ namespace KlikNPayPaymentUnit
             Assert.DoesNotThrow(() =>
             {
                 Logger.Trace("Begin Update payment info");
-				var paymentClient = new KlikNPayUsaEPayAdapter(helperConfig);
+				var paymentClient = new PaymentComponent(helperConfig);
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
                     Assert.IsNull(arg.Exception);
@@ -121,7 +122,7 @@ namespace KlikNPayPaymentUnit
 		public void MakeBatchPayment()
 		{
 			Assert.DoesNotThrow(() => {
-				var paymentClient = new KlikNPayUsaEPay.KlikNPayUsaEPayAdapter(helperConfig);
+				var paymentClient = new KlikNPayUsaEPay.PaymentComponent(helperConfig);
 				Logger.Trace("Begin Test MakeBatchPayment");
 				paymentClient.MethodComplete += (sender, arg) =>
 				{
@@ -146,7 +147,7 @@ namespace KlikNPayPaymentUnit
         {
             Assert.DoesNotThrow(() =>
             {
-				var paymentClient = new KlikNPayUsaEPayAdapter(helperConfig);
+				var paymentClient = new PaymentComponent(helperConfig);
                 Logger.Trace("Begin Test Payment ");
                 paymentClient.MethodComplete += (sender, arg) =>
                 {
@@ -242,13 +243,13 @@ namespace KlikNPayPaymentUnit
             Assert.Throws<ArgumentNullException>(() =>
             {
                 Logger.Trace("Test null argument");
-                var helper = new KlikNPayUsaEPayAdapter(null);
+                var helper = new PaymentComponent(null);
                 Assert.That(helper == null);
             });
             Assert.DoesNotThrow(() =>
             {
                 Logger.Trace("Test constructor");
-                var helper = new KlikNPayUsaEPayAdapter(helperConfig) { Data = algoritmData };
+                var helper = new PaymentComponent(helperConfig) { Data = algoritmData };
                 helper.MethodComplete += (sender, arg) =>
                 {
                     Logger.Trace("Emmit executed event");

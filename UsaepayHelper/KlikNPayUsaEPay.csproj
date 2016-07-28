@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPaymentArgument.cs" />
-    <Compile Include="KlikNPayUsaEPayAdapter.cs" />
+    <Compile Include="PaymentComponent.cs" />
     <Compile Include="Monadic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -56,8 +56,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="KlikNPayUsaEPayExtentionMethods.cs" />
-    <Compile Include="IKlikNPayUsaePayConfig.cs" />
-    <Compile Include="IKlikNPayUsaEPayData.cs" />
+    <Compile Include="IPaymentConfig.cs" />
+    <Compile Include="IPaymentData.cs" />
     <Compile Include="PaymentArgument.cs" />
     <Compile Include="IKlikNPaymentStrategy.cs" />
     <Compile Include="AddCustomerPaymentMethod.cs" />
@@ -66,17 +66,17 @@
     <Compile Include="AddCustomerPaymentMethodException.cs" />
     <Compile Include="ScheduleOneTimePaymentException.cs" />
     <Compile Include="MakeBanchPaymentException.cs" />
-    <Compile Include="IUsaEPayPaimentInfo.cs" />
+    <Compile Include="IAddNewCreditCardInfo.cs" />
     <Compile Include="IPaymentInfo.cs" />
     <Compile Include="IUsaEPayFields.cs" />
     <Compile Include="UsaEPayFields.cs" />
     <Compile Include="UsaEPayFieldsConfigConverter.cs" />
     <Compile Include="BatchFields.cs" />
-    <Compile Include="KlikNPayUsaEPayConfig.cs" />
-    <Compile Include="KlikNPayUsaEPayConfigConverter.cs" />
+    <Compile Include="PaymentConfig.cs" />
+    <Compile Include="PaymentConfigConverter.cs" />
     <Compile Include="PaymentInfo.cs" />
-    <Compile Include="UsaEPayPaimentInfo.cs" />
-    <Compile Include="UsaEPayPaimentInfoConverter.cs" />
+    <Compile Include="AddNewCreditCardInfo.cs" />
+    <Compile Include="AddCustomenrPaymentDataConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

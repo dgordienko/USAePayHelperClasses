@@ -1,0 +1,14 @@
+﻿{
+  "Description": "Add New Credit Card testcase",
+  "CreditCardNumber": "4000600011112223",
+  "CVC": "999",
+  "NameOnCreditCard": "Dmitry Gordienko",
+  "ExpirationDate": "0919",
+  "BillingAddress": true,
+  "AddressLine1": "Washington Square Park",
+  "AddressLine2": "Near Crown Center in downtown Kansas City",
+  "City": "Kansas",
+  "StateProvince": "MO",
+  "ZipCode": "64101",
+  "Country": "USA"
+}

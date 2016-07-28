@@ -11,7 +11,7 @@ namespace KlikNPayUsaEPay
 	/// return success code
 	/// provide list of all codes and descriptions
 	/// </summary>
-	public class MakeBatchPayment : IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData>
+	public class MakeBatchPayment : IKlikNPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data.
@@ -19,7 +19,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(usaepayService context, IKlikNPayUsaEPayConfig config, IKlikNPayUsaEPayData data)
+		public object Method(usaepayService context, IPaymentConfig config, IPaymentData data)
 		{
 			if (context == null)
 				throw new MakeBanchPaymentException("context is null",new ArgumentNullException("context"));

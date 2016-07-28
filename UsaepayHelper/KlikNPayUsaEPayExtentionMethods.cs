@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,6 +13,7 @@ namespace KlikNPayUsaEPay
 	/// <summary>
 	/// Usaepay helper extention methods.
 	/// </summary>
+	[SuppressMessage("ReSharper", "UseNameofExpression")]
 	public static class KlikNPayUsaEPayExtentionMethods 
 	{
 		/// <summary>
@@ -141,7 +143,7 @@ namespace KlikNPayUsaEPay
         /// </summary>
         /// <returns>The security token.</returns>
         /// <param name="config">Config.</param>
-        public static ueSecurityToken  GetSecurityToken(this IKlikNPayUsaEPayConfig config) {
+        public static ueSecurityToken  GetSecurityToken(this IPaymentConfig config) {
 
 			if (config == null)
 				throw new ArgumentNullException("config");
@@ -165,7 +167,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="service">Service.</param>
 		/// <param name="tocken">Token.</param>
 		/// <param name="data">Data.</param>
-		public static string AddCutomersPaymentMethod(usaepayService service,ueSecurityToken tocken,IKlikNPayUsaEPayData data) {
+		public static string AddCutomersPaymentMethod(usaepayService service,ueSecurityToken tocken,IPaymentData data) {
 
 			if (service == null)
 				throw new ArgumentNullException("service");
@@ -174,34 +176,8 @@ namespace KlikNPayUsaEPay
 			if (data == null)
 				throw new ArgumentNullException("data");
 			string result =null;
-			CustomerObject customer;
-			PaymentMethod payment;
-			data.With(x => x.NewInfo.Do(info => {
-				if (info.CustomerId.HasValue)
-				{		
-					var id = data.NewInfo.CustomerId;
-					customer = service.getCustomer(tocken, id.Value.ToString());
-					if (customer == null)
-						throw new AddCustomerPaymentMethodException("Customer not exist", 
-							new NullReferenceException("customer is null"));
-				    payment = new PaymentMethod
-				    {
-				        MethodName = info.Description,
-				        AvsStreet = info.BillingAddressLine1,
-				        AvsZip = info.ZipCode,
-				        CardNumber = info.CreditCardNumber,
-				        CardExpiration = info.ExpirationDate,
-				        CardCode = info.CVC,
-				        MethodType = "CreditCard"
-				    };
-				    result = service.addCustomerPaymentMethod(tocken, customer.CustomerID, payment, false, true);
-				}
-				else {
-					//Customer not exist in data base 
-					//TODO create new customer/ need customer data model for client!
-					throw new AddCustomerPaymentMethodException("Customer not existst, can not create new customer",
-					                                            new NotImplementedException());
-				}
+		    data.With(x => x.AddNewCreditCardInfo.Do(info => {
+
 			}));
 			return result;
 		}

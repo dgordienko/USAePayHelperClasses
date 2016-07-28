@@ -6,7 +6,7 @@ namespace KlikNPayUsaEPay
 	/// <summary>
 	///  config.
 	/// </summary>
-	internal class KlikNPayUsaEPayConfig : IKlikNPayUsaEPayConfig
+	internal class PaymentConfig : IPaymentConfig
 	{
 		public bool IsSendBox
 		{

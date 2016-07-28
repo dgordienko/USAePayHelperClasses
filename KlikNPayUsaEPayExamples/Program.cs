@@ -8,11 +8,11 @@ namespace KlikNPayUsaEPayExamples
     internal static class Program
     {
         /// <summary>
-        /// Impement  IKlikNPayUsaEPayConfig (IntellySence)
+        /// Impement  IPaymentConfig (IntellySence)
         /// </summary>
-        private class PaymentConfig:IKlikNPayUsaEPayConfig
+        private class PaymentConfig:IPaymentConfig
         {
-            #region Implementation of IKlikNPayUsaEPayConfig
+            #region Implementation of IPaymentConfig
 
             /// <summary>
             /// Gets or sets the source key.
@@ -41,9 +41,9 @@ namespace KlikNPayUsaEPayExamples
         }
 
         /// <summary>
-        /// Implement  IKlikNPayUsaEPayData (IntellySence)
+        /// Implement  IPaymentData (IntellySence)
         /// </summary>
-        private class PaymentData : IKlikNPayUsaEPayData
+        private class PaymentData : IPaymentData
         {
 			/// <summary>
 			/// Gets or sets the batch upload record.(MakeOneTimePayment.html)
@@ -62,13 +62,13 @@ namespace KlikNPayUsaEPayExamples
 			{
 				get;set;
 			}
-			#region Implementation of IKlikNPayUsaEPayData
+			#region Implementation of IPaymentData
 
 			/// <summary>
 			/// Gets or sets the new info.
 			/// </summary>
 			/// <value>The new info.</value>
-			public IUsaEPayPaimentInfo NewInfo { get; set; }
+			public IAddNewCreditCardInfo AddNewCreditCardInfo { get; set; }
 
             /// <summary>
             /// Gets or sets the paymant info.
@@ -76,7 +76,7 @@ namespace KlikNPayUsaEPayExamples
             /// <value>The paymant info.</value>
             public IPaymentInfo PaymantInfo { get; set; }
 
-			IUsaEPayFields IKlikNPayUsaEPayData.PaymantInfo
+			IUsaEPayFields IPaymentData.PaymantInfo
 			{
 				get;set;
 			}
@@ -86,83 +86,24 @@ namespace KlikNPayUsaEPayExamples
 		}
 
         /// <summary>
-        /// Implement IUsaEPayPaimentInfo (IntellySence)
+        /// Implement IAddNewCreditCardInfo (IntellySence)
         /// </summary>
-        private class PaymentInfo:IUsaEPayPaimentInfo
+        private class PaymentInfo:IAddNewCreditCardInfo
         {
-            #region Implementation of IUsaEPayPaimentInfo
+            #region Implementation of IAddNewCreditCardInfo
 
-            /// <summary>
-            /// Gets or sets the description.
-            /// </summary>
-            /// <value>The description.</value>
             public string Description { get; set; }
-
-            /// <summary>
-            /// Gets or sets the credit card number.
-            /// </summary>
-            /// <value>The credit card number.</value>
             public string CreditCardNumber { get; set; }
-
-            /// <summary>
-            /// Gets or sets the expiration date.
-            /// </summary>
-            /// <value>The expiration date.</value>
-            public string ExpirationDate { get; set; }
-
-            /// <summary>
-            /// Gets or sets the name on credit card.
-            /// </summary>
-            /// <value>The name on credit card.</value>
-            public string NameOnCreditCard { get; set; }
-
-            /// <summary>
-            /// Gets or sets the billing address.
-            /// </summary>
-            /// <value>The billing address.</value>
-            public string BillingAddressLine1 { get; set; }
-
-            /// <summary>
-            /// Gets or sets the billing address line2.
-            /// </summary>
-            /// <value>The billing address line2.</value>
-            public string BillingAddressLine2 { get; set; }
-
-            /// <summary>
-            /// Gets or sets the city.
-            /// </summary>
-            /// <value>The city.</value>
-            public string City { get; set; }
-
-            /// <summary>
-            /// Gets or sets the state.
-            /// </summary>
-            /// <value>The state.</value>
-            public string State { get; set; }
-
-            /// <summary>
-            /// Gets or sets the zip code.
-            /// </summary>
-            /// <value>The zip code.</value>
-            public string ZipCode { get; set; }
-
-            /// <summary>
-            /// Gets or sets the country.
-            /// </summary>
-            /// <value>The country.</value>
-            public string Country { get; set; }
-
-            /// <summary>
-            ///	CVC
-            /// </summary>
-            /// <value>The code.</value>
             public string CVC { get; set; }
-
-            /// <summary>
-            /// Gets or sets the customer identifier.
-            /// </summary>
-            /// <value>The customer identifier.</value>
-            public int? CustomerId { get; set; }
+            public string NameOnCreditCard { get; set; }
+            public string ExpirationDate { get; set; }
+            public string BillingAddress { get; set; }
+            public string AddressLine1 { get; set; }
+            public string AddressLine2 { get; set; }
+            public string City { get; set; }
+            public string StateProvince { get; set; }
+            public string ZipCode { get; set; }
+            public string Country { get; set; }
 
             #endregion
         }
@@ -173,24 +114,24 @@ namespace KlikNPayUsaEPayExamples
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private static void Main()
         {
-            //create instance IKlikNPayUsaEPayConfig
+            //create instance IPaymentConfig
             var config = new PaymentConfig
             {
                 SourceKey = "SOURCE KEY",
                 Pin = "PIN"
             };
-            //create instance  IKlikNPayUsaEPayData
+            //create instance  IPaymentData
             var data = new PaymentData
             {
-                //create instance IKlikNPayUsaEPayData
-                NewInfo = new PaymentInfo
+                //create instance IPaymentData
+                AddNewCreditCardInfo = new PaymentInfo
                 {
-                    CustomerId = 0,
+
                     CreditCardNumber = "CREDITCARDNUMBER"
                 }
             };
             //add payment method
-            using (var client = new KlikNPayUsaEPayAdapter(config))
+            using (var client = new PaymentComponent(config))
             {
                 client.Data = data;
                 //subscript event 

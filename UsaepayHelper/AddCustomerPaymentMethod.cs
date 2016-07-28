@@ -1,4 +1,5 @@
 using System;
+using USAePayAPI;
 using USAePayAPI.com.usaepay.www;
 // ReSharper disable All
 
@@ -10,7 +11,7 @@ namespace KlikNPayUsaEPay
 	/// return from USAePay if there is something wrong
 	/// provide list of all error codes and descriptions
 	/// </summary>
-	public class AddCustomerPaymentMethod : IKlikNPaymentStrategy<usaepayService, IKlikNPayUsaEPayConfig, IKlikNPayUsaEPayData>
+	public class AddCustomerPaymentMethod : IKlikNPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data. 
@@ -19,7 +20,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(usaepayService context, IKlikNPayUsaEPayConfig config, IKlikNPayUsaEPayData data)
+		public object Method(usaepayService context, IPaymentConfig config, IPaymentData data)
 		{			
 			if (context == null)
 				throw new AddCustomerPaymentMethodException("Add customer payment exception", new ArgumentNullException("context"));
@@ -28,20 +29,34 @@ namespace KlikNPayUsaEPay
 			if (data == null)
 				throw new AddCustomerPaymentMethodException("Add customer payment exception",new ArgumentNullException("data"));
             var result = new PaymentArgument();
-			try{
-				var tocken = config.GetSecurityToken();
-				var res = KlikNPayUsaEPayExtentionMethods.AddCutomersPaymentMethod(context, tocken, data);
-                if(string.IsNullOrWhiteSpace(res))
-                    result.Result = res;
-				else
-				{
-				    throw new AddCustomerPaymentMethodException("Exception update",
-				        new Exception("payment method information is not updated"));
-				}
+            var tocken = config.GetSecurityToken();
+            var pay = new USAePay{
+                SourceKey = config.SourceKey,
+                Pin = config.Pin,
+                UseSandbox = config.IsSendBox
+            };
+            try
+            { 
+			    data.With(x => x.AddNewCreditCardInfo.Do(addCard =>
+			    {
+			        pay.Amount = 1;
+			        pay.Description = addCard.Description;
+			        pay.CardHolder = addCard.NameOnCreditCard;
+                    pay.CardNumber = addCard.CreditCardNumber;
+			        pay.CardExp = addCard.ExpirationDate;
+                    result.Result =   pay.Sale();
+                    if ((bool)(result.Result)){
+                        pay.Void(pay.ResultRefNum);
+                    }
+                }));                               
 			}
-			catch (Exception ex){
-				var exception = new AddCustomerPaymentMethodException("Error update payment methods", ex);
-				result.Exception = exception;
+			catch (Exception ex)
+			{
+			    ex.With(x => x.InnerException.Do(ie =>
+			    {
+                    var except = new AddCustomerPaymentMethodException(pay.ErrorMesg, ex);
+                    result.Exception = except;
+			    }));
 			}
 			return result;
 		}

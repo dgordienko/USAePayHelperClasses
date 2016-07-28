@@ -8,28 +8,30 @@ namespace KlikNPayUsaEPay
 	/// Payment controller
 	/// </summary>
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
-	public sealed class KlikNPayUsaEPayAdapter:IDisposable
+	[SuppressMessage("ReSharper", "UseNameofExpression")]
+	public sealed class PaymentComponent:IDisposable
 	{
 		/// <summary>
 		/// The client Usaepay
 		/// </summary>
 		private readonly usaepayService client;
 
-	    private readonly IKlikNPayUsaEPayConfig _config;
+	    private readonly IPaymentConfig _config;
 
 		/// <summary>
 		/// Gets or sets the data.
 		/// </summary>
 		/// <value>The data.</value> 
-		public IKlikNPayUsaEPayData Data { get; set; }
+		public IPaymentData Data { get; set; }
 
 	    /// <summary>
 		/// Initializes a new instance of the <see cref="T:UsaepayHelper.UsaepayHelperClass"/> class.
 		/// </summary>
-		public KlikNPayUsaEPayAdapter(IKlikNPayUsaEPayConfig config) {
+		public PaymentComponent(IPaymentConfig config) {
 			if (config == null)
 				throw new ArgumentNullException("config");
 			client = new usaepayService();
+            
 			_config = config;
 		}
 
@@ -53,7 +55,7 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <returns>The action.</returns>
 		/// <param name="algoritm">Algoritm.</param>
-		public void  ExecuteStrategy(IKlikNPaymentStrategy<usaepayService,IKlikNPayUsaEPayConfig,IKlikNPayUsaEPayData> algoritm) {
+		public void  ExecuteStrategy(IKlikNPaymentStrategy<usaepayService,IPaymentConfig,IPaymentData> algoritm) {
 			if (algoritm == null)
 				throw new ArgumentNullException("algoritm");			
 			var argument = new PaymentArgument();
