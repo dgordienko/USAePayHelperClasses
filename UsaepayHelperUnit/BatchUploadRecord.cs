@@ -10,6 +10,7 @@ namespace KlikNPayPaymentUnit
 		public BatchUploadFile() { 
 		}
 	}
+
 	/// <summary>
 	/// Batch upload record.
 	/// </summary>

@@ -18,7 +18,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\KlikNPayPaymentUnit.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="KlikNPayUsaEPayAdapterTestCases.cs" />
     <Compile Include="BatchUploadRecord.cs" />
+    <Compile Include="KlikNPayIntegrationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

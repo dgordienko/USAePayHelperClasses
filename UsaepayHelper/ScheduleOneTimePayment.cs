@@ -65,7 +65,7 @@ namespace KlikNPayUsaEPay
 					//special handling: if we don't gate "ok" from the gateway, then automatically send a status request 
 					//for that merchant and order number - to confirm that the gateway does not have that transaction. 
 					//This is to avoid the special case when the gateway sends back an 'ok' but we never get it.
-					//TODO Must be unit test!!!!Í
+					//TODO Must be unit test!
 					if (res == null) {
 						if (!KlikNPayUsaEPayExtentionMethods.SearchPaymentItem(pInfo.invoice,context,token)) {
 							 res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64",
