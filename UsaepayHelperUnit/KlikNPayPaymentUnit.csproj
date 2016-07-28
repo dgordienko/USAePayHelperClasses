@@ -59,7 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KlikNPayUsaEPayAdapterTestCases.cs" />
+    <Compile Include="PaymentComponentInternalUnitTestes.cs" />
     <Compile Include="BatchUploadRecord.cs" />
     <Compile Include="PaymentComponentIntegrationTests.cs" />
   </ItemGroup>
@@ -71,6 +71,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\AddNewCreditCard.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\IMakeBatchPaymentInfo.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\IPaymentConfig.json">

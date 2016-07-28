@@ -45,8 +45,10 @@ namespace KlikNPayUsaEPay
 			        context.CardHolder = addCard.NameOnCreditCard;
                     context.CardNumber = addCard.CreditCardNumber;
 			        context.CardExp = addCard.ExpirationDate;
-                    result.Result =   context.Sale();
-                    if ((bool)(result.Result)){
+                    var res = context.Sale();
+                    result.Result = res;
+                    if (res)
+                    {
                         context.Void(context.ResultRefNum);
                     }
                 }));                               

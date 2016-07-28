@@ -27,7 +27,7 @@ namespace KlikNPayUsaEPay
         /// <summary>
         /// makeBatchPayment
         /// </summary>
-        public IMakeBatchPayment MakeBatchPaymentInfo { get; set; }
+        public IMakeBatchPaymentInfo MakeBatchPaymentInfo { get; set; }
         #endregion
     }
 
@@ -48,6 +48,6 @@ namespace KlikNPayUsaEPay
         /// <summary>
         /// makeBatchPayment
         /// </summary>
-        IMakeBatchPayment MakeBatchPaymentInfo { get; set; }
+        IMakeBatchPaymentInfo MakeBatchPaymentInfo { get; set; }
     }
 }

@@ -1,18 +1,18 @@
 using System;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
 using USAePayAPI.com.usaepay.www;
 using USAePayAPI;
+using System.IO;
 
 namespace KlikNPayUsaEPay
 {
-	/// <summary>
-	/// Send batch file to USAePay for processing
-	/// return success code
-	/// provide list of all codes and descriptions
-	/// </summary>
-	public class MakeBatchPayment : IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData>
+    /// <summary>
+    /// Send batch file to USAePay for processing
+    /// return success code
+    /// provide list of all codes and descriptions
+    /// </summary>
+    public class MakeBatchPayment : IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data.
@@ -23,32 +23,48 @@ namespace KlikNPayUsaEPay
 		public object Method(USAePay context, IPaymentConfig config, IPaymentData data)
 		{
 			if (context == null)
-				throw new MakeBanchPaymentException("context is null",new ArgumentNullException("context"));
+				throw new MakeBatchPaymentException("context is null",new ArgumentNullException("context"));
 			if (config == null)
-			throw new MakeBanchPaymentException("MakeBatchPayment config is null",
+			throw new MakeBatchPaymentException("MakeBatchPayment config is null",
 				                                new ArgumentNullException("config"));
 			if(data == null)
-				throw new MakeBanchPaymentException("MakeBatchPayment data is null",
+				throw new MakeBatchPaymentException("MakeBatchPayment data is null",
 				                                    new ArgumentNullException("data"));
 			var result = new PaymentArgument();
-			try
+            string statusString;
+
+            context.SourceKey = config.SourceKey;
+            context.Pin = config.Pin;
+            context.UseSandbox = config.IsSendBox;
+
+            var client = new usaepayService();      
+            try
 			{
-				//data.With(x => x.BatchUploadRecords.Do(records =>
-				//{
-				//	var r = records.ToList();
-				//	var json = JsonConvert.SerializeObject(r);
-				//	var csv = json.ToArrayCSV();
-				//	var token = config.GetSecurityToken();
-				//	var res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64",
-				//	                                    BatchFields.GetButchFields(), Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
-				//	result.Result = res;
-				//}));
+                data.With(x => x.MakeBatchPaymentInfo.Do(info =>
+                {
+                    var path = info.PathToFile;
+                    var csvLine = File.ReadAllLines(path);
+                    if (csvLine.Any())
+                    {                        
+                        var fields =  csvLine[0].Split(',') ;                        
+                        var name = Guid.NewGuid().ToString();
+                        var token = config.GetSecurityToken();
+                        var content = File.ReadAllText(path);
+                        var status = client.createBatchUpload(token,name,true, "csv", "base64", fields,Convert.ToBase64String(Encoding.Default.GetBytes(content)),true);
+                        statusString = (string.Concat(name," #", status.UploadRefNum, " trans:", status.Remaining));
+                        result.Result = statusString;
+                    }
+                    else
+                    {
+                        throw new MakeBatchPaymentException("this is not csv file");
+                    }
+                }));
 			}
 			catch (Exception ex)
 			{
-				result.Exception = ex;
+                result.Result = null;
+				result.Exception = new MakeBatchPaymentException(ex.Message,ex);
 			}
-
 			return result;
 		}
 	}

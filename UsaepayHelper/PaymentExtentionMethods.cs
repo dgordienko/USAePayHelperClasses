@@ -182,13 +182,14 @@ namespace KlikNPayUsaEPay
 			return result;
 		}
 
-		/// <summary>
-		/// Validates the credit card number.
-		/// </summary>
-		/// <returns>The card number.</returns>
-		/// <param name="cardNumber">Card number.</param>
-		public static bool ValidateCardNumber(this string cardNumber)
+        /// <summary>
+        /// Validates the credit card number.
+        /// </summary>
+        /// <returns>bool</returns>
+        /// <param name="cardNumber">Card number.</param>
+        public static bool ValidateCardNumber(this string cardNumber)
 		{
+            //TODO replace int.Parce to int.TryParce
 			try
 			{
 				var checkNumbers = new ArrayList();
@@ -217,7 +218,7 @@ namespace KlikNPayUsaEPay
 				var originalSum = 0;
 				for (var y = cardLength - 1; y >= 0; y = y - 2)
 				{
-					originalSum = originalSum + Int32.Parse(cardNumber[y].ToString());
+					originalSum = originalSum + int.Parse(cardNumber[y].ToString());
 				}
 				return (originalSum + checkSum) % 10 == 0;
 			}

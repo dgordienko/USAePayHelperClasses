@@ -16,6 +16,12 @@ namespace KlikNPayPaymentUnit
         private const string ScheduleOneTimePaymentPath =
             @"C:\Users\DGord\Documents\github\USAePayHelperClasses\UsaepayHelperUnit\Data\ScheduleOneTimePayment.json";
 
+        private const string BatchPaymentIntegrationParamsPath =
+            @"C:\Users\DGord\Documents\github\USAePayHelperClasses\UsaepayHelperUnit\Data\IMakeBatchPaymentInfo.json";
+
+        private const string BatchPaymentIntegrationFilePath =
+            @"C:\Users\DGord\Documents\github\USAePayHelperClasses\UsaepayHelperUnit\Data\14105.klik.batch.example.csv";
+
         /// <summary>
         /// The following form data will be saved to klik database, at the same time these data will be submitted to
         /// USAePay gateway to do credit card validation. 
@@ -51,15 +57,18 @@ namespace KlikNPayPaymentUnit
                         var paymentArgument = argument;
                         logger.Trace(JsonConvert.SerializeObject(argument));
                         //error
-                        paymentArgument.With(x => x.Exception.Do(e => {
-                            //TODO Exception logging                      
-                            logger.Trace(JsonConvert.SerializeObject(e));
-                        }));
-                        //ok
-                        paymentArgument.With(x => x.Result.Do(res => {
-                            //TODO Result logging                      
-                            logger.Trace(JsonConvert.SerializeObject(res));
-                        }));
+                        paymentArgument.With(x => x.Result.Do(rm =>
+                        {
+                            var res = (IPaymentArgument)rm;
+                            res.With(r => r.Exception.Do(exp => {
+                                logger.Trace(JsonConvert.SerializeObject(exp));
+                                throw exp;
+                            }));
+                            res.With(r => r.Result.Do(rslt => {
+                                logger.Trace(JsonConvert.SerializeObject(rslt));
+                            }));
+                        }
+                       ));
                     };
                     //run component
                     paymentComponent.ExecuteStrategy(new AddCustomerPaymentMethod());
@@ -102,15 +111,18 @@ namespace KlikNPayPaymentUnit
                         var paymentArgument = argument;
                         logger.Trace(JsonConvert.SerializeObject(argument));
                         //error
-                        paymentArgument.With(x => x.Exception.Do(e => {
-                            //TODO Exception logging                      
-                            logger.Trace(JsonConvert.SerializeObject(e));
-                        }));
-                        //ok
-                        paymentArgument.With(x => x.Result.Do(res => {
-                            //TODO Result logging                      
-                            logger.Trace(JsonConvert.SerializeObject(res));
-                        }));
+                        paymentArgument.With(x => x.Result.Do(rm =>
+                        {
+                            var res = (IPaymentArgument)rm;
+                            res.With(r => r.Exception.Do(exp => {
+                                logger.Trace(JsonConvert.SerializeObject(exp));
+                                throw exp;
+                            }));
+                            res.With(r => r.Result.Do(rslt => {
+                                logger.Trace(JsonConvert.SerializeObject(rslt));
+                            }));
+                        }
+                       ));
                     };
                     //run component
                     paymentComponent.ExecuteStrategy(new ScheduleOneTimePayment());
@@ -118,11 +130,57 @@ namespace KlikNPayPaymentUnit
             });
         }
 
-		[TestCase]
-		public void BatchPaymentIntegrationTestCase()
+		[TestCase(Description = "Batch Payment Integration Test Case")]
+        public void BatchPaymentIntegrationTestCase()
 		{
+            Assert.DoesNotThrow(() =>
+            {
+                //get config for usaepay
+                var configString = File.ReadAllText(ConfigPath);
+                //get data 
+                var webformJsonString = File.ReadAllText(BatchPaymentIntegrationParamsPath);
+                //Desserialize config interface IPaymentConfig
+                var config = JsonConvert.DeserializeObject<IPaymentConfig>(configString, new PaymentConfigConverter());
+                //Desserialize config interface ICreditCardPaymentInfo
+                var data = JsonConvert.DeserializeObject<IMakeBatchPaymentInfo>(webformJsonString,
+                    new MakeBatchPaymentInfoConverter());
+                
+                //TODO!!! WTF )))
+                data.PathToFile = BatchPaymentIntegrationFilePath;
 
+                //Create component instace
+                using (var paymentComponent = new PaymentComponent(config))
+                {
+                    var logger = LogManager.GetCurrentClassLogger();
 
+                    //Create payment data
+                    paymentComponent.Data = new PaymentData
+                    {
+                        MakeBatchPaymentInfo = data
+                    };
+                    //subscribe for end of executed event
+                    paymentComponent.MethodComplete += (sender, argument) =>
+                    {
+                        var paymentArgument = argument;
+                        logger.Trace(JsonConvert.SerializeObject(argument));
+                        //error
+                        paymentArgument.With(x => x.Result.Do(rm =>
+                        {
+                            var res = (IPaymentArgument)rm;
+                            res.With(r => r.Exception.Do(exp => {
+                                logger.Trace(JsonConvert.SerializeObject(exp));
+                                throw exp;
+                            }));
+                            res.With(r => r.Result.Do(rslt => {
+                                logger.Trace(JsonConvert.SerializeObject(rslt));
+                            }));
+                        }
+                       ));    
+                    };
+                    //run component
+                    paymentComponent.ExecuteStrategy(new MakeBatchPayment());
+                }
+            });
 		}
 	}
 }

@@ -65,7 +65,7 @@
     <Compile Include="MakeBatchPayment.cs" />
     <Compile Include="AddCustomerPaymentMethodException.cs" />
     <Compile Include="ScheduleOneTimePaymentException.cs" />
-    <Compile Include="MakeBanchPaymentException.cs" />
+    <Compile Include="MakeBatchPaymentException.cs" />
     <Compile Include="ICreditCardPaimentInfo.cs" />
     <Compile Include="IPaymentInfo.cs" />
     <Compile Include="IUsaEPayFields.cs" />

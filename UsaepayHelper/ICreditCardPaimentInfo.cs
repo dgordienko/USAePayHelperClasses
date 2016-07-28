@@ -23,10 +23,30 @@ namespace KlikNPayUsaEPay
     }
 
 
-
-    public interface IMakeBatchPayment
+    /// <summary>
+    /// BatchPayment data
+    /// </summary>
+    public interface IMakeBatchPaymentInfo
     {
-        string Resources { get; set; }
+        /// <summary>
+        /// path to resource file
+        /// </summary>
+        string PathToFile { get; set; }
+    }
+    internal class MakeBatchPaymentInfo: IMakeBatchPaymentInfo
+    {
+        /// <summary>
+        /// path to resource file
+        /// </summary>
+        public string PathToFile { get; set; }
+    }
+
+    public class MakeBatchPaymentInfoConverter : CustomCreationConverter<IMakeBatchPaymentInfo>
+    {
+        public override IMakeBatchPaymentInfo Create(Type objectType)
+        {
+            return new MakeBatchPaymentInfo();
+        }
     }
 
     public interface IScedulePaymentInfo

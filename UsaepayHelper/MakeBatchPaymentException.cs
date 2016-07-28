@@ -5,12 +5,12 @@ namespace KlikNPayUsaEPay
 {
 
 	[System.Serializable]
-	public class MakeBanchPaymentException : Exception
+	public class MakeBatchPaymentException : Exception
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:MyException"/> class
 		/// </summary>
-		public MakeBanchPaymentException()
+		public MakeBatchPaymentException()
 		{
 		}
 
@@ -18,7 +18,7 @@ namespace KlikNPayUsaEPay
 		/// Initializes a new instance of the <see cref="T:MyException"/> class
 		/// </summary>
 		/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
-		public MakeBanchPaymentException(string message) : base(message)
+		public MakeBatchPaymentException(string message) : base(message)
 		{
 		}
 
@@ -27,7 +27,7 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
 		/// <param name="inner">The exception that is the cause of the current exception. </param>
-		public MakeBanchPaymentException(string message, Exception inner) : base(message, inner)
+		public MakeBatchPaymentException(string message, Exception inner) : base(message, inner)
 		{
 		}
 
@@ -36,7 +36,7 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <param name="context">The contextual information about the source or destination.</param>
 		/// <param name="info">The object that holds the serialized object data.</param>
-		protected MakeBanchPaymentException(System.Runtime.Serialization.SerializationInfo info, 
+		protected MakeBatchPaymentException(System.Runtime.Serialization.SerializationInfo info, 
 		                                    System.Runtime.Serialization.StreamingContext context) : base(info, context)
 		{
 		}
