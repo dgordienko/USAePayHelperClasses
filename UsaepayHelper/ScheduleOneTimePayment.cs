@@ -1,8 +1,5 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Newtonsoft.Json;
-using USAePayAPI.com.usaepay.www;
-using System.Text;
 using USAePayAPI;
 
 namespace KlikNPayUsaEPay
@@ -16,7 +13,7 @@ namespace KlikNPayUsaEPay
     /// This is to avoid the special case when the gateway sends back an 'ok' but we never get it.
     /// </summary>
     [SuppressMessage("ReSharper", "UseNameofExpression")]
-    public class ScheduleOneTimePayment : IKlikNPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData>
+    public class ScheduleOneTimePayment : IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData>
 	{
         /// <summary>
 		/// Method the specified context, config and data.
@@ -24,7 +21,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(usaepayService context, IPaymentConfig config, IPaymentData data)
+		public object Method(USAePay context, IPaymentConfig config, IPaymentData data)
 		{
 			if (context == null)
 				throw new ScheduleOneTimePaymentException("MakePayment Argument Null Exception", 
@@ -38,20 +35,24 @@ namespace KlikNPayUsaEPay
 			//return success code
 			var result = new PaymentArgument();	
 			//Send payment info to USAePay
-			data.With(x => x.PaymantInfo.Do(pInfo => { 
+			data.With(x => x.ScedulePaymentInfo.Do(info => { 
 				try
 				{
-                    var pay = new USAePay
+                    context.SourceKey = config.SourceKey;
+                    context.Pin = config.Pin;
+                    context.UseSandbox = config.IsSendBox;
+                    context.Amount = info.Amount;
+                    context.Description = info.Description;
+                    context.CardHolder = info.NameOnCreditCard;
+                    context.CardNumber = info.CreditCardNumber;
+                    context.CardExp = info.ExpirationDate;
+                    if (context.Sale())
                     {
-                        SourceKey = config.SourceKey,
-                        Pin = config.Pin,
-                        UseSandbox = config.IsSendBox
-                    };
-
+                        result.Result = context.ResultRefNum;
+                    }
                 }
-				catch (Exception ex)
-				{
-					result.Exception = new ScheduleOneTimePaymentException(ex.Message, ex);
+				catch (Exception ex){
+					result.Exception = new ScheduleOneTimePaymentException(context.ErrorMesg, ex);
 				}
 			}));
 			return result;

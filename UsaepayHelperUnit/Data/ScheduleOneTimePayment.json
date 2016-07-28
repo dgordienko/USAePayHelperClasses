@@ -1,0 +1,14 @@
+﻿{
+  /*sale*/
+  "AddressLine1": "Washington Square Park",
+  "Amount": 10.99,
+  "City": "Kansas",
+  "Country": "USA",
+  "CreditCardNumber": "4000600011112223",
+  "CVC": "999",
+  "Description": "Schedule One Time Payment testcase",
+  "ExpirationDate": "0919",
+  "NameOnCreditCard": "Scarecrow Oz",
+  "StateProvince": "MO",
+  "ZipCode": "64101"
+}

@@ -14,7 +14,7 @@ namespace KlikNPayUsaEPay
 	/// Usaepay helper extention methods.
 	/// </summary>
 	[SuppressMessage("ReSharper", "UseNameofExpression")]
-	public static class KlikNPayUsaEPayExtentionMethods 
+	public static class PaymentExtentionMethods 
 	{
 		/// <summary>
 		/// Searchs the payment item.
@@ -176,7 +176,7 @@ namespace KlikNPayUsaEPay
 			if (data == null)
 				throw new ArgumentNullException("data");
 			string result =null;
-		    data.With(x => x.AddNewCreditCardInfo.Do(info => {
+		    data.With(x => x.CreditCardPaymentInfo.Do(info => {
 
 			}));
 			return result;

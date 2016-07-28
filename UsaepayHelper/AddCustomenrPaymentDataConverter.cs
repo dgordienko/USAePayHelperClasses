@@ -7,9 +7,9 @@ namespace KlikNPayUsaEPay
 	/// <summary>
 	/// Usa EP ay paiment info converter.
 	/// </summary>
-	public class AddCustomenrPaymentDataConverter : CustomCreationConverter<IAddNewCreditCardInfo>
+	public class AddCustomenrPaymentDataConverter : CustomCreationConverter<ICreditCardPaymentInfo>
 	{
-		public override IAddNewCreditCardInfo Create(Type objectType)
+		public override ICreditCardPaymentInfo Create(Type objectType)
 		{
 			return new AddNewCreditCardInfo();
 		}

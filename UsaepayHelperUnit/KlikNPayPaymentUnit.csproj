@@ -61,16 +61,22 @@
   <ItemGroup>
     <Compile Include="KlikNPayUsaEPayAdapterTestCases.cs" />
     <Compile Include="BatchUploadRecord.cs" />
-    <Compile Include="KlikNPayIntegrationTest.cs" />
+    <Compile Include="PaymentComponentIntegrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\14105.klik.batch.example.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\AddNewCreditCard.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\IPaymentConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\ScheduleOneTimePayment.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -83,6 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="results\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

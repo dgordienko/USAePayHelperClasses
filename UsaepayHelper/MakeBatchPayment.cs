@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using USAePayAPI.com.usaepay.www;
+using USAePayAPI;
 
 namespace KlikNPayUsaEPay
 {
@@ -11,7 +12,7 @@ namespace KlikNPayUsaEPay
 	/// return success code
 	/// provide list of all codes and descriptions
 	/// </summary>
-	public class MakeBatchPayment : IKlikNPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData>
+	public class MakeBatchPayment : IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData>
 	{
 		/// <summary>
 		/// Method the specified context, config and data.
@@ -19,7 +20,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(usaepayService context, IPaymentConfig config, IPaymentData data)
+		public object Method(USAePay context, IPaymentConfig config, IPaymentData data)
 		{
 			if (context == null)
 				throw new MakeBanchPaymentException("context is null",new ArgumentNullException("context"));
@@ -32,16 +33,16 @@ namespace KlikNPayUsaEPay
 			var result = new PaymentArgument();
 			try
 			{
-				data.With(x => x.BatchUploadRecords.Do(records =>
-				{
-					var r = records.ToList();
-					var json = JsonConvert.SerializeObject(r);
-					var csv = json.ToArrayCSV();
-					var token = config.GetSecurityToken();
-					var res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64",
-					                                    BatchFields.GetButchFields(), Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
-					result.Result = res;
-				}));
+				//data.With(x => x.BatchUploadRecords.Do(records =>
+				//{
+				//	var r = records.ToList();
+				//	var json = JsonConvert.SerializeObject(r);
+				//	var csv = json.ToArrayCSV();
+				//	var token = config.GetSecurityToken();
+				//	var res = context.createBatchUpload(token, Guid.NewGuid().ToString(), true, "csv", "base64",
+				//	                                    BatchFields.GetButchFields(), Convert.ToBase64String(Encoding.Default.GetBytes(csv)), false);
+				//	result.Result = res;
+				//}));
 			}
 			catch (Exception ex)
 			{

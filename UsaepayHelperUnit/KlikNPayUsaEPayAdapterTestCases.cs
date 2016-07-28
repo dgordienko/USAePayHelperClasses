@@ -8,6 +8,7 @@ using NLog;
 using NUnit.Framework;
 using Rhino.Mocks;
 using USAePayAPI.com.usaepay.www;
+using USAePayAPI;
 
 namespace KlikNPayPaymentUnit
 {
@@ -33,7 +34,7 @@ namespace KlikNPayPaymentUnit
         /// <summary>
         /// The algoritm.
         /// </summary>
-        private IKlikNPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData> algoritm;
+        private IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData> algoritm;
 
         private const string testMD5String = "This is test srting dataThis is another test string data";
 
@@ -47,7 +48,7 @@ namespace KlikNPayPaymentUnit
             Logger.Trace("Init test");
 			helperConfig = MockRepository.GenerateStub<IPaymentConfig>();
 			algoritmData = MockRepository.GenerateStub<IPaymentData>();
-            algoritm = MockRepository.GenerateMock<IKlikNPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData>>();
+            algoritm = MockRepository.GenerateMock<IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData>>();
         }
 
 		/// <summary>
@@ -82,86 +83,6 @@ namespace KlikNPayPaymentUnit
 				Assert.IsFalse(cardNumber.ValidateCardNumber());
 			});
 		}
-
-        
-		/// <summary>
-		/// Updates the payment info test case.
-		/// </summary>
-		/// <returns>The payment info test case.</returns>
-		[Test(Description = "Update payment info")]
-		public void UpdatePaymentInfoTestCase()
-        {
-            Assert.DoesNotThrow(() =>
-            {
-                Logger.Trace("Begin Update payment info");
-				var paymentClient = new PaymentComponent(helperConfig);
-                paymentClient.MethodComplete += (sender, arg) =>
-                {
-                    Assert.IsNull(arg.Exception);
-                    Assert.IsNotNull(arg.Result);                    
-                    arg.With(x => x.Result.Do(res =>
-                    {
-                        Assert.IsInstanceOf<IPaymentArgument>(res);
-                        Assert.IsNull(((IPaymentArgument)res).Exception);
-                        Assert.IsNotNull(((IPaymentArgument)res).Result);
-						var result = (bool)((IPaymentArgument)arg.Result).Result;
-						Assert.IsTrue(result);
-                    }));
-                    Logger.Trace("Update payment info");
-                };
-                paymentClient.Data = algoritmData;
-                paymentClient.ExecuteStrategy(new AddCustomerPaymentMethod());
-            });
-        }
-
-		/// <summary>
-		/// Makes the batch payment.
-		/// </summary>
-		/// <returns>The batch payment.</returns>
-		[Test(Description="Make Batch Payment")]
-		public void MakeBatchPayment()
-		{
-			Assert.DoesNotThrow(() => {
-				var paymentClient = new KlikNPayUsaEPay.PaymentComponent(helperConfig);
-				Logger.Trace("Begin Test MakeBatchPayment");
-				paymentClient.MethodComplete += (sender, arg) =>
-				{
-					Assert.IsNull(arg.Exception);
-					Assert.IsNotNull(arg.Result);
-					Assert.IsInstanceOf<IPaymentArgument>(arg.Result);
-					Assert.IsNull(((IPaymentArgument)arg.Result).Exception);
-					Assert.IsNotNull(((IPaymentArgument)arg.Result).Result);
-					Logger.Trace("Sucsess Test MakeBatchPayment");
-				};
-				paymentClient.Data = algoritmData;
-				paymentClient.ExecuteStrategy(new MakeBatchPayment());				
-			});
-		}
-
-		/// <summary>
-		/// Makes the payment.
-		/// </summary>
-		/// <returns>The payment.</returns>
-        [Test(Description = "Create Paymant Test")]
-        public void MakePayment()
-        {
-            Assert.DoesNotThrow(() =>
-            {
-				var paymentClient = new PaymentComponent(helperConfig);
-                Logger.Trace("Begin Test Payment ");
-                paymentClient.MethodComplete += (sender, arg) =>
-                {
-                    Assert.IsNull(arg.Exception);
-                    Assert.IsNotNull(arg.Result);
-                    Assert.IsInstanceOf<IPaymentArgument>(arg.Result);
-                    Assert.IsNull(((IPaymentArgument)arg.Result).Exception);
-                    Assert.IsNotNull(((IPaymentArgument)arg.Result).Result);
-                    Logger.Trace("Sucsess Test Payment");
-                };
-                paymentClient.Data = algoritmData;
-                paymentClient.ExecuteStrategy(new ScheduleOneTimePayment());
-            });
-        }
 
 		/// <summary>
 		/// Serialize Deserialize IUsaEPayFieldsTest 

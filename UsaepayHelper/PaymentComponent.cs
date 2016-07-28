@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using USAePayAPI;
 using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
@@ -14,7 +15,7 @@ namespace KlikNPayUsaEPay
 		/// <summary>
 		/// The client Usaepay
 		/// </summary>
-		private readonly usaepayService client;
+		private readonly USAePay client;
 
 	    private readonly IPaymentConfig _config;
 
@@ -30,7 +31,7 @@ namespace KlikNPayUsaEPay
 		public PaymentComponent(IPaymentConfig config) {
 			if (config == null)
 				throw new ArgumentNullException("config");
-			client = new usaepayService();
+			client = new USAePay();
             
 			_config = config;
 		}
@@ -55,7 +56,7 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <returns>The action.</returns>
 		/// <param name="algoritm">Algoritm.</param>
-		public void  ExecuteStrategy(IKlikNPaymentStrategy<usaepayService,IPaymentConfig,IPaymentData> algoritm) {
+		public void  ExecuteStrategy(IPaymentStrategy<USAePay, IPaymentConfig,IPaymentData> algoritm) {
 			if (algoritm == null)
 				throw new ArgumentNullException("algoritm");			
 			var argument = new PaymentArgument();

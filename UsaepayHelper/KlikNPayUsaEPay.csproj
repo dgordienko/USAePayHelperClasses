@@ -55,18 +55,18 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="KlikNPayUsaEPayExtentionMethods.cs" />
+    <Compile Include="PaymentExtentionMethods.cs" />
     <Compile Include="IPaymentConfig.cs" />
     <Compile Include="IPaymentData.cs" />
     <Compile Include="PaymentArgument.cs" />
-    <Compile Include="IKlikNPaymentStrategy.cs" />
+    <Compile Include="IPaymentStrategy.cs" />
     <Compile Include="AddCustomerPaymentMethod.cs" />
     <Compile Include="ScheduleOneTimePayment.cs" />
     <Compile Include="MakeBatchPayment.cs" />
     <Compile Include="AddCustomerPaymentMethodException.cs" />
     <Compile Include="ScheduleOneTimePaymentException.cs" />
     <Compile Include="MakeBanchPaymentException.cs" />
-    <Compile Include="IAddNewCreditCardInfo.cs" />
+    <Compile Include="ICreditCardPaimentInfo.cs" />
     <Compile Include="IPaymentInfo.cs" />
     <Compile Include="IUsaEPayFields.cs" />
     <Compile Include="UsaEPayFields.cs" />
@@ -80,7 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -1,13 +1,11 @@
 // ReSharper disable All
-using System;
-using Newtonsoft.Json.Converters;
 
 namespace KlikNPayUsaEPay
 {
-	/// <summary>
-	/// Usa EP ay paiment info.
-	/// </summary>
-	internal class AddNewCreditCardInfo : IAddNewCreditCardInfo
+    /// <summary>
+    /// Usa EP ay paiment info.
+    /// </summary>
+    internal class AddNewCreditCardInfo : ICreditCardPaymentInfo
 	{
 	    #region Implementation of IAddNewCreditCardInfo
 
