@@ -22,5 +22,15 @@ namespace KlikNPayUsaEPay.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://sandbox.usaepay.com/soap/gate/1412E031")]
+        public string KlikNPayUsaEPay_com_usaepay_usaepayService {
+            get {
+                return ((string)(this["KlikNPayUsaEPay_com_usaepay_usaepayService"]));
+            }
+        }
     }
 }

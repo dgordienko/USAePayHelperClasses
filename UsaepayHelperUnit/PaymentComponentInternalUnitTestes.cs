@@ -66,7 +66,7 @@ namespace KlikNPayPaymentUnit
 				var token = helperConfig.GetSecurityToken();
 				Assert.IsNotNull(token);
                 Logger.Trace(JsonConvert.SerializeObject(token));
-				Assert.IsInstanceOf<ueSecurityToken>(token);
+				Assert.IsInstanceOf<KlikNPayUsaEPay.com.usaepay.ueSecurityToken>(token);
 			});
 		}
 

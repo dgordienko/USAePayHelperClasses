@@ -37,11 +37,12 @@ namespace KlikNPayUsaEPay
             context.Pin = config.Pin;
             context.UseSandbox = config.IsSendBox;
 
-            var client = new usaepayService();      
+            var client = new com.usaepay.usaepayService();                  
             try
 			{
                 data.With(x => x.MakeBatchPaymentInfo.Do(info =>
                 {
+                    client.Url = info.SoapServerUrl;
                     var path = info.PathToFile;
                     var csvLine = File.ReadAllLines(path);
                     if (csvLine.Any())
@@ -50,7 +51,8 @@ namespace KlikNPayUsaEPay
                         var name = Guid.NewGuid().ToString();
                         var token = config.GetSecurityToken();
                         var content = File.ReadAllText(path);
-                        var status = client.createBatchUpload(token,name,true, "csv", "base64", fields,Convert.ToBase64String(Encoding.Default.GetBytes(content)),true);
+                        var status = client.createBatchUpload(token,name,true, "csv", "base64", fields,
+                            Convert.ToBase64String(Encoding.Default.GetBytes(content)),true);
                         statusString = (string.Concat(name," #", status.UploadRefNum, " trans:", status.Remaining));
                         result.Result = statusString;
                     }

@@ -82,7 +82,7 @@ namespace KlikNPayPaymentUnit
         /// at the same time these data will be sent to USAePay gateway to make a credit card payment.
         /// Please refer to the html page named “MakeOneTimePayment.html” for all form controls. 
         /// </summary>
-		[TestCase(Description= "Schedule One TimePayment")]
+		[Test(Description= "Schedule One TimePayment")]
 		public void ScheduleOneTimePaymentIntegrationTestCase() {
 
             Assert.DoesNotThrow(() =>
@@ -130,7 +130,7 @@ namespace KlikNPayPaymentUnit
             });
         }
 
-		[TestCase(Description = "Batch Payment Integration Test Case")]
+		[Test(Description = "Batch Payment Integration Test Case")]
         public void BatchPaymentIntegrationTestCase()
 		{
             Assert.DoesNotThrow(() =>

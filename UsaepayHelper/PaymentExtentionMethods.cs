@@ -143,13 +143,13 @@ namespace KlikNPayUsaEPay
         /// </summary>
         /// <returns>The security token.</returns>
         /// <param name="config">Config.</param>
-        public static ueSecurityToken  GetSecurityToken(this IPaymentConfig config) {
+        public static com.usaepay.ueSecurityToken  GetSecurityToken(this IPaymentConfig config) {
 
 			if (config == null)
 				throw new ArgumentNullException("config");
-            var result = new ueSecurityToken {SourceKey = config.SourceKey};
+            var result = new com.usaepay.ueSecurityToken {SourceKey = config.SourceKey};
             var pin = config.Pin;
-            var hash = new ueHash
+            var hash = new com.usaepay.ueHash
             {
                 Type = "md5",
                 Seed = Guid.NewGuid().ToString()

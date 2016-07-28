@@ -1,3 +1,4 @@
 ﻿{
- "PathToFile": "path"
+  "PathToFile": "path",
+  "SoapServerUrl": "https://sandbox.usaepay.com/soap/gate/1412E031"
 }

@@ -32,6 +32,10 @@ namespace KlikNPayUsaEPay
         /// path to resource file
         /// </summary>
         string PathToFile { get; set; }
+        /// <summary>
+        /// url to soap usarpay
+        /// </summary>
+        string SoapServerUrl { get; set; }
     }
     internal class MakeBatchPaymentInfo: IMakeBatchPaymentInfo
     {
@@ -39,6 +43,10 @@ namespace KlikNPayUsaEPay
         /// path to resource file
         /// </summary>
         public string PathToFile { get; set; }
+        /// <summary>
+        /// url to soap usarpay
+        /// </summary>
+        public string SoapServerUrl { get; set; }
     }
 
     public class MakeBatchPaymentInfoConverter : CustomCreationConverter<IMakeBatchPaymentInfo>
