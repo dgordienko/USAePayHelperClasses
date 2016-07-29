@@ -18,7 +18,12 @@ namespace KlikNPayUsaEPay
 			get; set;
 		}
 
-		public string SourceKey
+        public string SoapServerUrl
+        {
+            get;set;
+        }
+
+        public string SourceKey
 		{
 			get; set;
 		}

@@ -5,6 +5,8 @@ namespace KlikNPayUsaEPay
 	/// </summary>
 	public interface IPaymentConfig
 	{
+
+
 		/// <summary>
 		/// Gets or sets the source key.
 		/// </summary>
@@ -21,5 +23,7 @@ namespace KlikNPayUsaEPay
         /// 
         /// </summary>
         bool IsSendBox { get; set; }
-	}
+
+        string SoapServerUrl { get; set; }
+    }
 }

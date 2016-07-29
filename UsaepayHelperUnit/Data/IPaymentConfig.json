@@ -1,5 +1,6 @@
 ﻿{
   "SourceKey": "_72BI97rs34iw29035L89r98Xe143lyz",
   "Pin": "2207",
-  "IsSendBox": true
+  "IsSendBox": true,
+  "SoapServerUrl": "https://sandbox.usaepay.com/soap/gate/1412E031"
 }

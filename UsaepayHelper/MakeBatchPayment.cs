@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Text;
-using USAePayAPI.com.usaepay.www;
 using USAePayAPI;
 using System.IO;
 
@@ -32,17 +31,12 @@ namespace KlikNPayUsaEPay
 				                                    new ArgumentNullException("data"));
 			var result = new PaymentArgument();
             string statusString;
-
-            context.SourceKey = config.SourceKey;
-            context.Pin = config.Pin;
-            context.UseSandbox = config.IsSendBox;
-
-            var client = new com.usaepay.usaepayService();                  
+            var client = new com.usaepay.usaepayService();
+            client.Url = config.SoapServerUrl;
             try
 			{
                 data.With(x => x.MakeBatchPaymentInfo.Do(info =>
                 {
-                    client.Url = info.SoapServerUrl;
                     var path = info.PathToFile;
                     var csvLine = File.ReadAllLines(path);
                     if (csvLine.Any())
@@ -58,7 +52,7 @@ namespace KlikNPayUsaEPay
                     }
                     else
                     {
-                        throw new MakeBatchPaymentException("this is not csv file");
+                        throw new MakeBatchPaymentException("this is not csv file data");
                     }
                 }));
 			}
