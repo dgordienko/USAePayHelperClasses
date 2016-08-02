@@ -5,7 +5,7 @@
 
 
 ###### Class diagram
-![alt text](https://app.assembla.com/spaces/kliknpay/git/source/dev/Documents/ClassDiagram.png "Class diagram")
+![alt text](https://raw.githubusercontent.com/dgordienko/USAePayHelperClasses/master/Documents/ClassDiagram.png "Class diagram")
 
 
 ###### PaymentComponent
