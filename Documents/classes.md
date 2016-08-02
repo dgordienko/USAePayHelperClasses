@@ -5,7 +5,7 @@
 
 
 ###### Class diagram
-![alt text](ClassDiagram.png "Class diagram")
+![alt text](https://app.assembla.com/spaces/kliknpay/git/source/dev/Documents/ClassDiagram.png "Class diagram")
 
 
 ###### PaymentComponent
