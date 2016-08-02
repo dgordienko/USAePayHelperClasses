@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:typens="urn:usaepay" xmlns="http://schemas.xmlsoap.org/wsdl/" name="usaepay" targetNamespace="urn:usaepay" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:usaepay">
@@ -190,7 +190,7 @@
           <xsd:element minOccurs="0" name="Notes" type="xsd:string" />
           <xsd:element name="NumLeft" type="xsd:integer" />
           <xsd:element name="OrderID" type="xsd:string" />
-          <xsd:element minOccurs="0" name="PaymentMethods" type="typens:PaymentStrategyMethodArray" />
+          <xsd:element minOccurs="0" name="PaymentMethods" type="typens:PaymentMethodArray" />
           <xsd:element minOccurs="0" name="PriceTier" type="xsd:string" />
           <xsd:element name="ReceiptNote" type="xsd:string" />
           <xsd:element name="Schedule" type="xsd:string" />
@@ -623,7 +623,7 @@
   <wsdl:message name="addCustomerPaymentMethod">
     <wsdl:part name="Token" type="typens:ueSecurityToken" />
     <wsdl:part name="CustNum" type="xsd:integer" />
-    <wsdl:part name="PaymentMethod" type="typens:PaymentStrategyMethod" />
+    <wsdl:part name="PaymentMethod" type="typens:PaymentMethod" />
     <wsdl:part name="MakeDefault" type="xsd:boolean" />
     <wsdl:part name="Verify" type="xsd:boolean" />
   </wsdl:message>
@@ -849,14 +849,14 @@
     <wsdl:part name="MethodID" type="xsd:integer" />
   </wsdl:message>
   <wsdl:message name="getCustomerPaymentMethodResponse">
-    <wsdl:part name="getCustomerPaymentMethodReturn" type="typens:PaymentStrategyMethod" />
+    <wsdl:part name="getCustomerPaymentMethodReturn" type="typens:PaymentMethod" />
   </wsdl:message>
   <wsdl:message name="getCustomerPaymentMethods">
     <wsdl:part name="Token" type="typens:ueSecurityToken" />
     <wsdl:part name="CustNum" type="xsd:integer" />
   </wsdl:message>
   <wsdl:message name="getCustomerPaymentMethodsResponse">
-    <wsdl:part name="getCustomerPaymentMethodsReturn" type="typens:PaymentStrategyMethodArray" />
+    <wsdl:part name="getCustomerPaymentMethodsReturn" type="typens:PaymentMethodArray" />
   </wsdl:message>
   <wsdl:message name="getCustomerReport">
     <wsdl:part name="Token" type="typens:ueSecurityToken" />
@@ -1279,7 +1279,7 @@
   </wsdl:message>
   <wsdl:message name="updateCustomerPaymentMethod">
     <wsdl:part name="Token" type="typens:ueSecurityToken" />
-    <wsdl:part name="PaymentMethod" type="typens:PaymentStrategyMethod" />
+    <wsdl:part name="PaymentMethod" type="typens:PaymentMethod" />
     <wsdl:part name="Verify" type="xsd:boolean" />
   </wsdl:message>
   <wsdl:message name="updateCustomerPaymentMethodResponse">
@@ -1541,7 +1541,7 @@ a large portion of merchant functionality.
     </wsdl:operation>
     <wsdl:operation name="getCustomerPaymentMethod">
       <documentation>
-				Retrieve a specific customer Payment Methods for the given CustNum/StrategyMethodID
+				Retrieve a specific customer Payment Methods for the given CustNum/MethodID
 			</documentation>
       <wsdl:input message="typens:getCustomerPaymentMethod" />
       <wsdl:output message="typens:getCustomerPaymentMethodResponse" />
