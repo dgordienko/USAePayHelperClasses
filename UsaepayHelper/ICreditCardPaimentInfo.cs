@@ -1,6 +1,3 @@
-using System;
-using Newtonsoft.Json.Converters;
-
 namespace KlikNPayUsaEPay
 {
     /// <summary>
@@ -20,67 +17,5 @@ namespace KlikNPayUsaEPay
         string StateProvince { get; set; }
         string ZipCode { get; set; }
         string Country { get; set; }
-    }
-
-
-    /// <summary>
-    /// BatchPayment data
-    /// </summary>
-    public interface IMakeBatchPaymentInfo
-    {
-        /// <summary>
-        /// path to resource file
-        /// </summary>
-        string PathToFile { get; set; }
-
-    }
-    internal class MakeBatchPaymentInfo: IMakeBatchPaymentInfo
-    {
-        /// <summary>
-        /// path to resource file
-        /// </summary>
-        public string PathToFile { get; set; }
-
-    }
-
-    public class MakeBatchPaymentInfoConverter : CustomCreationConverter<IMakeBatchPaymentInfo>
-    {
-        public override IMakeBatchPaymentInfo Create(Type objectType)
-        {
-            return new MakeBatchPaymentInfo();
-        }
-    }
-
-    public interface IScedulePaymentInfo
-    {
-        string Description { get; set; }
-        string CreditCardNumber { get; set; }
-        string CVC { get; set; }
-        string NameOnCreditCard { get; set; }
-        string ExpirationDate { get; set; }
-        string BillingAddress { get; set; }
-
-        decimal Amount { get; set; }
-    }
-
-
-    internal class ScedulePaymentInfo : IScedulePaymentInfo
-    {
-        public string Description { get; set; }
-        public string CreditCardNumber { get; set; }
-        public string CVC { get; set; }
-        public string NameOnCreditCard { get; set; }
-        public string ExpirationDate { get; set; }
-        public string BillingAddress { get; set; }
-
-        public decimal Amount{ get; set; }
-    }
-    ///
-    public sealed class ScedulePaymentInfoConverter : CustomCreationConverter<IScedulePaymentInfo>
-    {
-        public override IScedulePaymentInfo Create(Type objectType)
-        {
-            return new ScedulePaymentInfo();
-        }
     }
 }

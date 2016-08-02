@@ -7,6 +7,6 @@ namespace KlikNPayUsaEPay
     /// <typeparam name="T">Config</typeparam>
     /// <typeparam name="TD">Data</typeparam>
     public interface IPaymentStrategy<in TC, in T, in TD> {
-		object Method(TC context,T config ,TD data);
+		object Strategy(TC context,T config ,TD data);
 	}
 }

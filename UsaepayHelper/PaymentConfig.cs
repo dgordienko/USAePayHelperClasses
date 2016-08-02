@@ -1,6 +1,3 @@
-using System;
-using Newtonsoft.Json.Converters;
-
 namespace KlikNPayUsaEPay
 {
 	/// <summary>

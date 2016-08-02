@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using NUnit.Framework;
 using KlikNPayUsaEPay;
 using Newtonsoft.Json;
@@ -10,17 +11,17 @@ namespace KlikNPayPaymentUnit
 	public class  PaymentComponentIntegrationTests
 	{
 	    private const string ConfigPath =
-            @"C:\Users\DGord\Documents\github\USAePayHelperClasses\UsaepayHelperUnit\Data\IPaymentConfig.json"; 
+            @"..\Data\IPaymentConfig.json"; 
         private const string AddNewCreditCardPath =
-             @"C:\Users\DGord\Documents\github\USAePayHelperClasses\UsaepayHelperUnit\Data\AddNewCreditCard.json";
+             @"..\Data\AddNewCreditCard.json";
         private const string ScheduleOneTimePaymentPath =
-            @"C:\Users\DGord\Documents\github\USAePayHelperClasses\UsaepayHelperUnit\Data\ScheduleOneTimePayment.json";
+            @"..\Data\ScheduleOneTimePayment.json";
 
         private const string BatchPaymentIntegrationParamsPath =
-            @"C:\Users\DGord\Documents\github\USAePayHelperClasses\UsaepayHelperUnit\Data\IMakeBatchPaymentInfo.json";
+            @"..\Data\IMakeBatchPaymentInfo.json";
 
         private const string BatchPaymentIntegrationFilePath =
-            @"C:\Users\DGord\Documents\github\USAePayHelperClasses\UsaepayHelperUnit\Data\14105.klik.batch.example.csv";
+            @"..\Data\14105.klik.batch.example.csv";
 
         /// <summary>
         /// The following form data will be saved to klik database, at the same time these data will be submitted to
@@ -182,6 +183,7 @@ namespace KlikNPayPaymentUnit
                 }
             });
 		}
+
 	}
 }
 

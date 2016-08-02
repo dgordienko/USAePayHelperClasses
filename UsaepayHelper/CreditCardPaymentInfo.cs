@@ -5,7 +5,7 @@ namespace KlikNPayUsaEPay
     /// <summary>
     /// Usa EP ay paiment info.
     /// </summary>
-    internal class AddNewCreditCardInfo : ICreditCardPaymentInfo
+    internal class CreditCardPaymentInfo : ICreditCardPaymentInfo
 	{
 	    #region Implementation of IAddNewCreditCardInfo
 

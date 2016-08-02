@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using KlikNPayUsaEPay;
 using Newtonsoft.Json;
 using NLog;
 using NUnit.Framework;
 using Rhino.Mocks;
-using USAePayAPI.com.usaepay.www;
 using USAePayAPI;
 
 namespace KlikNPayPaymentUnit
@@ -17,7 +14,7 @@ namespace KlikNPayPaymentUnit
 	/// </summary>
 	[TestFixture(Description = "Unit testes")]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class PaymentComponentInternalUnitTestes
+    public class PaymentComponentUnitTestes
     {
         /// <summary>
         /// The logger.
@@ -84,9 +81,6 @@ namespace KlikNPayPaymentUnit
 			});
 		}
 
-
-
-
 		/// <summary>
 		/// Bases the payment test case.
 		/// </summary>
@@ -140,7 +134,7 @@ namespace KlikNPayPaymentUnit
             Assert.DoesNotThrow(() =>
             {
                 var json = JsonConvert.SerializeObject(helperConfig);
-                var s = json.ToObjectCSV();
+                var s = json.ToObjectCsv();
                 Assert.IsNotEmpty(s);
 
 

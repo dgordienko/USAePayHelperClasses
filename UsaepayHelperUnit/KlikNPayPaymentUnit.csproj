@@ -59,17 +59,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PaymentComponentInternalUnitTestes.cs" />
-    <Compile Include="BatchUploadRecord.cs" />
+    <Compile Include="PaymentComponentUnitTestes.cs" />
     <Compile Include="PaymentComponentIntegrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Data\14105.klik.batch.example.csv">
+    <Resource Include="Data\14105.klik.batch.example.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Resource>
     <None Include="Data\AddNewCreditCard.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

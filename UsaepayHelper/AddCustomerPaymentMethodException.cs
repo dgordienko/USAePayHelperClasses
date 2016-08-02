@@ -6,7 +6,7 @@ namespace KlikNPayUsaEPay
 	/// <summary>
 	/// Validate CCD ata exception.
 	/// </summary>
-	[System.Serializable]
+	[Serializable]
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	public class AddCustomerPaymentMethodException : Exception
 	{
