@@ -25,70 +25,25 @@ namespace KlikNPayUsaEPay
 				throw new ArgumentNullException("invoice");
 			if (context == null)
 				throw new ArgumentNullException("context");
- 			SearchParam[] search = new SearchParam[1];
-			search[0] = new SearchParam();
-			search[0].Field = "Invoice";
-			search[0].Type = "Contains";
-			search[0].Value = invoice;
-			var result = new BatchSearchResult();
-			result = context.searchBatches(token, search, true, "0", "10", "closed");
+ 			var search = new SearchParam[1];
+		    search[0] = new SearchParam
+		    {
+		        Field = "Invoice",
+		        Type = "Contains",
+		        Value = invoice
+		    };
+		    var result = context.searchBatches(token, search, true, "0", "10", "closed");
 			var q = result.Batches.Any();
 			return q;
 		}
 
 
-		/// <summary>
-		///   Create csv file content from json string 
-		/// </summary>
-		/// <param name="json">json string object </param>
-		/// <returns></returns>
-		public static string ToArrayCSV(this string json)
-		{
-			if (string.IsNullOrWhiteSpace(json))
-				throw new ArgumentNullException("json");
-			
-			var arrayJ = JArray.Parse(json);
-			string result = string.Empty;
-			foreach (var item in arrayJ)
-			{
-				var element = (JObject)item;
-				var values = element.DescendantsAndSelf()
-					.OfType<JProperty>()
-					.Where(p => p.Value is JValue)
-					.GroupBy(p => p.Name)
-					.ToList();
-				var columns = values.Select(g => g.Key).ToArray();
-				// Filter JObjects that have child objects that have values.
-				var parentsWithChildren = values.SelectMany(g => g).SelectMany(v => v.AncestorsAndSelf()
-					.OfType<JObject>().Skip(1)).ToHashSet();
-				// Collect all data rows: for every object, go through the column titles and get the value of that property in the closest ancestor or self that has a value of that name.
-				var rows = element
-					.DescendantsAndSelf()
-					.OfType<JObject>()
-					.Where(o => o.PropertyValues().OfType<JValue>().Any())
-					.Where(o => o == element || !parentsWithChildren.Contains(o)) // Show a row for the root object + objects that have no children.
-					.Select(o => columns.Select(c => o.AncestorsAndSelf()
-						.OfType<JObject>()
-						.Select(parent => parent[c])
-						.Where(v => v is JValue)
-						.Select(v => (string)v)
-						.FirstOrDefault())
-						.Reverse() // Trim trailing nulls
-						.SkipWhile(s => s == null)
-						.Reverse());
-				// Convert to CSV
-				var csvRows = new[] { columns }.Concat(rows).Select(r => string.Join(",", r));
-				result += string.Join("\n", csvRows);
-			}
-			return result;
-		}
-
-	     /// <summary>
+	    /// <summary>
         ///   Create csv file from json string 
         /// </summary>
         /// <param name="json">json string object </param>
         /// <returns></returns>
-        public static string ToObjectCSV(this string json)
+        public static string ToObjectCsv(this string json)
         {
 			if (string.IsNullOrWhiteSpace(json))
 				throw new ArgumentNullException("json");
@@ -160,29 +115,7 @@ namespace KlikNPayUsaEPay
 			return result;
 		}
 
-		/// <summary>
-		/// Updates the credit card data.
-		/// </summary>
-		/// <returns>The credit card data.</returns>
-		/// <param name="service">Service.</param>
-		/// <param name="tocken">Token.</param>
-		/// <param name="data">Data.</param>
-		public static string AddCutomersPaymentMethod(usaepayService service,ueSecurityToken tocken,IPaymentData data) {
-
-			if (service == null)
-				throw new ArgumentNullException("service");
-			if (tocken == null)
-				throw new ArgumentNullException("tocken");
-			if (data == null)
-				throw new ArgumentNullException("data");
-			string result =null;
-		    data.With(x => x.CreditCardPaymentInfo.Do(info => {
-
-			}));
-			return result;
-		}
-
-        /// <summary>
+	    /// <summary>
         /// Validates the credit card number.
         /// </summary>
         /// <returns>bool</returns>
@@ -236,7 +169,7 @@ namespace KlikNPayUsaEPay
 		/// <param name="input">Input.</param>
 		public static string GenerateHash(this string input)
 		{
-			if (String.IsNullOrWhiteSpace(input))
+			if (string.IsNullOrWhiteSpace(input))
 				throw new ArgumentNullException("input");
 			var md5Hasher = MD5.Create();
 			var data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));

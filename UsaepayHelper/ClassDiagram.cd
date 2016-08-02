@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="KlikNPayUsaEPay.PaymentComponent">
+    <Position X="0.5" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAQAECAAAAAAAAAAACAAAAAAABAAAAAABgAAAAA=</HashCode>
+      <FileName>PaymentComponent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KlikNPayUsaEPay.AddCustomerPaymentMethod">
+    <Position X="1" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>AddCustomerPaymentMethod.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.356" />
+  </Class>
+  <Class Name="KlikNPayUsaEPay.MakeBatchPayment">
+    <Position X="1" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>MakeBatchPayment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KlikNPayUsaEPay.ScheduleOneTimePayment">
+    <Position X="0.75" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>ScheduleOneTimePayment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KlikNPayUsaEPay.AddCustomerPaymentMethodException">
+    <Position X="3.75" Y="6.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AddCustomerPaymentMethodException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KlikNPayUsaEPay.MakeBatchPaymentException">
+    <Position X="3.75" Y="8" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MakeBatchPaymentException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KlikNPayUsaEPay.ScheduleOneTimePaymentException">
+    <Position X="3.5" Y="9.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ScheduleOneTimePaymentException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KlikNPayUsaEPay.PaymentExtentionMethods">
+    <Position X="5.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAQAQAAACAAAAAAAAAAAAAAEAgAAA=</HashCode>
+      <FileName>PaymentExtentionMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="KlikNPayUsaEPay.IPaymentArgument">
+    <Position X="3.25" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>IPaymentArgument.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KlikNPayUsaEPay.IPaymentConfig">
+    <Position X="3.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAgAAAAAEA=</HashCode>
+      <FileName>IPaymentConfig.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KlikNPayUsaEPay.IPaymentData">
+    <Position X="5.5" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAABAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>IPaymentData.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KlikNPayUsaEPay.IPaymentStrategy&lt;TC, T, TD&gt;">
+    <Position X="3" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>IPaymentStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KlikNPayUsaEPay.ICreditCardPaymentInfo">
+    <Position X="11.5" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAEAggAAAIAAAAAAgAQAIAAAABIAAAAAAQAAA=</HashCode>
+      <FileName>ICreditCardPaimentInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KlikNPayUsaEPay.IScedulePaymentInfo">
+    <Position X="9.5" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAEAAgAAAAAAAAAAiAQAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>IScedulePaymentInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KlikNPayUsaEPay.IMakeBatchPaymentInfo">
+    <Position X="9.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IMakeBatchPaymentInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

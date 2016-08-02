@@ -46,7 +46,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMakeBatchPaymentInfo.cs" />
     <Compile Include="IPaymentArgument.cs" />
+    <Compile Include="IScedulePaymentInfo.cs" />
+    <Compile Include="MakeBatchPaymentInfo.cs" />
+    <Compile Include="MakeBatchPaymentInfoConverter.cs" />
     <Compile Include="PaymentComponent.cs" />
     <Compile Include="Monadic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +65,8 @@
     <Compile Include="PaymentArgument.cs" />
     <Compile Include="IPaymentStrategy.cs" />
     <Compile Include="AddCustomerPaymentMethod.cs" />
+    <Compile Include="ScedulePaymentInfo.cs" />
+    <Compile Include="ScedulePaymentInfoConverter.cs" />
     <Compile Include="ScheduleOneTimePayment.cs" />
     <Compile Include="MakeBatchPayment.cs" />
     <Compile Include="AddCustomerPaymentMethodException.cs" />
@@ -68,13 +74,10 @@
     <Compile Include="MakeBatchPaymentException.cs" />
     <Compile Include="ICreditCardPaimentInfo.cs" />
     <Compile Include="IPaymentInfo.cs" />
-    <Compile Include="IUsaEPayFields.cs" />
-    <Compile Include="UsaEPayFields.cs" />
-    <Compile Include="UsaEPayFieldsConfigConverter.cs" />
     <Compile Include="PaymentConfig.cs" />
     <Compile Include="PaymentConfigConverter.cs" />
     <Compile Include="PaymentInfo.cs" />
-    <Compile Include="AddNewCreditCardInfo.cs" />
+    <Compile Include="CreditCardPaymentInfo.cs" />
     <Compile Include="AddCustomenrPaymentDataConverter.cs" />
     <Compile Include="Web References\com.usaepay\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -86,6 +89,7 @@
     <None Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

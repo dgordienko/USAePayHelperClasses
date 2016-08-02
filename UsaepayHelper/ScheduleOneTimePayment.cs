@@ -16,12 +16,12 @@ namespace KlikNPayUsaEPay
     public class ScheduleOneTimePayment : IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData>
 	{
         /// <summary>
-		/// Method the specified context, config and data.
+		/// Strategy the specified context, config and data.
 		/// </summary>
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(USAePay context, IPaymentConfig config, IPaymentData data)
+		public object Strategy(USAePay context, IPaymentConfig config, IPaymentData data)
 		{
 			if (context == null)
 				throw new ScheduleOneTimePaymentException("MakePayment Argument Null Exception", 

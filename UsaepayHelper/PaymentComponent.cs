@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using USAePayAPI;
-using USAePayAPI.com.usaepay.www;
 
 namespace KlikNPayUsaEPay
 {
@@ -10,6 +9,7 @@ namespace KlikNPayUsaEPay
 	/// </summary>
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	[SuppressMessage("ReSharper", "UseNameofExpression")]
+	[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
 	public sealed class PaymentComponent:IDisposable
 	{
 		/// <summary>
@@ -26,7 +26,7 @@ namespace KlikNPayUsaEPay
 		public IPaymentData Data { get; set; }
 
 	    /// <summary>
-		/// Initializes a new instance of the <see cref="T:UsaepayHelper.UsaepayHelperClass"/> class.
+		/// Initializes a new instance of class.
 		/// </summary>
 		public PaymentComponent(IPaymentConfig config) {
 			if (config == null)
@@ -46,7 +46,7 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <returns>The method complete.</returns>
 		/// <param name="e">E.</param>
-		private void OnMethodComplete(PaymentArgument e)
+		private void OnMethodComplete(IPaymentArgument e)
 		{
 			MethodComplete?.Invoke(this, e);
 		}
@@ -62,7 +62,7 @@ namespace KlikNPayUsaEPay
 			var argument = new PaymentArgument();
 			try
 			{
-				argument.Result = algoritm.Method(client,_config,Data);
+				argument.Result = algoritm.Strategy(client,_config,Data);
 			}
 			catch (Exception ex){
 				argument.Exception = ex;

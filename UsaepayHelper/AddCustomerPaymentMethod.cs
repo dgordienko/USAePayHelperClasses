@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using USAePayAPI;
 
 namespace KlikNPayUsaEPay
@@ -9,16 +10,17 @@ namespace KlikNPayUsaEPay
     /// return from USAePay if there is something wrong
     /// provide list of all error codes and descriptions
     /// </summary>
+    [SuppressMessage("ReSharper", "UseNameofExpression")]
     public class AddCustomerPaymentMethod : IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData>
 	{
 		/// <summary>
-		/// Method the specified context, config and data. 
+		/// Strategy the specified context, config and data. 
 		/// return usaepay payment method id  string or exception
 		/// </summary>
 		/// <param name="context">Context.</param>
 		/// <param name="config">Config.</param>
 		/// <param name="data">Data.</param>
-		public object Method(USAePay context, IPaymentConfig config, IPaymentData data)
+		public object Strategy(USAePay context, IPaymentConfig config, IPaymentData data)
 		{			
 			if (context == null)
 				throw new AddCustomerPaymentMethodException("Add customer payment exception",
@@ -30,7 +32,7 @@ namespace KlikNPayUsaEPay
 				throw new AddCustomerPaymentMethodException("Add customer payment exception",
                     new ArgumentNullException("data"));
             var result = new PaymentArgument();
-            var tocken = config.GetSecurityToken();
+            //config.GetSecurityToken();
 
             context.SourceKey = config.SourceKey;
             context.Pin = config.Pin;
