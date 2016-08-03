@@ -12,6 +12,6 @@ namespace KlikNPayUsaEPay
         string ExpirationDate { get; set; }
         string BillingAddress { get; set; }
 
-        decimal Amount { get; set; }
+        double Amount { get; set; }
     }
 }

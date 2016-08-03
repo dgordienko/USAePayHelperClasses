@@ -6,11 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlikNPayUsaEPay", "UsaepayH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlikNPayPaymentUnit", "UsaepayHelperUnit\KlikNPayPaymentUnit.csproj", "{0B41CE98-B171-433A-8E54-1ADBF30F34E7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vendor", "vendor", "{BBB6353D-37EB-4861-9A33-782C028B2CE4}"
-	ProjectSection(SolutionItems) = preProject
-		USAePayAPI.dll = USAePayAPI.dll
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

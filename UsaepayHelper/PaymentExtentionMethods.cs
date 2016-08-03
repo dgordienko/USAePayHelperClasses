@@ -5,8 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using KlikNPayUsaEPay.com.usaepay;
 using Newtonsoft.Json.Linq;
-using USAePayAPI.com.usaepay.www;
+
 
 namespace KlikNPayUsaEPay
 {

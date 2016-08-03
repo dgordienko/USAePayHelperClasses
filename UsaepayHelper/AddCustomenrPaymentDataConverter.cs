@@ -1,4 +1,4 @@
-// ReSharper disable All
+
 using System;
 using Newtonsoft.Json.Converters;
 

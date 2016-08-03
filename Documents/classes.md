@@ -62,7 +62,7 @@ Interface of configuration payment component
     Pin  - usaepay pin
     SoapServerUrl - usaepay soap gete url
 
-###### validateCCData()
+###### [validateCCData()](https://wiki.usaepay.com/developer/soap-1.4/methods/runauthonly)
 
 |Class|Config|Data|Unit test|Intagrated test|
 |-|-|-|
@@ -107,14 +107,14 @@ Interface of configuration payment component
     });
 
 
-###### makePayment(CC data)
+###### [makePayment(CC data)](https://wiki.usaepay.com/developer/soap-1.4/methods/runtransaction)
 
 |Class|Config|Data|Unit test|Intagrated test|
 |-|-|-|
 |ScheduleOneTimePayment|IPaymentConfig|IScedulePaymentInfo|BasePaymentTestCase()|ScheduleOneTimePaymentIntegrationTestCase()|
 
 
-######  makeBatchPayment(batch file path to CC data)
+###### [makeBatchPayment(batch file path to CC data)](https://wiki.usaepay.com/developer/soap-1.4/methods/createbatchupload)
 |Class|Config|Data|Unit test|Intagrated test|
 |-|-|-|
 |ScheduleOneTimePayment|IPaymentConfig|IScedulePaymentInfo|BasePaymentTestCase()|BatchPaymentIntegrationTestCase()|

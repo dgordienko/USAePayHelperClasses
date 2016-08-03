@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using KlikNPayUsaEPay;
+using KlikNPayUsaEPay.com.usaepay;
 using Newtonsoft.Json;
 using NLog;
 using NUnit.Framework;
 using Rhino.Mocks;
-using USAePayAPI;
+
 
 namespace KlikNPayPaymentUnit
 {
@@ -31,7 +32,7 @@ namespace KlikNPayPaymentUnit
         /// <summary>
         /// The algoritm.
         /// </summary>
-        private IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData> algoritm;
+        private IPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData> algoritm;
 
         private const string testMD5String = "This is test srting dataThis is another test string data";
 
@@ -45,7 +46,7 @@ namespace KlikNPayPaymentUnit
             Logger.Trace("Init test");
 			helperConfig = MockRepository.GenerateStub<IPaymentConfig>();
 			algoritmData = MockRepository.GenerateStub<IPaymentData>();
-            algoritm = MockRepository.GenerateMock<IPaymentStrategy<USAePay, IPaymentConfig, IPaymentData>>();
+            algoritm = MockRepository.GenerateMock<IPaymentStrategy<usaepayService, IPaymentConfig, IPaymentData>>();
         }
 
 		/// <summary>
@@ -63,7 +64,7 @@ namespace KlikNPayPaymentUnit
 				var token = helperConfig.GetSecurityToken();
 				Assert.IsNotNull(token);
                 Logger.Trace(JsonConvert.SerializeObject(token));
-				Assert.IsInstanceOf<KlikNPayUsaEPay.com.usaepay.ueSecurityToken>(token);
+				Assert.IsInstanceOf<ueSecurityToken>(token);
 			});
 		}
 
@@ -136,8 +137,6 @@ namespace KlikNPayPaymentUnit
                 var json = JsonConvert.SerializeObject(helperConfig);
                 var s = json.ToObjectCsv();
                 Assert.IsNotEmpty(s);
-
-
             });
          }
     }

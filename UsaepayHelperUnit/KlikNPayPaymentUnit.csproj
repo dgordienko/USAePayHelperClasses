@@ -48,9 +48,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="USAePayAPI">
-      <HintPath>..\USAePayAPI.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>

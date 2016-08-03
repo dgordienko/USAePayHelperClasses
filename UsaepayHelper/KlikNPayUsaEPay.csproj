@@ -41,9 +41,6 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
-    <Reference Include="USAePayAPI">
-      <HintPath>..\USAePayAPI.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMakeBatchPaymentInfo.cs" />
@@ -53,6 +50,7 @@
     <Compile Include="MakeBatchPaymentInfoConverter.cs" />
     <Compile Include="PaymentComponent.cs" />
     <Compile Include="Monadic.cs" />
+    <Compile Include="PaymentData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using USAePayAPI;
 
 namespace KlikNPayUsaEPay
 {
@@ -15,7 +14,7 @@ namespace KlikNPayUsaEPay
 		/// <summary>
 		/// The client Usaepay
 		/// </summary>
-		private readonly USAePay client;
+		private readonly com.usaepay.usaepayService client;
 
 	    private readonly IPaymentConfig _config;
 
@@ -31,9 +30,8 @@ namespace KlikNPayUsaEPay
 		public PaymentComponent(IPaymentConfig config) {
 			if (config == null)
 				throw new ArgumentNullException("config");
-			client = new USAePay();
-            
 			_config = config;
+	        client = new com.usaepay.usaepayService {Url = _config.SoapServerUrl};
 		}
 
 		/// <summary>
@@ -56,7 +54,7 @@ namespace KlikNPayUsaEPay
 		/// </summary>
 		/// <returns>The action.</returns>
 		/// <param name="algoritm">Algoritm.</param>
-		public void  ExecuteStrategy(IPaymentStrategy<USAePay, IPaymentConfig,IPaymentData> algoritm) {
+		public void  ExecuteStrategy(IPaymentStrategy<com.usaepay.usaepayService, IPaymentConfig,IPaymentData> algoritm) {
 			if (algoritm == null)
 				throw new ArgumentNullException("algoritm");			
 			var argument = new PaymentArgument();
@@ -71,22 +69,20 @@ namespace KlikNPayUsaEPay
 		}
 
 		#region IDisposable Support
-		private bool disposedValue = false; // To detect redundant calls
+		private bool disposedValue; // To detect redundant calls
 
-		void Dispose(bool disposing)
+	    private void Dispose(bool disposing)
 		{
-			if (!disposedValue)
-			{
-				if (disposing)
-				{
-					// TODO: dispose managed state (managed objects).
-				}
+		    if (disposedValue) return;
+		    if (disposing)
+		    {
+		        // TODO: dispose managed state (managed objects).
+		    }
 
-				// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-				// TODO: set large fields to null.
+		    // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+		    // TODO: set large fields to null.
 
-				disposedValue = true;
-			}
+		    disposedValue = true;
 		}
 
 		// TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.

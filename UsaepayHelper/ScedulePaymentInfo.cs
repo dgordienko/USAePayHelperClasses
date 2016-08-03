@@ -8,7 +8,6 @@ namespace KlikNPayUsaEPay
         public string NameOnCreditCard { get; set; }
         public string ExpirationDate { get; set; }
         public string BillingAddress { get; set; }
-
-        public decimal Amount{ get; set; }
+        public double Amount{ get; set; }
     }
 }
